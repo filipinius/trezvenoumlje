@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p05",
+  "n": 5,
+  "nedelja": 1,
+  "dan": "1. nedelja – petak",
+  "naslov": "Velika pobeda je niz malih pobeda",
+  "slug": "velika-pobeda-je-niz-malih-pobeda",
+  "podnaslov": "Prvi mali izbor koji mogu da napravim drugačije",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ponekad čovek dugo pokušava da reši neki težak problem i ima utisak da se ništa ne menja. Trudi se, greši, ponavlja, vraća se i ponovo pokušava.",
+    "A onda se jednog dana dogodi pomak koji izgleda kao velika pobeda. Tek tada postaje jasno da ona nije nastala u jednom trenutku. Do nje su vodile mnoge male pobede koje su ranije prolazile gotovo neprimećeno.",
+    "Promena se često ne vidi onda kada počinje.",
+    "Ona se gradi od malih postupaka koji se ponavljaju: jedne drugačije odluke, jednog razgovora, jednog odbijenog poziva, jednog traženja pomoći, jednog dana u kom čovek nije uradio ono što je ranije uvek radio."
+  ],
+  "pitanja": [
+    {
+      "id": "p05-q1",
+      "tekst": "Šta je po vama važnije za veliku promenu – jedan veliki preokret ili mnogo malih koraka?"
+    },
+    {
+      "id": "p05-q2",
+      "tekst": "Može li jedan mali drugačiji postupak da bude važan i ako niko drugi ne zna za njega?"
+    },
+    {
+      "id": "p05-q3",
+      "tekst": "Šta je jedan mali izbor koji danas možete da napravite drugačije nego ranije?"
+    }
+  ],
+  "poruka": "Velike promene retko nastaju jednim velikim potezom. Češće se grade od malih izbora koji, ponavljani dovoljno dugo, počinju da menjaju pravac života.",
+  "zadatak": "Do sutra dovršite rečenicu: „Moja sledeća mala pobeda biće...\"",
+  "citat": "Disciplina je svakodnevni oblik slobode."
+}

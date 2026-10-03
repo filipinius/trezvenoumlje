@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p29",
+  "n": 29,
+  "nedelja": 6,
+  "dan": "6. nedelja – četvrtak",
+  "naslov": "Hakim zna bolje",
+  "slug": "hakim-zna-bolje",
+  "podnaslov": "Granice – pomoć ili kontrola?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "slika": "hakim-zna-bolje.webp",
+  "tekst": [
+    "Jedan čovek je ležao teško bolestan. Pozvali su hakima, koji ga je dugo pregledao i na kraju svečano rekao ženi da je njen muž već dva dana mrtav.",
+    "Bolesnik se užasnuto podigao i rekao da je živ. Žena ga je ućutkala: hakim, valjda, bolje zna."
+  ],
+  "pitanja": [
+    {
+      "id": "p29-q1",
+      "tekst": "Kada pomoć prestaje da bude pomoć i počinje da oduzima čoveku glas?"
+    },
+    {
+      "id": "p29-q2",
+      "tekst": "Da li bliski ljudi posle dugog perioda zavisnosti imaju razloga da postavljaju granice?"
+    },
+    {
+      "id": "p29-q3",
+      "tekst": "Koja granica vam je danas neprijatna, ali možda korisna?"
+    }
+  ],
+  "poruka": "Pomoć ne znači da drugi žive naš život umesto nas. Zdrava granica ostavlja čoveku odgovornost za njegove odluke, a istovremeno štiti druge od onoga što više ne žele da trpe.",
+  "zadatak": "Dovršite dve rečenice: „Jedna granica koja mi pomaže je...\" i „Jedna kontrola protiv koje se bunim je...\"",
+  "citat": "Sloboda nije odsustvo granica, već izbor pravih granica."
+}

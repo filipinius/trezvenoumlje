@@ -1,0 +1,35 @@
+{
+  "status": "objavljeno",
+  "id": "p10",
+  "n": 10,
+  "nedelja": 2,
+  "dan": "2. nedelja – petak",
+  "naslov": "Na putu",
+  "slug": "na-putu",
+  "podnaslov": "Šta znači priznati problem bez ponižavanja sebe?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan putnik išao je dugim putem natovaren raznim teretima. Nosio je kamenje, težak džak, posudu sa vodom, stare okove i veliki kamen oko vrata. Išao je polako, umornim korakom, žaleći se na težinu puta.",
+    "Usput su ga različiti ljudi pitali zašto nosi pojedine stvari. Tek kada bi mu neko ukazao na teret, putnik bi ga zaista primetio. Neke stvari su mu nekada možda imale smisla; druge je nosio toliko dugo da više nije ni razmišljao čemu služe.",
+    "Jednu po jednu, počeo je da ih odlaže.",
+    "Put nije nestao. Nije postao drugi čovek.",
+    "Ali je nastavio put, lakši i svesniji onoga što nosi i onoga što više ne mora da nosi."
+  ],
+  "pitanja": [
+    {
+      "id": "p10-q1",
+      "tekst": "Šta se kod putnika promenilo – put, on sam ili teret koji je nosio?"
+    },
+    {
+      "id": "p10-q2",
+      "tekst": "Kako čovek može da prizna da ima problem, a da iz toga ne zaključi da je on sam „problem\"?"
+    },
+    {
+      "id": "p10-q3",
+      "tekst": "Koji teret biste želeli da počnete da ostavljate tokom lečenja?"
+    }
+  ],
+  "poruka": "Priznati problem ne znači svesti sebe na problem. Čovek može da preuzme odgovornost za ono što nosi i za ono što je radio, a da pritom sačuva dostojanstvo i mogućnost promene.",
+  "zadatak": "Do sutra dovršite dve rečenice: „Moj problem je...\" i „Ja sam, osim tog problema, i...\"",
+  "citat": "Ne leče vreme i zaborav, već istina i prihvatanje."
+}

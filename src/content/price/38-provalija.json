@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p38",
+  "n": 38,
+  "nedelja": 8,
+  "dan": "8. nedelja – sreda",
+  "naslov": "Provalija",
+  "slug": "provalija",
+  "podnaslov": "Šta radim posle pada?",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ratnik nehotice zakorači u prazno i padne u duboku, mutnu vodu. Uplašen je i obraća se učitelju. Učitelj mu skreće pažnju da pad u vodu sam po sebi nije ono što čoveka davi; opasnost je ako ostane ispod površine.",
+    "Ratnik tada ne troši snagu na dokazivanje da nije pao. Usmerava je na izlazak iz situacije u kojoj se našao."
+  ],
+  "pitanja": [
+    {
+      "id": "p38-q1",
+      "tekst": "Šta je posle pada prvi zadatak – objasniti zašto se dogodio ili izaći na površinu?"
+    },
+    {
+      "id": "p38-q2",
+      "tekst": "Koji je prvi bezbedan postupak posle upotrebe?"
+    },
+    {
+      "id": "p38-q3",
+      "tekst": "Kako se vraćam lečenju bez minimiziranja onoga što se dogodilo?"
+    }
+  ],
+  "poruka": "Posle pada najvažnije je skratiti vreme provedeno „ispod vode\". Priznavanje onoga što se dogodilo i brzo traženje pomoći mogu da spreče da jedan pad postane dugotrajan povratak starom životu.",
+  "zadatak": "Napišite prva tri koraka koja biste preduzeli ako biste posle otpusta imali recidiv.",
+  "citat": "Slabost nije pasti, već zavoleti pad."
+}

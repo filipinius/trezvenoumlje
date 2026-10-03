@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p22",
+  "n": 22,
+  "nedelja": 5,
+  "dan": "5. nedelja – utorak",
+  "naslov": "Trgovac i papagaj",
+  "slug": "trgovac-i-papagaj",
+  "podnaslov": "Bes",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan trgovac imao je papagaja. Kada je ptica jednom oborila bocu sa uljem, trgovac ju je u naletu besa udario po glavi.",
+    "Posle toga papagaj je prestao da govori i počeo da gubi perje sa glave. Trenutak besa je prošao, ali posledica nije nestala sa njim.",
+    "Kasnije je papagaj ugledao ćelavog čoveka i, povezujući ga sa sopstvenim iskustvom, ponovo progovorio. Ono što je doživeo ostalo je u njemu i posle samog događaja."
+  ],
+  "pitanja": [
+    {
+      "id": "p22-q1",
+      "tekst": "Koliko dugo traje bes, a koliko mogu da traju posledice postupka učinjenog u besu?"
+    },
+    {
+      "id": "p22-q2",
+      "tekst": "Kako izgleda trenutak kada bes pređe u postupak?"
+    },
+    {
+      "id": "p22-q3",
+      "tekst": "Koja posledica nekog postupka iz besa vam je ostala duže od samog besa?"
+    }
+  ],
+  "poruka": "Bes može da nam kaže da je nešto važno povređeno, ali ne mora da odlučuje šta ćemo uraditi. Osećanje prođe; postupak ponekad ostavi mnogo duži trag.",
+  "zadatak": "Danas uočite jedan znak da bes raste u vašem telu. Samo ga imenujte pre nego što nešto uradite.",
+  "citat": "Najveća pobeda nije nad drugima, nego nad sopstvenim nagonom."
+}

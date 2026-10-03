@@ -1,0 +1,30 @@
+{
+  "status": "objavljeno",
+  "id": "p02",
+  "n": 2,
+  "nedelja": 1,
+  "dan": "1. nedelja – utorak",
+  "naslov": "Okovani slon",
+  "slug": "okovani-slon",
+  "podnaslov": "Šta me još drži vezanog?",
+  "izvor": "Prema priči Horhea Bukaja",
+  "slika": "okovani-slon.webp",
+  "tekst": [
+    "Kada je bio dete, jedan dečak je voleo cirkus. Posle predstave posmatrao je ogromnog slona koji je stajao vezan tankim lancem za mali kolac u zemlji. Bilo je očigledno da bi tako snažna životinja mogla jednim pokretom da ga iščupa. Ipak, slon nije ni pokušavao.",
+    "Dečak se dugo pitao zašto. Odgovor je našao kasnije: isti slon je za takav kolac bio vezan još dok je bio mlad i slab. Tada je mnogo puta pokušavao da se oslobodi. Vukao je, naprezao se i nije uspevao. Jednog dana prestao je da pokušava.",
+    "Godine su prošle. Slon je postao veliki i snažan, ali je u njemu ostalo staro uverenje: „Ne mogu.\" Kolac koji ga je nekada zaista zadržavao više nije bio dovoljno jak. Zadržavalo ga je sećanje na nekadašnju nemoć."
+  ],
+  "pitanja": [
+    {
+      "id": "p02-q1",
+      "tekst": "Šta je u ovoj priči jače – lanac ili slonovo uverenje da ne može da se oslobodi?"
+    },
+    {
+      "id": "p02-q2",
+      "tekst": "Da li neuspeh u prošlosti dokazuje da ni danas ne možemo nešto drugačije?"
+    }
+  ],
+  "poruka": "Prošli neuspeh može da nas nauči šta tada nismo mogli, ali ne mora da odlučuje šta možemo danas. Čovek se menja, okolnosti se menjaju, a pomoć postoji. Ponekad je prvi korak da ponovo proverimo snagu „lanca\" koji smo odavno prestali da ispitujemo.",
+  "zadatak": "Do sutra prepoznajte jednu svoju rečenicu koja počinje sa „Ja ne mogu...\" ili „Ja sam uvek...\". Nemojte je odmah pobijati. Samo joj dodajte pitanje: „Da li to i danas mora da bude tačno?\"",
+  "citat": "Sloboda počinje tamo gde prestaje izgovor."
+}

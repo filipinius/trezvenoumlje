@@ -1,0 +1,72 @@
+---
+// One story of "Pričamo priču". The story page renders it with the title as <h1>;
+// the library overlay fetches that page and injects this <article> (src/scripts/story-overlay.ts).
+// Question ids are a public contract: rendered as data-question-id, never renumbered.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getImageAsset } from '../lib/images';
+import { buildSeo } from '../lib/seo';
+import { href, site } from '../lib/site';
+import { storyNumber, storyPath, storyTitle } from '../lib/stories';
+import '../styles/story.css';
+
+type Story = CollectionEntry<'price'>;
+interface Props { story: Story; week: CollectionEntry<'nedelje'>; prev?: Story; next?: Story; headingLevel?: 1 | 2; total?: number }
+const { story, week, prev, next, headingLevel = 1, total = 50 } = Astro.props;
+const s = story.data;
+const Title = `h${headingLevel}` as const;
+const Section = `h${headingLevel + 1}` as 'h2' | 'h3';
+// The document title of the story page: the overlay sets it while it shows this story.
+const documentTitle = buildSeo({ title: storyTitle(s), description: '', path: storyPath(s.slug) }, site).title;
+---
+<article class="story" data-story data-title={documentTitle}>
+  <p class="story-meta story-pad">
+    <span><strong>{storyNumber(s.n)} / {total}</strong><span class="story-meta-theme"> · {week.data.tema}</span> · {s.dan}</span>
+  </p>
+  {s.slika && <Image class="story-image" src={getImageAsset(`price/${s.slika}`)} alt={`Ilustracija uz priču ${s.naslov}`} width={780} loading="eager" />}
+  <div class="story-body story-pad">
+    <div class="story-head">
+      <span class="nadnaslov">{s.podnaslov}</span>
+      <Title>{s.naslov}</Title>
+      <span class="story-source">{s.izvor}</span>
+    </div>
+    <div class="story-text">
+      {s.tekst.map((p) => <p>{p}</p>)}
+    </div>
+    <section class="story-questions" aria-labelledby="pitanja-h">
+      <Section id="pitanja-h" class="story-section-title">Pitanja za razmišljanje</Section>
+      <ol>
+        {s.pitanja.map((q) => <li data-question-id={q.id}><span>{q.tekst}</span></li>)}
+      </ol>
+    </section>
+    <div class="story-notes">
+      <section class="story-note story-message" aria-labelledby="poruka-h">
+        <Section id="poruka-h">Poruka za dan</Section>
+        <p>{s.poruka}</p>
+      </section>
+      <section class="story-note story-task" aria-labelledby="zadatak-h">
+        <Section id="zadatak-h">Mali zadatak</Section>
+        <p>{s.zadatak}</p>
+      </section>
+    </div>
+    <p class="story-quote">{s.citat}</p>
+  </div>
+  {(prev || next) && (
+    <nav class="story-nav" aria-label="Susedne priče">
+      {prev && (
+        <a data-story-nav="prev" href={href(storyPath(prev.data.slug))} aria-label={`Prethodna priča: ${prev.data.naslov}`}>
+          <span aria-hidden="true">←</span>
+          <span class="nav-short">Prethodna</span>
+          <span class="nav-title">{prev.data.naslov}</span>
+        </a>
+      )}
+      {next && (
+        <a data-story-nav="next" href={href(storyPath(next.data.slug))} aria-label={`Sledeća priča: ${next.data.naslov}`}>
+          <span class="nav-short">Sledeća</span>
+          <span class="nav-title">{next.data.naslov}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      )}
+    </nav>
+  )}
+</article>

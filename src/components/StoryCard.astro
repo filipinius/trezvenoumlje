@@ -1,0 +1,35 @@
+---
+// Library card: an ordinary link to the story page. On the library page src/scripts/story-overlay.ts
+// opens the story in the overlay instead.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getImageAsset } from '../lib/images';
+import { href } from '../lib/site';
+import { storyNumber, storyPath } from '../lib/stories';
+interface Props { story: CollectionEntry<'price'> }
+const s = Astro.props.story.data;
+---
+<a class="story-card" data-story-link href={href(storyPath(s.slug))}>
+  {s.slika && <Image class="story-card-image" src={getImageAsset(`price/${s.slika}`)} alt="" width={600} loading="lazy" />}
+  <div class="story-card-body">
+    <span class="story-card-meta"><span class="story-card-num">{storyNumber(s.n)}</span><span>{s.dan}</span></span>
+    <h3>{s.naslov}</h3>
+    <span class="story-card-question">{s.podnaslov}</span>
+    <span class="story-card-source">{s.izvor}</span>
+  </div>
+</a>
+<style>
+  .story-card {
+    flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden;
+    border: 1px solid var(--linija); border-radius: var(--radius-m); background: var(--bela); color: var(--tekst); text-decoration: none;
+  }
+  .story-card:hover { border-color: var(--zelena); color: var(--tekst); }
+  .story-card:focus-visible { outline-offset: 3px; }
+  .story-card-image { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--pesak); }
+  .story-card-body { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 24px; }
+  .story-card-meta { display: flex; justify-content: space-between; gap: 12px; font-size: var(--nadnaslov); color: var(--tekst-prigusen); }
+  .story-card-num { font-family: var(--font-naslov); font-weight: 700; color: var(--zelena); }
+  h3 { margin: 0; font-size: var(--h3); line-height: 1.3; overflow-wrap: break-word; }
+  .story-card-question { font-size: var(--tekst-mali); color: var(--tekst-sekundarni); }
+  .story-card-source { margin-top: auto; padding-top: 10px; font-size: var(--nadnaslov); font-style: italic; color: var(--tekst-prigusen); }
+</style>

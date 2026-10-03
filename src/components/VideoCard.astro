@@ -1,0 +1,70 @@
+---
+// One media appearance. With a `youtubeId` the card has a poster button that opens the player in a dialog
+// (src/scripts/video.ts inserts the iframe only then). Without one there is nothing to play, so there is no poster:
+// the title links to `link` when the entry has it, otherwise the card is plain text.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getImageAsset } from '../lib/images';
+import Dialog from './Dialog.astro';
+import StatusBadge from './StatusBadge.astro';
+import Text from './Text.astro';
+
+interface Props { entry: CollectionEntry<'mediji'> }
+const { naslov, slug, medij, datum, opis, youtubeId, link, status } = Astro.props.entry.data;
+const dialogId = `video-${slug}`;
+const meta = `${medij} · ${datum}`;
+const NOTICE = 'Video se učitava tek na klik (YouTube, režim privatnosti).';
+---
+<article class="video-card">
+  {youtubeId && (
+    <button type="button" class="video-poster" data-dialog-open={dialogId}>
+      <Image class="video-image" src={getImageAsset('video-poster.webp')} alt="" width={640} loading="lazy" />
+      <span class="video-play" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="visually-hidden">Pusti video: {naslov}.</span>
+      <span class="video-notice">{NOTICE}</span>
+    </button>
+  )}
+  <div class="video-body">
+    {!youtubeId && link
+      ? <h3 class="video-title"><a href={link} rel="noopener noreferrer"><Text value={naslov} /></a></h3>
+      : <Text as="h3" class="video-title" value={naslov} />}
+    <Text class="video-meta" value={meta} />
+    <StatusBadge status={status} />
+  </div>
+</article>
+{youtubeId && (
+  <Dialog id={dialogId} title={naslov}>
+    <Text as="p" class="video-dialog-meta" value={meta} />
+    <div class="video-frame" data-video-frame data-youtube-id={youtubeId} data-video-title={naslov}></div>
+    {opis && <Text as="p" class="video-dialog-text" value={opis} />}
+  </Dialog>
+)}
+<style>
+  .video-card { display: flex; flex-direction: column; min-width: 0; background: var(--bela); border-radius: 14px; overflow: hidden; }
+  .video-poster {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; aspect-ratio: 16 / 9; padding: 16px; border: 0; background: var(--zelena-hover); color: var(--zelena-tinta);
+    font: inherit; text-align: center; cursor: pointer;
+  }
+  .video-poster:focus-visible { outline-offset: -6px; outline-color: var(--bela); }
+  .video-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .video-play {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    width: 60px; height: 60px; border-radius: 50%; background: var(--zelena); color: var(--bela);
+  }
+  .video-notice { position: relative; font-size: var(--nadnaslov); }
+  .video-body { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; }
+  /* Without a poster the card is a text card, like its neighbours in the section. */
+  .video-body:first-child { padding: 24px; }
+  .video-title { margin: 0; font-size: var(--tekst-vel); line-height: 1.4; }
+  .video-title a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
+  .video-meta { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  .video-body :global(.status-badge) { margin-top: 6px; }
+
+  .video-dialog-meta { margin: 0 0 16px; font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  .video-frame { clear: both; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: var(--tekst); }
+  .video-frame :global(iframe) { display: block; width: 100%; height: 100%; border: 0; }
+  .video-dialog-text { margin: 16px 0 0; font-size: var(--tekst-sitan); color: var(--tekst-sekundarni); }
+</style>

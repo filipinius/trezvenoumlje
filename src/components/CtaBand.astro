@@ -1,0 +1,25 @@
+---
+// Closing call to action. Link hrefs are site paths; the default slot sits under the buttons (e.g. an EmergencyNote).
+import Button from './Button.astro';
+interface Link { label: string; href: string }
+interface Props { title: string; text: string; primary: Link; secondary?: Link }
+const { title, text, primary, secondary } = Astro.props;
+---
+<section class="cta-band container">
+  <h2>{title}</h2>
+  <p>{text}</p>
+  <div class="cta-actions">
+    <Button href={primary.href}>{primary.label}</Button>
+    {secondary && <Button href={secondary.href} variant="secondary">{secondary.label}</Button>}
+  </div>
+  <slot />
+</section>
+<style>
+  .cta-band {
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+    padding-block: var(--razmak-sekcije); text-align: center;
+  }
+  h2 { margin: 0; max-width: 760px; }
+  p { margin: 0; max-width: 560px; color: var(--tekst-prigusen); font-size: var(--uvod); }
+  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+</style>

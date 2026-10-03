@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p47",
+  "n": 47,
+  "nedelja": 10,
+  "dan": "10. nedelja – utorak",
+  "naslov": "Jedna čašica",
+  "slug": "jedna-casica",
+  "podnaslov": "Ljudi, mesta i situacije visokog rizika",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "tekst": [
+    "Manuel je posle teškog perioda uspeo da se oporavi. Mesecima je bio trezan, radio je i ponovo sticao snagu. Posle šest meseci počela je da mu se javlja misao da je sada dovoljno jak i da mu jedna čašica ne može naškoditi.",
+    "Jedne večeri nije nikome rekao kuda ide. Izašao je i vratio se starom društvu. Posle prve čaše došla je druga, zatim treća. Ono što je počelo kao „samo jednom\" brzo je ponovo dobilo stari tok."
+  ],
+  "pitanja": [
+    {
+      "id": "p47-q1",
+      "tekst": "U kom trenutku je Manuelov recidiv zapravo počeo?"
+    },
+    {
+      "id": "p47-q2",
+      "tekst": "Kakvu ulogu ima povratak starom društvu i starom mestu?"
+    },
+    {
+      "id": "p47-q3",
+      "tekst": "Šta konkretno možete da promenite u prvim nedeljama posle otpusta?"
+    }
+  ],
+  "poruka": "Rizik nije dokaz slabosti. Neke situacije su opasnije zato što u njima postoji mnogo starih veza odjednom. Prevencija počinje time da ih ne potcenjujemo.",
+  "zadatak": "Napravite tri kolone: „ljudi\", „mesta\", „situacije\". U svaku upišite po dva lična rizika posle otpusta.",
+  "citat": "Granica nije zid kada čuva ono što je važno."
+}

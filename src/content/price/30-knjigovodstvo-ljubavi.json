@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p30",
+  "n": 30,
+  "nedelja": 6,
+  "dan": "6. nedelja – petak",
+  "naslov": "Knjigovodstvo ljubavi",
+  "slug": "knjigovodstvo-ljubavi",
+  "podnaslov": "Šta dugujem onima koje sam povredio, a šta dugujem sebi?",
+  "izvor": "Prema misli Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Andrić piše o ljubavi kao o odnosu u kojem čovek daje deo sebe i ponekad gubi bez preciznog računa. U bliskim odnosima zato ne postoji jednostavna knjiga u kojoj se sve može svesti na dug i otplatu.",
+    "Posle zavisnosti čovek može osećati da „duguje život\" porodici. Ali ako pokušava da se iskupi tako što potpuno ukine sebe, stvara novi problem.",
+    "Odgovornost prema drugima i briga o sebi ne moraju biti suprotnosti."
+  ],
+  "pitanja": [
+    {
+      "id": "p30-q1",
+      "tekst": "Može li čovek da popravlja odnose, a da pritom ne pretvori ceo svoj život u otplatu duga?"
+    },
+    {
+      "id": "p30-q2",
+      "tekst": "Šta dugujemo sebi posle godina zavisnosti?"
+    },
+    {
+      "id": "p30-q3",
+      "tekst": "Kako izgleda odnos u kojem se više ne broji svaki stari dug, ali se prošlost ne poriče?"
+    }
+  ],
+  "poruka": "Popravljanje odnosa ne znači da čovek prestaje da ima pravo na sopstveni život. Drugima dugujemo odgovornost za ono što smo učinili; sebi dugujemo da ne nastavimo da se uništavamo.",
+  "zadatak": "Napišite po jednu stvar: „Onima koje sam povredio dugujem...\" i „Sebi dugujem...\"",
+  "citat": "Odricanje bez ljubavi postaje kazna."
+}

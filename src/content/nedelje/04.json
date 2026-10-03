@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "n": 4,
+  "oznaka": "četvrta nedelja",
+  "tema": "Žudnja, impuls, navika i krug zavisnosti",
+  "uvod": [
+    "Pogledajte šta ste do sada uočili o svojim izborima i posledicama.",
+    "Sada pokušajte da vidite obrazac: šta obično pokrene želju, šta se tada dešava u vama i gde bi mogao da se pojavi prostor za drugačiji postupak."
+  ],
+  "osvrt": {
+    "naslov": "Moj krug zavisnosti",
+    "napomena": "Izaberite jednu stvarnu situaciju koja se kod vas ponavljala i pokušajte da je razložite bez osuđivanja sebe.",
+    "pitanja": [
+      {
+        "id": "n04-o1",
+        "tekst": "Koji obrazac između okidača, misli, želje i postupka sam ove nedelje najbolje prepoznao kod sebe?"
+      },
+      {
+        "id": "n04-o2",
+        "tekst": "Gde u svom tipičnom krugu sada vidim mesto za pauzu ili drugačiji izbor?"
+      },
+      {
+        "id": "n04-o3",
+        "tekst": "Šta najčešće „hrani\" moj stari obrazac, a šta može da hrani novi pravac?"
+      },
+      {
+        "id": "n04-o4",
+        "tekst": "Šta može da zauzme mesto jednog dela stare navike?"
+      },
+      {
+        "id": "n04-o5",
+        "tekst": "Koji mali prekid starog kruga želim da ponovim i sledeće nedelje?"
+      }
+    ]
+  }
+}

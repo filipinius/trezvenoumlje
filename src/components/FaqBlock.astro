@@ -1,0 +1,32 @@
+---
+// A page's block of questions from one category, with the way on to the full list.
+// The page fetches the questions (getFaq) because it also builds the single FAQPage JSON-LD from them.
+import type { CollectionEntry } from 'astro:content';
+import { NAZIVI_KATEGORIJA_PITANJA } from '../content/schemas';
+import { href } from '../lib/site';
+import FaqList from './FaqList.astro';
+type Question = CollectionEntry<'pitanja'>;
+interface Props { questions: Question[]; category: Question['data']['kategorija']; heading?: string }
+const { questions, category, heading = 'Česta pitanja' } = Astro.props;
+const headingId = `pitanja-${category}-h`;
+---
+{questions.length > 0 && (
+  <section class="faq-block container" aria-labelledby={headingId}>
+    <h2 id={headingId}>{heading}</h2>
+    <div class="faq-body">
+      <FaqList questions={questions} />
+      <a class="faq-all" href={href(`/cesta-pitanja/#${category}`)} aria-label={`Sva česta pitanja: ${NAZIVI_KATEGORIJA_PITANJA[category]}`}>Sva česta pitanja <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+)}
+<style>
+  .faq-block { display: flex; flex-wrap: wrap; gap: 24px 64px; padding-block: clamp(56px, 7vw, 96px); }
+  /* Consecutive blocks read as one list of topics. */
+  .faq-block + .faq-block { padding-top: 0; }
+  h2 { flex: 1 1 280px; min-width: 0; margin: 0; }
+  .faq-body { flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .faq-all {
+    display: inline-flex; align-items: center; gap: 0.3em; align-self: flex-start; min-height: 44px;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+</style>

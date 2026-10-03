@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p14",
+  "n": 14,
+  "nedelja": 3,
+  "dan": "3. nedelja – četvrtak",
+  "naslov": "Dobar čovek i loš postupak",
+  "slug": "dobar-covek-i-los-postupak",
+  "podnaslov": "Šta znači preuzeti posledice bez samokažnjavanja?",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ponekad ljudi brane nekoga koga vole rečima: „On je u suštini dobar čovek; samo je izgubio glavu.\" Takvo objašnjenje može biti puno ljubavi, ali ako njime izbrišemo posledice postupka, čoveku ne pomažemo da se promeni.",
+    "S druge strane, ni beskrajno optuživanje sebe ne popravlja učinjeno. Čovek može da prizna da je pogrešio, da prihvati cenu svoje odluke i da izvuče pouku, a da ne provede ostatak života kažnjavajući sebe.",
+    "Za promenu je važnije šta će čovek uraditi sa svojom greškom nego koliko dugo će sebe zbog nje mrzeti."
+  ],
+  "pitanja": [
+    {
+      "id": "p14-q1",
+      "tekst": "Šta više pomaže promeni – opravdati postupak ili priznati posledicu i nešto uraditi povodom nje?"
+    },
+    {
+      "id": "p14-q2",
+      "tekst": "Šta znači „platiti cenu\" neke greške bez dodatnog kažnjavanja sebe?"
+    },
+    {
+      "id": "p14-q3",
+      "tekst": "Postoji li nešto što više ne možete da poništite, ali možete da pokušate da popravite?"
+    }
+  ],
+  "poruka": "Odgovornost ne traži da se čovek proglasi lošim, već da ne beži od posledica onoga što je uradio. Samokažnjavanje ne vraća prošlost. Promena počinje kada prihvatimo cenu i tražimo šta još možemo da popravimo.",
+  "zadatak": "Do sutra izaberite jednu posledicu koju ne možete da izbrišete i dopišite: „Ono što ipak mogu da uradim jeste...\"",
+  "citat": "Svaki kraj može biti početak ako iz njega nešto naučiš."
+}

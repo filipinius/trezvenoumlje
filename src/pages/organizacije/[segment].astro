@@ -1,0 +1,160 @@
+---
+// One segment of the Organizations artboard as its own page; the layout follows what the entry holds.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FaqBlock from '../../components/FaqBlock.astro';
+import OfferBand from '../../components/OfferBand.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import Text from '../../components/Text.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getFaq, getVisible } from '../../lib/content';
+import { getImageAsset, ogImageUrl } from '../../lib/images';
+import { faqPage } from '../../lib/jsonld';
+import { segmentDescription, segmentPresentation } from '../../lib/organizacije';
+import { site } from '../../lib/site';
+import { isVisible } from '../../lib/status';
+
+export async function getStaticPaths() {
+  return (await getVisible('b2b')).map((segment) => ({ params: { segment: segment.data.slug }, props: { segment } }));
+}
+interface Props { segment: CollectionEntry<'b2b'> }
+const { data: segment } = Astro.props.segment;
+const path = `/organizacije/${segment.slug}/`;
+const { image } = segmentPresentation(segment.slug);
+
+const seo = {
+  title: segment.seo?.naslov ?? segment.segment,
+  description: segment.seo?.opis ?? segment.uvod ?? segmentDescription(segment),
+  path,
+  image: segment.seo?.slika ? await ogImageUrl(segment.seo.slika) : undefined,
+  noindex: segment.seo?.noindex ?? false,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Za organizacije', path: '/organizacije/' },
+  { label: segment.segment, path },
+];
+
+const modules = segment.moduli.filter((m) => isVisible(m.status, site.env));
+const { stavke, nije } = segment;
+const questions = await getFaq(segment.kategorijaPitanja);
+const faqLd = faqPage(questions.map((q) => q.data));
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={faqLd ? [faqLd] : []}>
+  <div class:list={['container', 'page', { split: modules.length === 0 }]}>
+    <div class="main-col">
+      <header class="head">
+        <div class="head-text">
+          <Breadcrumbs items={breadcrumbs} />
+          <span class="nadnaslov">{segment.nadnaslov ?? segment.segment}</span>
+          <h1>{segment.naslov}</h1>
+          <StatusBadge status={segment.status} />
+        </div>
+        {modules.length > 0 && (image || segment.uvod) && (
+          <div class="head-side">
+            {image && <Image class="illustration" src={getImageAsset(image.name)} alt={image.alt} width={420} loading="eager" />}
+            {segment.uvod && <Text as="p" class="side-intro" value={segment.uvod} />}
+          </div>
+        )}
+      </header>
+      {modules.length === 0 && segment.uvod && <Text as="p" class="lead" value={segment.uvod} />}
+      {modules.length === 0 && !nije && image && <Image class="illustration" src={getImageAsset(image.name)} alt={image.alt} width={420} loading="eager" />}
+      {nije && stavke.length > 0 && (
+        <ul class="checks">
+          {stavke.map((item) => (
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+              <Text value={item} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {segment.pravnaNapomena && <Text as="p" class="legal" value={segment.pravnaNapomena} />}
+    </div>
+
+    {modules.length > 0 && (
+      <div class="modules">
+        {modules.map((m, i) => (
+          <article class="module" data-modul data-draft={m.status === 'nacrt' ? '' : undefined}>
+            <span class="module-no">{String(i + 1).padStart(2, '0')}{m.status === 'nacrt' && ' · čeka pravnu definiciju'}</span>
+            <h2>{m.naziv}</h2>
+            {m.opis && <Text as="p" value={m.opis} />}
+          </article>
+        ))}
+      </div>
+    )}
+
+    {nije && (
+      <aside class="not-box" aria-labelledby="nije-h">
+        <h2 id="nije-h">Šta ova usluga nije</h2>
+        <Text as="p" class="not-intro" value={nije.uvod} />
+        <ul>
+          {nije.stavke.map((item) => <Text as="li" value={item} />)}
+        </ul>
+        {nije.napomena && <Text as="p" class="not-note" value={nije.napomena} />}
+      </aside>
+    )}
+
+    {!nije && stavke.length > 0 && (
+      <ul class="tiles">
+        {stavke.map((item) => <Text as="li" value={item} />)}
+      </ul>
+    )}
+  </div>
+
+  <FaqBlock questions={questions} category={segment.kategorijaPitanja} />
+
+  <OfferBand />
+</BaseLayout>
+
+<style>
+  .page { display: flex; flex-direction: column; gap: 36px; padding-block: clamp(24px, 5vw, 64px) clamp(56px, 7vw, 96px); }
+  .main-col { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  /* Bez modula: tekst levo, lista ili okvir desno (sekcije Advokati i Škole sa artboarda). */
+  .page.split { flex-direction: row; flex-wrap: wrap; gap: 40px 64px; }
+  .split .main-col { flex: 3 1 480px; }
+
+  .head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px 48px; }
+  .head-text { display: flex; flex-direction: column; gap: 12px; max-width: 680px; min-width: 0; }
+  h1 { margin: 0; }
+  .head-side { display: flex; flex-direction: column; gap: 16px; max-width: 420px; min-width: 0; }
+  .side-intro { margin: 0; color: var(--tekst-prigusen); }
+  .illustration { display: block; width: 100%; max-width: 420px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-m); }
+  .lead { margin: 0; font-family: var(--font-citat); font-size: var(--uvod); line-height: 1.55; }
+  .legal { margin: 0; font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+
+  .checks { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .checks li { display: flex; gap: 12px; }
+  .checks svg { flex: none; margin-top: 3px; color: var(--zelena); }
+
+  /* Moduli */
+  .modules { display: flex; flex-wrap: wrap; gap: 20px; }
+  .module {
+    flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 28px;
+    border: 1px solid var(--linija); border-radius: var(--radius-m);
+  }
+  .module[data-draft] { border: 1.5px dashed var(--linija-jaka); background: var(--pesak-svetli); }
+  .module-no { font-family: var(--font-naslov); font-weight: 700; font-size: var(--tekst-mali); color: var(--plava); }
+  .module[data-draft] .module-no { color: var(--tekst-prigusen); }
+  .module h2 { margin: 0; font-size: var(--h3); line-height: 1.3; }
+  .module :global(p) { margin: 0; color: var(--tekst-prigusen); }
+
+  /* Šta ova usluga nije */
+  .not-box {
+    flex: 2 1 340px; min-width: 0; align-self: flex-start; display: flex; flex-direction: column; gap: 12px; padding: 28px;
+    background: var(--bela); border: 1.5px solid var(--plava); border-radius: var(--radius-m);
+  }
+  .not-box h2 { margin: 0; font-size: var(--h3); line-height: 1.3; color: var(--plava); }
+  .not-box :global(p) { margin: 0; }
+  .not-intro { font-size: var(--tekst-mali); color: var(--tekst-sekundarni); }
+  .not-box ul { display: flex; flex-direction: column; gap: 4px; margin: 0; padding-left: 20px; }
+  .not-note { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+
+  /* Stavke kao pločice */
+  .tiles {
+    flex: 2 1 560px; min-width: 0; align-self: flex-start; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;
+    margin: 0; padding: 0; list-style: none;
+  }
+  .tiles :global(li) { padding: 22px; border-radius: 14px; background: var(--zelena-tinta); font-weight: 700; }
+</style>

@@ -1,0 +1,98 @@
+---
+// One book. No artboard of its own: the hero used across the site, the facts of the "Kako do knjige" overlay laid out on the page.
+// Built only for published books without their own section of the site (see src/lib/knjige.ts).
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+import Text from '../../components/Text.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getVisible } from '../../lib/content';
+import { getImageAsset, ogImageUrl } from '../../lib/images';
+import { book as bookLd } from '../../lib/jsonld';
+import { bookPath, coverAlt, hasDetailPage } from '../../lib/knjige';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  return (await getVisible('knjige')).filter(hasDetailPage).map((book) => ({ params: { slug: book.data.slug }, props: { book } }));
+}
+interface Props { book: CollectionEntry<'knjige'> }
+const { data: book } = Astro.props.book;
+const path = bookPath(book.slug);
+
+const MIN_DESCRIPTION = 50;
+const label = `Knjiga „${book.naslov}“, autor ${book.autor}.`;
+const image = book.seo?.slika ?? book.korica;
+const seo = {
+  title: book.seo?.naslov ?? book.naslov,
+  description: book.seo?.opis ?? (book.opis && book.opis.length >= MIN_DESCRIPTION ? book.opis : label),
+  path,
+  image: image ? await ogImageUrl(image) : undefined,
+  noindex: book.seo?.noindex ?? false,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Knjige', path: '/knjige/' },
+  { label: book.naslov, path },
+];
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={[bookLd({ ...book, path }, site)]}>
+  <section class="hero container">
+    <Breadcrumbs items={breadcrumbs} />
+    <div class="book">
+      {book.korica && <Image class="book-cover" src={getImageAsset(book.korica)} alt={coverAlt(book.naslov)} width={320} height={480} />}
+      <div class="book-text">
+        {book.oznaka && <Text class="nadnaslov" value={book.oznaka} />}
+        <h1><Text value={book.naslov} /></h1>
+        <dl class="book-facts">
+          <dt>Autor</dt><Text as="dd" value={book.autor} />
+          {book.izdavac && <><dt>Izdavač</dt><Text as="dd" value={book.izdavac} /></>}
+          {book.godina && <><dt>Godina</dt><Text as="dd" value={book.godina} /></>}
+          {book.isbn && <><dt>ISBN</dt><Text as="dd" value={book.isbn} /></>}
+        </dl>
+        {book.opis && <Text as="p" class="intro" value={book.opis} />}
+        {book.pravnaNapomena && <Text as="p" class="hero-line" value={book.pravnaNapomena} />}
+      </div>
+    </div>
+  </section>
+
+  <section class="band-light" aria-labelledby="nabavka-h">
+    <div class="container how">
+      <h2 id="nabavka-h">Kako do knjige</h2>
+      {book.nabavka && (
+        <dl class="book-facts">
+          <dt>Gde se nabavlja</dt><Text as="dd" value={book.nabavka} />
+        </dl>
+      )}
+      <Button href="/kontakt/">Pošaljite upit</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1, h2 { margin: 0; }
+  .nadnaslov { display: block; line-height: 1.65; }
+  .band-light { background: var(--pesak-svetli); }
+
+  .hero { display: flex; flex-direction: column; gap: 18px; padding-block: clamp(24px, 5vw, 64px) clamp(40px, 5vw, 64px); }
+  .book { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 56px; }
+  .book-cover {
+    flex: 0 1 280px; width: 280px; min-width: 160px; max-width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover;
+    border-radius: 6px 12px 12px 6px; box-shadow: 0 12px 24px color-mix(in srgb, var(--tekst) 12%, transparent);
+  }
+  .book-text { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+  .intro { margin: 0; max-width: 720px; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+  .hero-line { margin: 0; max-width: 720px; font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+
+  .book-facts { display: grid; grid-template-columns: 140px 1fr; gap: 10px 16px; max-width: 560px; margin: 0; }
+  .book-facts dt { color: var(--tekst-prigusen); }
+  .book-facts :global(dd) { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+  .how { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding-block: clamp(40px, 6vw, 72px); }
+
+  @media (max-width: 699px) {
+    .book-cover { flex: none; width: 200px; }
+    .book-facts { grid-template-columns: 1fr; gap: 2px; }
+    .book-facts :global(dd) { margin-bottom: 8px; }
+  }
+</style>

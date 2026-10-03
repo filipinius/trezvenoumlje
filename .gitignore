@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+design-source/
+test-results/
+playwright-report/
+.env
+.DS_Store
+.superpowers/

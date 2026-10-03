@@ -1,0 +1,21 @@
+---
+// Closing band of the organisation pages (Organizations artboard): the offer request on dark green.
+import Button from './Button.astro';
+---
+<section class="offer-band" aria-labelledby="ponuda-h">
+  <div class="container offer">
+    <div class="offer-text">
+      <h2 id="ponuda-h">Zatražite ponudu za vašu organizaciju</h2>
+      <p>B2B cene formiramo prema obimu i formatu. Javite se sa kratkim opisom potrebe.</p>
+    </div>
+    <Button href="/kontakt/" variant="inverse" class="offer-button">Za organizacije: pošaljite upit</Button>
+  </div>
+</section>
+<style>
+  .offer-band { background: var(--zelena); color: var(--bela); }
+  .offer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 48px; padding-block: clamp(56px, 7vw, 88px); }
+  .offer-text { display: flex; flex-direction: column; gap: 10px; max-width: 680px; }
+  h2 { margin: 0; }
+  p { margin: 0; color: var(--zelena-tinta); }
+  .offer :global(.offer-button) { min-height: 52px; }
+</style>

@@ -1,0 +1,19 @@
+{
+  "ime": "[IME I PREZIME]",
+  "slug": "psiholog",
+  "uloga": "Master psiholog, stručni saradnik",
+  "kratko": "Radionice za mlade i roditelje, psihoedukacija, razvoj materijala.",
+  "bio": "[Kratka biografija: obrazovanje, iskustvo u radu sa mladima i porodicama, oblasti interesovanja.]",
+  "zadaci": [
+    "Radionice za mlade i roditelje",
+    "Psihoedukativne sesije i preventivni programi",
+    "Izrada sadržaja za sajt i publikacije",
+    "Vođenje pojedinih programa u okviru svoje kompetencije"
+  ],
+  "napomena": "Prikazuje se tek kada se potvrdi pravni osnov angažmana.",
+  "fotografija": "tim-psiholog.webp",
+  "oblik": "krug",
+  "zdravstvenaUloga": false,
+  "redosled": 2,
+  "status": "nacrt"
+}

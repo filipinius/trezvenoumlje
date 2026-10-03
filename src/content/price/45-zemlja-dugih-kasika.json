@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p45",
+  "n": 45,
+  "nedelja": 9,
+  "dan": "9. nedelja – petak",
+  "naslov": "Zemlja dugih kašika",
+  "slug": "zemlja-dugih-kasika",
+  "podnaslov": "Kakav trag ostavljam iza sebe?",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "slika": "zemlja-dugih-kasika.webp",
+  "tekst": [
+    "Jedan putnik stigao je u čudnu zemlju sa dve prostorije. U obe je bio veliki sto pun hrane, a ljudima su za ruke bile pričvršćene kašike toliko duge da niko nije mogao da prinese hranu sopstvenim ustima.",
+    "U prvoj prostoriji svako je pokušavao da nahrani sebe. Iako je hrane bilo dovoljno, svi su bili gladni i ogorčeni.",
+    "U drugoj prostoriji uslovi su bili isti. Razlika je bila samo u jednom: ljudi su dugim kašikama hranili jedni druge."
+  ],
+  "pitanja": [
+    {
+      "id": "p45-q1",
+      "tekst": "Šta se promenilo kada su ljudi prestali da pitaju samo „kako ću ja do svojih usta\"?"
+    },
+    {
+      "id": "p45-q2",
+      "tekst": "Kako je zavisnost uticala na ljude koji su bili blizu vas?"
+    },
+    {
+      "id": "p45-q3",
+      "tekst": "Da li pomaganje drugome može biti deo sopstvenog oporavka?"
+    }
+  ],
+  "poruka": "Trag nije samo ono što će neko jednog dana reći o nama. On nastaje sada, u tome kako je ljudima pored nas i šta im našim postupcima ostavljamo.",
+  "zadatak": "Uradite danas jednu malu korisnu stvar za drugog čoveka bez očekivanja da vam odmah nešto vrati.",
+  "citat": "Najveća pobeda je kada nema poraženih."
+}

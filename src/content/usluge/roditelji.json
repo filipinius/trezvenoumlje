@@ -1,0 +1,12 @@
+{
+  "naziv": "Savetodavni razgovor sa roditeljima i porodicom",
+  "slug": "roditelji",
+  "meta": "60 min",
+  "opis": "Komunikacija, granice, podrška i izbegavanje obrazaca koji nesvesno održavaju problem.",
+  "ciljneGrupe": [
+    "porodice",
+    "mladi"
+  ],
+  "redosled": 3,
+  "status": "objavljeno"
+}

@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p18",
+  "n": 18,
+  "nedelja": 4,
+  "dan": "4. nedelja – sreda",
+  "naslov": "Čudesna banka života",
+  "slug": "cudesna-banka-zivota",
+  "podnaslov": "Trenutno olakšanje i dugoročna cena",
+  "izvor": "Prema priči iz knjige Kenana Crnkića – „Pazi kojeg vuka hraniš\"",
+  "tekst": [
+    "Zamislite banku koja vam svakog jutra stavi na račun 86.400 jedinica. Pravilo je neobično: ono što tog dana ne upotrebite ne možete preneti u sutra. U ponoć se račun zatvara, a sledećeg jutra dobijate novi.",
+    "Takva banka zapravo postoji. Njena valuta su sekunde, a ne evri. Svaki dan dobijamo 86.400 sekundi vremena, a ono što prođe ne možemo vratiti na račun.",
+    "Ne trošimo vreme samo na velike odluke.",
+    "Troše ga i kratka olakšanja, odlaganja, ponavljanja i navike koje naizgled traju „samo danas\"."
+  ],
+  "pitanja": [
+    {
+      "id": "p18-q1",
+      "tekst": "Na šta najmanje želite da trošite svoje vreme?"
+    },
+    {
+      "id": "p18-q2",
+      "tekst": "Koliko vremena zavisnost uzima i onda kada čovek tog trenutka ne koristi drogu?"
+    },
+    {
+      "id": "p18-q3",
+      "tekst": "Na šta biste želeli da trošite više svog vremena ako se krug zavisnosti smanji?"
+    }
+  ],
+  "poruka": "Trenutno olakšanje nije besplatno čak ni kada cenu ne osetimo odmah. Ponekad je najveća cena vreme koje prolazi dok se isti krug ponavlja. Pitanje nije samo „šta mi ovo sada daje\", nego i „šta mi uzima kasnije\".",
+  "zadatak": "Danas uočite jedno kratko olakšanje koje ima kasniju cenu. Zapišite obe strane: „Odmah dobijam... / Kasnije plaćam...\"",
+  "citat": "Nema zavisnosti bez obećanja lakšeg puta."
+}

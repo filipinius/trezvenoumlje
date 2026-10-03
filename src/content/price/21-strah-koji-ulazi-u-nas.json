@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p21",
+  "n": 21,
+  "nedelja": 5,
+  "dan": "5. nedelja – ponedeljak",
+  "naslov": "Strah koji ulazi u nas",
+  "slug": "strah-koji-ulazi-u-nas",
+  "podnaslov": "Strah",
+  "izvor": "Prema misli Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Andrić piše o strahu kao o nečemu što je uvek negde prisutno, ponekad slabije, ponekad jače. Nekada nas samo kratko prožme i prođe, a nekada mu sami otvorimo prostor i dozvolimo mu da preuzme čitavu unutrašnju scenu.",
+    "Strah zato nije uvek znak da moramo da pobegnemo. On može biti signal da zastanemo, proverimo šta nam zaista preti i šta nam je potrebno."
+  ],
+  "pitanja": [
+    {
+      "id": "p21-q1",
+      "tekst": "Šta je teže – osetiti strah ili verovati da strah mora da odlučuje umesto nas?"
+    },
+    {
+      "id": "p21-q2",
+      "tekst": "Na koje načine čovek pokušava da ne oseti strah?"
+    },
+    {
+      "id": "p21-q3",
+      "tekst": "Koji strah u lečenju možete da podnesete bez bekstva?"
+    }
+  ],
+  "poruka": "Strah nije slabost i ne mora da nestane da bismo nešto uradili. Ponekad je dovoljno da ga prepoznamo, imenujemo i ne prepustimo mu celu odluku.",
+  "zadatak": "Danas, kada primetite strah ili strepnju, dovršite rečenicu: „Plašim se da...\", a zatim dodajte: „Ipak mogu da...\"",
+  "citat": "Vera nije bekstvo od stvarnosti, nego hrabrost da joj pogledaš u oči."
+}

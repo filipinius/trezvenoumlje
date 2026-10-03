@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p20",
+  "n": 20,
+  "nedelja": 4,
+  "dan": "4. nedelja – petak",
+  "naslov": "Most između dva života",
+  "slug": "most-izmedju-dva-zivota",
+  "podnaslov": "Kako se prekida krug?",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "slika": "most-izmedju-dva-zivota.webp",
+  "tekst": [
+    "Ponekad čovek ima utisak da živi dva života.",
+    "Jedan je život navika: ono što radi iz dana u dan, često i onda kada više ne želi da tako živi.",
+    "Drugi je život koji nazire u svojim željama, susretima, idejama i slikama onoga što bi mogao da postane.",
+    "Između ta dva života postoji most. On se ne prelazi jednim skokom. Čovek ih postepeno približava, sve dok ono što želi ne počne da utiče na ono što svakodnevno radi.",
+    "Tada novi život prestaje da bude samo zamisao i polako postaje nova navika."
+  ],
+  "pitanja": [
+    {
+      "id": "p20-q1",
+      "tekst": "Koje nove navike mogu da zauzmu mesto starog kruga?"
+    },
+    {
+      "id": "p20-q2",
+      "tekst": "Koji most možete početi da gradite već tokom bolničkog lečenja?"
+    }
+  ],
+  "poruka": "Krug se ne prekida samo rečju „ne\". Potrebno je da se postepeno izgradi nešto što će zauzeti mesto starog obrasca. Novi život najpre izgleda kao nekoliko malih postupaka, a tek kasnije postaje navika.",
+  "zadatak": "Izaberite jednu malu pozitivnu naviku koju želite da ponovite narednih sedam dana. Zapišite kada, gde i sa kim ćete je najlakše sprovesti.",
+  "citat": "Sloboda se vežba kao mišić."
+}

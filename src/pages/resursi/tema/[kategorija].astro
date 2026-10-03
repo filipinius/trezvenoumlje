@@ -1,0 +1,12 @@
+---
+// One page per category, also for a category without articles (it shows the empty state).
+import ResourcesPage from '../../../components/ResourcesPage.astro';
+import { KATEGORIJE_CLANAKA } from '../../../content/schemas';
+
+export function getStaticPaths() {
+  return KATEGORIJE_CLANAKA.map((kategorija) => ({ params: { kategorija }, props: { kategorija } }));
+}
+interface Props { kategorija: (typeof KATEGORIJE_CLANAKA)[number] }
+const { kategorija } = Astro.props;
+---
+<ResourcesPage kategorija={kategorija} />

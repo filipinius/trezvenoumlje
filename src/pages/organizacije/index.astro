@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FaqBlock from '../../components/FaqBlock.astro';
+import OfferBand from '../../components/OfferBand.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import Text from '../../components/Text.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getFaq, getVisible } from '../../lib/content';
+import { getImageAsset } from '../../lib/images';
+import { faqPage } from '../../lib/jsonld';
+import { segmentPresentation, sortSegments } from '../../lib/organizacije';
+import { href } from '../../lib/site';
+
+const INTRO = 'Za kompanije, advokatske kancelarije, škole i nevladine organizacije. Fokus nije na lečenju zaposlenih, već na znanju, ranom prepoznavanju i zdravijoj kulturi.';
+
+const seo = { title: 'Za organizacije', description: INTRO, path: '/organizacije/' };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Za organizacije', path: '/organizacije/' },
+];
+
+const segments = sortSegments(await getVisible('b2b')).map(({ data }) => ({ data, ...segmentPresentation(data.slug) }));
+const questions = await getFaq('organizacije');
+const faqLd = faqPage(questions.map((q) => q.data));
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={faqLd ? [faqLd] : []}>
+  <section class="hero">
+    <div class="container hero-inner">
+      <Breadcrumbs items={breadcrumbs} />
+      <h1>Prevencija, edukacija i jasni protokoli za vaš tim</h1>
+      <p class="intro">{INTRO}</p>
+      {segments.length > 0 && (
+        <nav class="segment-nav" aria-label="Segmenti">
+          {segments.map(({ data, anchor }) => <a href={`#${anchor}`}>{data.segment}</a>)}
+        </nav>
+      )}
+    </div>
+  </section>
+
+  {segments.map(({ data: s, anchor, image }) => (
+    <section class="segment-band" id={anchor} aria-labelledby={`${anchor}-h`}>
+      <div class="container segment">
+        <div class="segment-text">
+          <span class="nadnaslov">{s.nadnaslov ?? s.segment}</span>
+          <h2 id={`${anchor}-h`}>{s.naslov}</h2>
+          {s.uvod && <Text as="p" class="segment-intro" value={s.uvod} />}
+          <StatusBadge status={s.status} />
+          <a class="segment-link" href={href(`/organizacije/${s.slug}/`)} aria-label={`Saznajte više: ${s.segment}`}>Saznajte više <span aria-hidden="true">→</span></a>
+        </div>
+        {image && <Image class="segment-image" src={getImageAsset(image.name)} alt={image.alt} width={420} loading="lazy" />}
+      </div>
+    </section>
+  ))}
+
+  <FaqBlock questions={questions} category="organizacije" />
+
+  <OfferBand />
+</BaseLayout>
+
+<style>
+  /* Hero: plava traka sa artboarda */
+  .hero { background: var(--plava); color: var(--bela); --putanja-boja: var(--plava-tinta); --putanja-link: var(--bela); }
+  .hero-inner { display: flex; flex-direction: column; gap: 20px; padding-block: clamp(24px, 5vw, 64px) clamp(48px, 6vw, 96px); }
+  h1 { margin: 0; max-width: 900px; }
+  .intro { margin: 0; max-width: 760px; font-size: var(--uvod); color: var(--plava-tinta); }
+  .hero :global(:focus-visible) { outline-color: var(--bela); }
+
+  .segment-nav { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 8px; }
+  .segment-nav a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1.5px solid var(--bela); border-radius: 999px;
+    color: var(--bela); text-decoration: none; font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali);
+  }
+  .segment-nav a:first-child, .segment-nav a:hover { background: var(--bela); color: var(--plava); }
+
+  /* Segmenti */
+  .segment-band { scroll-margin-top: 16px; }
+  /* The hero is the first <section>, so the second segment is the third: the sand band of the artboard. */
+  .segment-band:nth-of-type(odd) { background: var(--pesak-svetli); }
+  .segment { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px; padding-block: clamp(56px, 7vw, 96px); }
+  .segment-text { flex: 3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+  h2 { margin: 0; }
+  .segment-intro { margin: 0; padding-top: 6px; color: var(--tekst-sekundarni); }
+  .segment-link {
+    display: inline-flex; align-items: center; gap: 0.3em; align-self: flex-start; min-height: 44px;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+  .segment-image { flex: 2 1 300px; min-width: 0; max-width: 420px; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-m); }
+</style>

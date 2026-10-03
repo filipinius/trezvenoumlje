@@ -1,0 +1,75 @@
+---
+// One story as a page of its own. The library overlay shows the same <article>, fetched from here.
+import type { CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import StoryArticle from '../../components/StoryArticle.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getStories, getWeeks } from '../../lib/content';
+import { ogImageUrl } from '../../lib/images';
+import { href } from '../../lib/site';
+import { BOOK_PATH, LIBRARY_PATH, storyPath, storyTitle } from '../../lib/stories';
+
+export async function getStaticPaths() {
+  const stories = await getStories();
+  const weeks = await getWeeks();
+  return stories.flatMap((story, i) => {
+    const week = weeks.find((w) => w.data.n === story.data.nedelja);
+    if (!week) throw new Error(`Priča „${story.data.naslov}“ (${story.id}) pripada nedelji ${story.data.nedelja}, koja nije vidljiva: objavite nedelju ili povucite priču.`);
+    return [{
+      params: { slug: story.data.slug },
+      props: { story, week, prev: stories[i - 1], next: stories[i + 1], total: stories.length },
+    }];
+  });
+}
+type Story = CollectionEntry<'price'>;
+interface Props { story: Story; week: CollectionEntry<'nedelje'>; prev?: Story; next?: Story; total: number }
+const { story, week, prev, next, total } = Astro.props;
+const s = story.data;
+const path = storyPath(s.slug);
+
+const image = s.seo?.slika ?? (s.slika && `price/${s.slika}`);
+const seo = {
+  title: storyTitle(s),
+  description: s.seo?.opis ?? `${s.podnaslov} ${s.tekst[0]}`,
+  path,
+  image: image ? await ogImageUrl(image) : undefined,
+  noindex: s.seo?.noindex ?? false,
+  type: 'article' as const,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Pričamo priču', path: BOOK_PATH },
+  { label: 'Biblioteka priča', path: LIBRARY_PATH },
+  { label: s.naslov, path },
+];
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
+  <div class="container story-page">
+    <Breadcrumbs items={breadcrumbs} />
+    <StoryArticle story={story} week={week} prev={prev} next={next} total={total} headingLevel={1} />
+    {/* Outside the article on purpose: the overlay injects only the article. */}
+    <a class="story-back" href={href(LIBRARY_PATH)}><span aria-hidden="true">←</span> Biblioteka priča</a>
+  </div>
+</BaseLayout>
+
+<script>
+  // The library gives its overlay this page's address without loading it. After a reload on that address the
+  // browser still treats the library entry as the same document: Back changes the address but not the page.
+  const own = location.pathname;
+  window.addEventListener('popstate', () => {
+    if (location.pathname !== own) location.reload();
+  });
+</script>
+
+<style>
+  .story-page {
+    max-width: calc(780px + 2 * var(--gutter)); display: flex; flex-direction: column;
+    padding-block: clamp(16px, 3vw, 40px) clamp(56px, 7vw, 96px);
+  }
+  .story-page :global(.story-image) { margin-top: 24px; border-radius: var(--radius-m); }
+  .story-page :global(.story-nav) { border: 1px solid var(--linija); border-radius: var(--radius-m); }
+  .story-back {
+    align-self: flex-start; display: inline-flex; align-items: center; gap: 0.4em; min-height: 44px; margin-top: 20px;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+</style>

@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p24",
+  "n": 24,
+  "nedelja": 5,
+  "dan": "5. nedelja – četvrtak",
+  "naslov": "Ono što sakrivamo",
+  "slug": "ono-sto-sakrivamo",
+  "podnaslov": "Stid",
+  "izvor": "Prema misli Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Andrić primećuje da se čovek ponekad stidi upravo onoga što je u njemu najosetljivije i najvrednije, pa to skriva čak i od bliskih ljudi.",
+    "Stid nas često ne tera samo da sakrijemo postupak. On ume da nas uveri da treba da sakrijemo i sebe – svoju slabost, potrebu za pomoću, ljubav, strah ili povređenost."
+  ],
+  "pitanja": [
+    {
+      "id": "p24-q1",
+      "tekst": "Šta stid najčešće tera čoveka da sakrije?"
+    },
+    {
+      "id": "p24-q2",
+      "tekst": "Zašto čovek ponekad krije upravo ono za šta mu je najviše potrebna pomoć?"
+    },
+    {
+      "id": "p24-q3",
+      "tekst": "Šta se menja kada se nešto izgovori pred ljudima koji ne ponižavaju?"
+    }
+  ],
+  "poruka": "Stid može da pomogne da prepoznamo da smo prešli sopstvenu granicu. Ali kada nas ubedi da smo mi sami nedostojni, on zatvara vrata promeni i odnosu sa drugima.",
+  "zadatak": "Dovršite rečenicu: „Jedna stvar zbog koje se stidim, a o kojoj mogu da govorim bez vređanja sebe, jeste...\"",
+  "citat": "Ponos traži aplauz, dostojanstvo tišinu."
+}

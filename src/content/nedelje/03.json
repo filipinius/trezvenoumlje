@@ -1,0 +1,37 @@
+{
+  "status": "objavljeno",
+  "n": 3,
+  "oznaka": "treća nedelja",
+  "tema": "Odgovornost, izbor i posledice",
+  "uvod": [
+    "Neke stvari su nam se dogodile.",
+    "Neke smo i sami birali.",
+    "Na ovoj stranici pokušajte da razdvojite ono što nije bilo u vašoj moći od onoga za šta danas možete da preuzmete odgovornost."
+  ],
+  "osvrt": {
+    "naslov": "Moj izbor i moja odgovornost",
+    "napomena": "Odgovornost nije isto što i okrivljavanje sebe. Ova stranica služi da razdvojim ono što mi se dogodilo od onoga što mogu da uradim sada.",
+    "pitanja": [
+      {
+        "id": "n03-o1",
+        "tekst": "Šta sam ove nedelje jasnije razdvojio: ono što mi se dogodilo i ono što sam ja birao?"
+      },
+      {
+        "id": "n03-o2",
+        "tekst": "Koju posledicu svojih odluka sam ove nedelje najteže pogledao?"
+      },
+      {
+        "id": "n03-o3",
+        "tekst": "Gde sada jasnije vidim svoj deo odgovornosti bez potrebe da ponižavam sebe?"
+      },
+      {
+        "id": "n03-o4",
+        "tekst": "Šta mogu da pokušam da popravim, iako prošlost ne mogu da poništim?"
+      },
+      {
+        "id": "n03-o5",
+        "tekst": "Koji izbor želim da ponesem u sledeću nedelju kao svoj konkretan korak?"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p33",
+  "n": 33,
+  "nedelja": 7,
+  "dan": "7. nedelja – sreda",
+  "naslov": "Vrana i papagaj",
+  "slug": "vrana-i-papagaj",
+  "podnaslov": "Kako govorim sa sobom?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Vrana i papagaj našli su se u istom kavezu. Papagaj je gledao vranu i u njoj video samo nešto ružno, mračno i odbojno. Vrana je gledala papagaja i doživljavala njegove boje kao nepodnošljive i nesrećne.",
+    "Oboje su patili, uvereni da je problem u onom drugom. Njihov unutrašnji govor bio je pun prezira, poređenja i osude."
+  ],
+  "pitanja": [
+    {
+      "id": "p33-q1",
+      "tekst": "Kako bi zvučao život ako bismo sa sobom razgovarali onako kako ovo dvoje govore jedno o drugom?"
+    },
+    {
+      "id": "p33-q2",
+      "tekst": "Da li surov govor prema sebi zaista popravlja ponašanje?"
+    },
+    {
+      "id": "p33-q3",
+      "tekst": "Kako bi zvučala preciznija rečenica o nekoj vašoj grešci?"
+    }
+  ],
+  "poruka": "Način na koji govorimo sa sobom utiče na ono što očekujemo od sebe. Precizna kritika može da pomogne promeni; prezir obično samo produbljuje staru sliku o sebi.",
+  "zadatak": "Uhvatite jednu grubu rečenicu koju sebi često kažete i prepišite je bez vređanja, ali bez ulepšavanja činjenica.",
+  "citat": "Čovek ne mora da veruje svakoj misli koja mu prođe kroz glavu."
+}

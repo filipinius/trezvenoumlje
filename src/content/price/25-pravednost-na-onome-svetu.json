@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p25",
+  "n": 25,
+  "nedelja": 5,
+  "dan": "5. nedelja – petak",
+  "naslov": "Pravednost na onome svetu",
+  "slug": "pravednost-na-onome-svetu",
+  "podnaslov": "Krivica, oproštaj i popravljanje štete",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan mula je siromašnom čoveku objašnjavao da će za svu bedu koju sada trpi jednog dana biti bogato nagrađen. Nudio mu je velike reči o budućoj pravdi, ali mu sada nije dao ni hleb ni novac.",
+    "Njegove reči su više umirivale njegovu sopstvenu savest nego što su menjale položaj čoveka kome je govorio."
+  ],
+  "pitanja": [
+    {
+      "id": "p25-q1",
+      "tekst": "Kome su u ovoj priči više služile lepe reči – siromahu ili onome ko ih je izgovarao?"
+    },
+    {
+      "id": "p25-q2",
+      "tekst": "Šta čovek može da popravi, a šta više ne može da vrati?"
+    },
+    {
+      "id": "p25-q3",
+      "tekst": "Šta danas realno možete da popravite, čak i bez tuđeg oproštaja?"
+    }
+  ],
+  "poruka": "Krivica može da nas usmeri ka popravljanju, ali sama po sebi ništa ne popravlja. Oproštaj ne možemo zahtevati; možemo da priznamo štetu i uradimo ono što je danas u našoj moći.",
+  "zadatak": "Izaberite jednu štetu koju ste napravili i zapišite: „Ne mogu da vratim... / Mogu da pokušam da popravim...\"",
+  "citat": "Odgovornost počinje tamo gde prestaje potreba da se prošlost prepravlja."
+}

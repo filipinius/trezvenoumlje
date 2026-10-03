@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p11",
+  "n": 11,
+  "nedelja": 3,
+  "dan": "3. nedelja – ponedeljak",
+  "naslov": "Blago ispod kuće",
+  "slug": "blago-ispod-kuce",
+  "podnaslov": "Gde prestaje slučajnost, a počinje moj izbor?",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "tekst": [
+    "Jedan starac iz Krakova više noći je sanjao isti san: da treba da otputuje u Prag, do jednog mosta, i tamo potraži blago. Posle mnogo oklevanja krenuo je na put.",
+    "Kada je stigao do mosta, zatekao je stražara. U razgovoru mu je ispričao zbog čega je došao. Stražar se nasmejao i rekao da i on već dugo sanja kako se neko blago nalazi u Krakovu, ispod kuhinje jednog starca – baš onoga koji stoji pred njim.",
+    "Starac se vratio kući, počeo da kopa ispod sopstvene kuhinje i pronašao ono zbog čega je putovao toliko daleko."
+  ],
+  "pitanja": [
+    {
+      "id": "p11-q1",
+      "tekst": "Šta je starac morao da uradi sam, iako mu je drugi čovek pokazao gde da traži?"
+    },
+    {
+      "id": "p11-q2",
+      "tekst": "Gde je u ovoj priči slučajnost, a gde počinje izbor starca?"
+    },
+    {
+      "id": "p11-q3",
+      "tekst": "Koji deo vašeg lečenja niko ne može da uradi umesto vas?"
+    }
+  ],
+  "poruka": "Ne biramo sve što nam se dogodi, niti uvek sami pronalazimo pravac. Ali u jednom trenutku stižemo do mesta na kojem niko drugi ne može da kopa umesto nas. Pomoć može pokazati gde da tražimo; korak ipak pravimo mi.",
+  "zadatak": "Do sutra dovršite rečenicu: „Jedna stvar koju više ne želim da čekam da drugi urade umesto mene je...\"",
+  "citat": "Ne bira iskušenje čoveka; čovek bira odgovor."
+}

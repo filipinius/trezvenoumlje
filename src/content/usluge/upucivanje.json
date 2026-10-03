@@ -1,0 +1,13 @@
+{
+  "naziv": "Upućivanje",
+  "slug": "upucivanje",
+  "meta": "deo svakog razgovora",
+  "opis": "Jasno prepoznavanje kada su potrebni lekar, psihijatar, zdravstvena ustanova, centar za socijalni rad ili rehabilitacioni centar.",
+  "ciljneGrupe": [
+    "porodice",
+    "mladi",
+    "posle-rehabilitacije"
+  ],
+  "redosled": 7,
+  "status": "objavljeno"
+}

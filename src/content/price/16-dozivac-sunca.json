@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p16",
+  "n": 16,
+  "nedelja": 4,
+  "dan": "4. nedelja – ponedeljak",
+  "naslov": "Dozivač sunca",
+  "slug": "dozivac-sunca",
+  "podnaslov": "Kako počinje krug?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "U jednom dvorištu kokoške su svakog jutra slušale petla kako kukuriče, a ubrzo zatim videle bi kako izlazi sunce. Posle mnogo takvih jutara za njih je veza postala očigledna: petao doziva sunce.",
+    "Jednog dana petao se razboleo i nije mogao da kukuriče. Kokoške su se uznemirile. Šta će biti ako sunce ne izađe?",
+    "Jutro je ipak došlo. Sunce se pojavilo kao i svakog dana, iako ga ovoga puta niko nije „dozvao\"."
+  ],
+  "pitanja": [
+    {
+      "id": "p16-q1",
+      "tekst": "Šta su kokoške povezale – iako jedno zapravo nije izazivalo drugo?"
+    },
+    {
+      "id": "p16-q2",
+      "tekst": "Koje situacije, ljude ili mesta ste povezali sa upotrebom droge?"
+    },
+    {
+      "id": "p16-q3",
+      "tekst": "Koju staru vezu biste želeli da počnete da proveravate tokom lečenja?"
+    }
+  ],
+  "poruka": "Kada se dve stvari dugo ponavljaju zajedno, lako počnemo da verujemo da jedna mora da vodi drugoj. Ali naučena veza nije isto što i zakon. Prvi korak u prekidanju kruga može biti da proverimo šta se dešava kada jedan stari ritual ne ponovimo.",
+  "zadatak": "Do sutra prepoznajte jedno svoje „kada se desi A, ja obično B\". Samo ga zapišite i dodajte: „Da li B zaista mora da usledi?\"",
+  "citat": "Iskušenje ne stvara čoveka; ono ga otkriva."
+}

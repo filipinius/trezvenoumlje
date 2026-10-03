@@ -1,0 +1,68 @@
+---
+// The same full footer on every page: description, link columns, legal links, contact, emergency line.
+import { contactLinks } from '../lib/contact-links';
+import { getSettings } from '../lib/content';
+import { href } from '../lib/site';
+import Text from './Text.astro';
+const settings = await getSettings();
+const SITE_LINKS = [
+  { label: 'O nama', path: '/o-nama/' },
+  { label: 'Usluge i programi', path: '/usluge/' },
+  { label: 'Za organizacije', path: '/organizacije/' },
+  { label: 'Trezvene misli', path: '/resursi/' },
+  { label: 'Česta pitanja', path: '/cesta-pitanja/' },
+];
+const LEGAL_LINKS = [
+  { label: 'Politika privatnosti', path: '/politika-privatnosti/' },
+  { label: 'Politika kolačića', path: '/kolacici/' },
+  { label: 'Uslovi korišćenja', path: '/uslovi-koriscenja/' },
+  { label: 'Priroda usluga', path: '/priroda-usluga/' },
+];
+const { tel, mailto } = contactLinks(settings);
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="columns">
+      <div class="about">
+        <span class="wordmark">Trezvenoumlje</span>
+        <p>Centar za prevenciju zavisnosti, podršku porodici i zdravim stilovima života. U prvoj fazi pružamo isključivo nezdravstvene usluge: edukaciju, psihoedukaciju i savetodavnu podršku.</p>
+      </div>
+      <nav class="col" aria-label="Podnožje">
+        <ul>{SITE_LINKS.map((l) => <li><a href={href(l.path)}>{l.label}</a></li>)}</ul>
+      </nav>
+      <div class="col">
+        <ul>{LEGAL_LINKS.map((l) => <li><a href={href(l.path)}>{l.label}</a></li>)}</ul>
+      </div>
+      <address class="col contact">
+        <Text value={settings.adresa} />
+        {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
+        {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
+        <Text value={settings.facebook} />
+      </address>
+    </div>
+    <div class="bottom">
+      <span>© {year} Trezvenoumlje · <Text value={settings.poslovniPodaci} /></span>
+      <span>Centar nije hitna služba.</span>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer { background: var(--zelena-hover); color: var(--zelena-tinta); font-size: var(--tekst-mali); }
+  .inner { display: flex; flex-direction: column; gap: 40px; padding-block: 64px 32px; }
+  .columns { display: flex; flex-wrap: wrap; gap: 32px 64px; }
+  .about { flex: 2 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+  .about p { margin: 0; max-width: 380px; }
+  .wordmark { font-family: var(--font-naslov); font-weight: 700; font-size: var(--h3); color: var(--bela); }
+  .col { flex: 1 1 160px; min-width: 0; }
+  ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+  /* White on the dark green, with a 44px tall hit area per line. */
+  a { display: inline-flex; align-items: center; min-height: 44px; color: var(--bela); }
+  a:hover { color: var(--zelena-tinta); }
+  a:focus-visible { outline-color: var(--bela); }
+  .contact { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 10px; font-style: normal; }
+  .bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px;
+    border-top: 1px solid color-mix(in srgb, var(--zelena-tinta) 25%, transparent); font-size: var(--nadnaslov);
+  }
+</style>

@@ -1,0 +1,191 @@
+---
+// The library: fifty stories in ten week sections. Without JavaScript the chips are anchor links, the cards
+// ordinary links and the targeted week shows its intro and review; with it, filter.ts filters in place and
+// story-overlay.ts opens a story in the overlay under the story's own address.
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Dialog from '../../components/Dialog.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getStories, getWeeks } from '../../lib/content';
+import { BOOK_PATH, LIBRARY_PATH } from '../../lib/stories';
+import '../../styles/story.css';
+
+const INTRO = 'Pedeset kratkih priča u deset tema. Uz svaku priču idu pitanja za razmišljanje, poruka za dan i jedan mali zadatak.';
+const seo = { title: 'Biblioteka priča', description: INTRO, path: LIBRARY_PATH };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Pričamo priču', path: BOOK_PATH },
+  { label: 'Biblioteka priča', path: LIBRARY_PATH },
+];
+
+const stories = await getStories();
+const weeks = (await getWeeks()).map((week) => ({ ...week.data, stories: stories.filter((s) => s.data.nedelja === week.data.n) }));
+const weekId = (n: number) => `nedelja-${n}`;
+const reviewId = (n: number) => `osvrt-${n}`;
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
+  <div data-filter-root>
+    <section class="hero">
+      <div class="container hero-top">
+        <div class="hero-text">
+          <Breadcrumbs items={breadcrumbs} />
+          <h1>Biblioteka priča</h1>
+          <p class="intro">{INTRO}</p>
+        </div>
+        <p class="hero-quote">„Dobra priča ne govori čoveku šta mora da misli. Ona ga dovodi do unutrašnjih pitanja i dilema koje više ne može lako da zaobiđe.“</p>
+      </div>
+      <nav class="container chips" aria-label="Izbor teme">
+        <ul>
+          <li><a href="#sve" data-filter-value="" aria-current="true">Sve priče</a></li>
+          {weeks.map((week) => (
+            <li><a href={`#${weekId(week.n)}`} data-filter-value={String(week.n)}>{week.n}. {week.tema}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </section>
+
+    <div id="sve" class="container weeks">
+      {weeks.map((week) => (
+        <section id={weekId(week.n)} class="week" data-filter-item={String(week.n)} aria-labelledby={`${weekId(week.n)}-h`}>
+          <div class="week-head">
+            <div class="week-title">
+              <span class="nadnaslov">{week.oznaka}</span>
+              <h2 id={`${weekId(week.n)}-h`}>{week.tema}</h2>
+            </div>
+            <div class="week-intro week-extra">
+              {week.uvod.map((p) => <p>{p}</p>)}
+            </div>
+          </div>
+          <ul class="story-grid">
+            {week.stories.map((story) => <li><StoryCard story={story} /></li>)}
+            <li class="review-card week-extra">
+              <span class="nadnaslov">Kraj nedelje</span>
+              <h3>Moj osvrt: {week.osvrt.naslov}</h3>
+              <p>Pet pitanja za tihi pregled nedelje. Ništa se ne upisuje i ne čuva.</p>
+              <button type="button" data-dialog-open={reviewId(week.n)}>Otvorite osvrt <span aria-hidden="true">→</span></button>
+            </li>
+          </ul>
+          {/* Read-only by decision: questions to think about, nothing to fill in. */}
+          <div class="review week-extra">
+            <Dialog id={reviewId(week.n)} title={week.osvrt.naslov}>
+              <span class="nadnaslov dialog-eyebrow">Moj osvrt · {week.oznaka}</span>
+              <p class="review-note">{week.osvrt.napomena}</p>
+              <ol class="review-questions">
+                {week.osvrt.pitanja.map((q) => <li data-question-id={q.id}><span>{q.tekst}</span></li>)}
+              </ol>
+              <p class="review-paper">Odgovore zapišite za sebe, na papiru. Sajt ih ne prikuplja.</p>
+            </Dialog>
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <Dialog id="story-dialog">
+    <div data-story-slot></div>
+  </Dialog>
+</BaseLayout>
+
+<script>
+  import '../../scripts/filter.ts';
+  import '../../scripts/story-overlay.ts';
+
+  // An address that names a week (a reload or a shared link after filtering) shows that week.
+  if (/^#nedelja-\d+$/.test(location.hash)) {
+    document.querySelector<HTMLAnchorElement>(`a[data-filter-value][href="${location.hash}"]`)?.click();
+  }
+</script>
+
+<style>
+  h1, h2, h3, p { margin: 0; }
+
+  .hero { background: var(--pesak-svetli); }
+  .hero-top { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px 64px; padding-block: clamp(24px, 4vw, 56px) 40px; }
+  .hero-text { flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .intro { max-width: 680px; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+  .hero-quote { flex: 1 1 320px; min-width: 0; font-family: var(--font-citat); font-style: italic; font-size: var(--uvod); line-height: 1.5; color: var(--zelena); }
+
+  .chips { padding-bottom: 28px; }
+  .chips ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .chips li { max-width: 100%; }
+  .chips a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px;
+    border: 1.5px solid var(--linija-jaka); border-radius: 22px; background: var(--bela); color: var(--tekst);
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-sitan); line-height: 1.3; text-decoration: none;
+  }
+  .chips a:hover { border-color: var(--zelena); color: var(--zelena); }
+  .chips a[aria-current] { border-color: var(--zelena); background: var(--zelena); color: var(--bela); }
+
+  .weeks { display: flex; flex-direction: column; gap: 56px; padding-block: 40px clamp(56px, 7vw, 96px); }
+  .week { display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 16px; }
+  .week-head { display: flex; flex-wrap: wrap; gap: 16px 48px; }
+  .week-title { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .week-title h2 { font-size: var(--h3); }
+  .week-intro { flex: 2 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 6px; color: var(--tekst-sekundarni); }
+
+  /* Every week is one row of five on a wide screen; a single week gets the wider cards of the artboard.
+     Explicit column counts, never four: five cards in four columns leave one alone in its row. */
+  .story-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 520px) { .story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 780px) { .story-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .story-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .story-grid > li { display: flex; min-width: 0; }
+  [data-filter-active] .story-grid { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
+  [data-filter-active] .week-title h2 { font-size: var(--h2); }
+
+  .story-grid > .review-card {
+    flex-direction: column; gap: 10px; min-height: 220px; padding: 26px;
+    border-radius: var(--radius-m); background: var(--zelena); color: var(--bela);
+  }
+  .review-card .nadnaslov { color: var(--zelena-tinta); }
+  .review-card h3 { line-height: 1.25; }
+  .review-card p { font-size: var(--tekst-mali); color: var(--zelena-tinta); }
+  .review-card button {
+    align-self: flex-start; min-height: 44px; margin-top: auto; padding: 0; border: 0; background: none; color: var(--bela); cursor: pointer;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-decoration: underline; text-underline-offset: 4px;
+  }
+  .review-card button:focus-visible { outline-color: var(--bela); }
+
+  /* The week's intro and review belong to a chosen week: chosen by the filter, or, without JavaScript, by the address. */
+  :global(html.js) [data-filter-root]:not([data-filter-active]) .week-extra,
+  :global(html:not(.js)) .week:not(:target) .week-extra { display: none; }
+
+  /* Overlay „Moj osvrt“ */
+  .week :global(dialog.overlay .overlay-inner) { position: relative; }
+  .week :global(dialog.overlay .overlay-title) { padding-top: 28px; font-size: var(--h3); line-height: 1.2; }
+  .dialog-eyebrow { position: absolute; top: 32px; left: 32px; right: 84px; line-height: 1.5; }
+  .review-note { color: var(--tekst-sekundarni); }
+  .review-questions { margin: 18px 0; padding: 0; list-style: none; counter-reset: osvrt; }
+  .review-questions li { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--linija); counter-increment: osvrt; }
+  .review-questions li::before { content: counter(osvrt) '.'; flex: none; min-width: 1.2em; font-family: var(--font-naslov); font-weight: 700; color: var(--zelena); }
+  .review-paper { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  @media (min-width: 700px) {
+    .week :global(dialog.overlay) { max-width: 640px; }
+  }
+  @media (max-width: 699px) {
+    .dialog-eyebrow { top: 24px; left: 20px; right: 64px; }
+  }
+
+  /* Without JavaScript the review of the targeted week is a plain block under its cards. */
+  :global(html:not(.js)) .week :global(dialog.overlay) {
+    position: static; display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 1px solid var(--linija);
+  }
+  :global(html:not(.js)) .week :global(dialog.overlay .overlay-inner) { min-height: 0; }
+  :global(html:not(.js)) .week :global(dialog.overlay .overlay-close) { display: none; }
+  :global(html:not(.js)) .review-card button { display: none; }
+  :global(html:not(.js)) .story-grid > .review-card { min-height: 0; }
+
+  /* Story reader: the artboard's full-width bars and image inside the shared overlay. */
+  :global(#story-dialog .overlay-inner) { padding: 0; }
+  :global(#story-dialog .overlay-close) { float: none; margin: 8px 16px -52px auto; }
+  :global(#story-dialog) { --story-pad: clamp(24px, 5vw, 56px); }
+  :global(#story-dialog .story-meta) { padding-inline: 28px 76px; }
+  @media (max-width: 699px) {
+    :global(#story-dialog) { --story-pad: 20px; }
+    :global(#story-dialog .overlay-inner) { display: flex; flex-direction: column; }
+    :global(#story-dialog [data-story-slot]), :global(#story-dialog .story) { flex: 1; display: flex; flex-direction: column; }
+    :global(#story-dialog .overlay-close) { flex: none; margin: 8px 8px -52px auto; border-color: transparent; }
+    :global(#story-dialog .story-meta) { position: sticky; top: 0; flex: none; padding-inline: 16px 60px; background: var(--bela); }
+    :global(#story-dialog .story-nav) { position: sticky; bottom: 0; margin-top: auto; }
+  }
+</style>

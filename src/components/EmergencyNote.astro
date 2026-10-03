@@ -1,0 +1,27 @@
+---
+// "Centar nije hitna služba": icon + text, never colour alone.
+// full: Contact/Brand wording · compact: HomeMobile wording · hero: the longer Home sentence.
+import { getSettings } from '../lib/content';
+import Text from './Text.astro';
+type Variant = 'full' | 'compact' | 'hero';
+interface Props { variant?: Variant }
+const { variant = 'full' } = Astro.props;
+const { hitnaSluzba } = await getSettings();
+const TEXT: Record<Variant, string> = {
+  full: `U hitnim situacijama pozovite ${hitnaSluzba} ili se obratite najbližoj zdravstvenoj ustanovi.`,
+  compact: `U hitnim situacijama pozovite ${hitnaSluzba}.`,
+  hero: `Ako je nečiji život ili zdravlje u neposrednoj opasnosti, pozovite ${hitnaSluzba} ili se obratite najbližoj zdravstvenoj ustanovi.`,
+};
+---
+<div class="emergency-note" role="note" data-variant={variant}>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+  <span><strong>Centar nije hitna služba.</strong> <Text value={TEXT[variant]} /></span>
+</div>
+<style>
+  .emergency-note {
+    display: flex; gap: 14px; max-width: 720px; padding: 18px 22px; text-align: left;
+    background: var(--plava-tinta); color: var(--tekst); border-radius: 12px; font-size: var(--tekst-mali);
+  }
+  .emergency-note[data-variant='compact'] { gap: 12px; padding: 16px; }
+  svg { flex: none; margin-top: 2px; color: var(--plava); }
+</style>

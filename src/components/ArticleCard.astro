@@ -1,0 +1,71 @@
+---
+// One article teaser. The category is plain text on purpose: topic chips stay the only links named after a category.
+// `data-filter-item` carries the category so a list page can filter cards without touching this component.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { NAZIVI_KATEGORIJA } from '../content/schemas';
+import { formatDate } from '../lib/date';
+import { getImageAsset } from '../lib/images';
+import { href, isPreview } from '../lib/site';
+import StatusBadge from './StatusBadge.astro';
+import Text from './Text.astro';
+
+interface Props {
+  entry: CollectionEntry<'clanci'>;
+  /** Heading level of the title; depends on the section the card sits in. */
+  heading?: 'h2' | 'h3';
+  /** `row`: below 700px the card collapses to a thumbnail row with category and title only (HomeMobile). */
+  mobile?: 'card' | 'row';
+  /** Rendered but hidden: a filtered list keeps every card in the page so src/scripts/filter.ts can show it. */
+  hidden?: boolean;
+}
+const { entry, heading: Heading = 'h3', mobile = 'card', hidden = false } = Astro.props;
+const { naslov, slug, autor, kategorija, sazetak, datum, slika, slikaAlt, status } = entry.data;
+
+// An undated draft shows the artboard's placeholder in preview; production prints the author alone.
+const date = datum ? formatDate(datum) : isPreview ? '[datum]' : null;
+const byline = date ? `${autor} · ${date}` : autor;
+---
+<article class="article-card" data-filter-item={kategorija} data-mobile={mobile} hidden={hidden}>
+  {slika && <Image class="article-image" src={getImageAsset(slika)} alt={slikaAlt ?? ''} width={640} loading="lazy" />}
+  <div class="article-body">
+    <span class="article-category">{NAZIVI_KATEGORIJA[kategorija]}</span>
+    <Heading class="article-title"><a href={href(`/resursi/${slug}/`)}>{naslov}</a></Heading>
+    <Text as="p" class="article-excerpt" value={sazetak} />
+    <Text class="article-byline" value={byline} />
+    <StatusBadge status={status} />
+  </div>
+</article>
+<style>
+  .article-card {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    background: var(--bela); border-radius: var(--radius-m); overflow: hidden;
+  }
+  .article-image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .article-body { display: flex; flex-direction: column; gap: 10px; padding: 24px; }
+  .article-category { font-size: var(--nadnaslov); font-weight: 700; color: var(--plava); }
+  .article-title { margin: 0; font-size: var(--h3); line-height: 1.3; }
+  .article-title a { color: var(--tekst); text-decoration: none; }
+  .article-title a:hover { color: var(--zelena); text-decoration: underline; text-underline-offset: 4px; }
+  /* Focus rings the whole card where :has() exists; elsewhere the link keeps its own outline. */
+  @supports selector(:has(a)) {
+    .article-title a:focus-visible { outline: none; }
+    .article-card:has(a:focus-visible) { outline: 3px solid var(--plava); outline-offset: 2px; }
+  }
+  /* The whole card is the click target; the link stays the only focusable element. */
+  .article-title a::after { content: ''; position: absolute; inset: 0; }
+  .article-excerpt { margin: 0; color: var(--tekst-prigusen); }
+  .article-byline { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+
+  @media (max-width: 699px) {
+    .article-card[data-mobile='row'] {
+      flex-direction: row; align-items: flex-start; gap: 14px; overflow: visible;
+      padding-bottom: 14px; background: transparent; border-radius: 0; border-bottom: 1px solid var(--linija);
+    }
+    .article-card[data-mobile='row']:last-child { padding-bottom: 0; border-bottom: 0; }
+    [data-mobile='row'] .article-image { flex: none; width: 96px; height: 72px; aspect-ratio: auto; border-radius: var(--radius-s); }
+    [data-mobile='row'] .article-body { gap: 4px; padding: 0; min-width: 0; }
+    [data-mobile='row'] .article-title { font-size: var(--tekst-vel); }
+    [data-mobile='row'] .article-excerpt, [data-mobile='row'] .article-byline { display: none; }
+  }
+</style>

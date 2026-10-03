@@ -1,0 +1,35 @@
+{
+  "status": "objavljeno",
+  "id": "p04",
+  "n": 4,
+  "nedelja": 1,
+  "dan": "1. nedelja – četvrtak",
+  "naslov": "Pruži mi ruku",
+  "slug": "pruzi-mi-ruku",
+  "podnaslov": "Da li umem da prihvatim pomoć?",
+  "izvor": "Prema priči iz zbirke Olge Kljukin – „Sto hrišćanskih priča za čitanje i razmišljanje\"",
+  "slika": "pruzi-mi-ruku.webp",
+  "tekst": [
+    "Jedan čovek se davio u živom blatu. Ubrzo je potonuo gotovo do vrata i očajnički počeo da doziva u pomoć.",
+    "Jedan čovek iz gomile pokušao je da ga spase. Pružao mu je ruku i uporno govorio: „Daj mi ruku!\" Ali čovek koji je tonuo nije uspevao da je pruži.",
+    "Tada je jedan starac prišao i rekao spasiocu: „Vidiš da ne može da ti da ruku. Pruži mu svoju.\"",
+    "P. S. Sličan motiv postoji i u srpskoj narodnoj priči koju je zabeležio Vuk Stefanović Karadžić, u kojoj se pop davi, a na poziv „Daj, pope, ruku!\" ne reaguje; tek kada mu kažu „Na, pope, ruku!\" on je prihvata. Iako je poenta te priče satirična, sličnost pokazuje kako isti narativni motiv – čovek u nevolji i pružena ruka – u različitim pričama može dobiti različito značenje."
+  ],
+  "pitanja": [
+    {
+      "id": "p04-q1",
+      "tekst": "Zašto čovek koji tone ponekad ne ume da „da ruku\", iako mu je pomoć potrebna?"
+    },
+    {
+      "id": "p04-q2",
+      "tekst": "Kada sam ja u životu odbijao ili nisam umeo da prihvatim pomoć?"
+    },
+    {
+      "id": "p04-q3",
+      "tekst": "Od koga danas mogu da prihvatim „pruženu ruku\"?"
+    }
+  ],
+  "poruka": "Ponekad je prvi korak ka izlasku iz problema – prihvatiti ruku koja nam je pružena.",
+  "zadatak": "Danas prepoznajte jednu osobu od koje možete da prihvatite pomoć i jednu stvar koju ne morate da radite sami.",
+  "citat": "Čovek je najveći kada nema potrebu da bude veći od drugih."
+}

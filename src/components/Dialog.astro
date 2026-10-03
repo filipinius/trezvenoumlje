@@ -1,0 +1,43 @@
+---
+// Modal overlay on the native <dialog>. Opened by any element with data-dialog-open="<id>" (src/scripts/dialog.ts).
+// Without `title` the slotted content must supply the element with id "<id>-title".
+interface Props { id: string; title?: string }
+const { id, title } = Astro.props;
+---
+<dialog id={id} class="overlay" aria-labelledby={`${id}-title`}>
+  <div class="overlay-inner">
+    <button type="button" class="overlay-close" data-dialog-close aria-label="Zatvori">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    {title && <h2 id={`${id}-title`} class="overlay-title">{title}</h2>}
+    <slot />
+  </div>
+</dialog>
+<style is:global>
+  dialog.overlay {
+    max-width: 780px; width: calc(100% - 32px); border: 0; border-radius: var(--radius-l); padding: 0;
+    background: var(--bela); color: var(--tekst);
+  }
+  dialog.overlay::backdrop { background: rgb(0 0 0 / 0.62); }
+  html:has(dialog[open]) { overflow: hidden; }
+  /* The wrapper holds the padding, so a click on it is not a backdrop click. */
+  dialog.overlay .overlay-inner { padding: 32px; }
+  dialog.overlay .overlay-close {
+    position: sticky; top: 12px; z-index: 1; float: right; margin: -20px -20px 8px 16px;
+    display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0;
+    border: 1.5px solid var(--linija); border-radius: var(--radius-s); background: var(--bela); color: var(--tekst); cursor: pointer;
+  }
+  dialog.overlay .overlay-close:hover { border-color: var(--linija-jaka); }
+  dialog.overlay .overlay-title { margin: 0 0 16px; }
+  dialog.overlay[open], dialog.overlay[open]::backdrop { animation: overlay-in 160ms ease-out; }
+  @keyframes overlay-in { from { opacity: 0; } }
+  @media (max-width: 699px) {
+    dialog.overlay { width: 100%; max-width: none; height: 100dvh; max-height: none; border-radius: 0; margin: 0; }
+    /* Full-screen: the wrapper covers the whole dialog, so a tap below short content is not a backdrop click. */
+    dialog.overlay .overlay-inner { min-height: 100%; padding: 24px 20px; }
+    dialog.overlay .overlay-close { margin: -12px -8px 8px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    dialog.overlay[open], dialog.overlay[open]::backdrop { animation: none; }
+  }
+</style>

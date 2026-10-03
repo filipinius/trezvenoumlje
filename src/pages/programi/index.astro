@@ -1,0 +1,41 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getVisible } from '../../lib/content';
+
+const HEADING = 'Šest programa, jedna logika: razumevanje pre promene';
+
+const seo = { title: 'Programi', description: HEADING, path: '/programi/' };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Programi', path: '/programi/' },
+];
+const programs = (await getVisible('programi')).sort((a, b) => a.data.redosled - b.data.redosled);
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
+  <div class="band-light">
+    <section class="container programs" aria-labelledby="programi-h">
+      <div class="programs-title">
+        <Breadcrumbs items={breadcrumbs} />
+        <span class="nadnaslov">Programi</span>
+        <h1 id="programi-h">{HEADING}</h1>
+      </div>
+      <div class="program-grid">
+        {programs.map((entry) => <ProgramCard entry={entry} heading="h2" />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .band-light { background: var(--pesak-svetli); }
+  .programs { display: flex; flex-direction: column; gap: 40px; padding-block: clamp(24px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .programs-title { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+  h1 { margin: 0; }
+  .program-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+  @media (max-width: 699px) {
+    .programs { gap: 28px; }
+  }
+</style>

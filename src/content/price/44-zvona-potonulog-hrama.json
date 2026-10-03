@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p44",
+  "n": 44,
+  "nedelja": 9,
+  "dan": "9. nedelja – četvrtak",
+  "naslov": "Zvona potonulog hrama",
+  "slug": "zvona-potonulog-hrama",
+  "podnaslov": "Smisao, odgovornost i svakodnevni život",
+  "izvor": "Prema prologu Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Jedan dečak je čuo priču da se ispod mora nalazi potonuli hram čija se zvona ponekad mogu čuti. Mesecima je sedeo na obali i naprezao sluh. Toliko je želeo da čuje zvona da je prestao da obraća pažnju na more, vetar, galebove i igru druge dece.",
+    "Posle dugog vremena odlučio je da prestane da ih traži. Dok se opraštao od obale, prvi put posle mnogo meseci zaista je čuo more, vetar i glasove svojih drugova.",
+    "I upravo tada, kada više nije pokušavao da natera svet da mu otkrije tajnu, učinilo mu se da iz dubine čuje i zvona."
+  ],
+  "pitanja": [
+    {
+      "id": "p44-q1",
+      "tekst": "Da li čovek mora prvo da pronađe „veliki smisao\" da bi počeo da živi?"
+    },
+    {
+      "id": "p44-q2",
+      "tekst": "Šta je u vašem životu malo, obično, ali ipak važno?"
+    },
+    {
+      "id": "p44-q3",
+      "tekst": "Šta biste želeli ponovo da čujete ili primetite kada izađete iz bolnice?"
+    }
+  ],
+  "poruka": "Smisao nije uvek veliko otkriće koje nas čeka negde daleko. Ponekad se gradi u načinu na koji živimo dan, odnosimo se prema ljudima i obavljamo male stvari koje su nam važne.",
+  "zadatak": "Danas uočite jednu običnu stvar koja vam je važna i posvetite joj deset minuta pune pažnje.",
+  "citat": "Tišina često kaže ono što reči pokvare."
+}

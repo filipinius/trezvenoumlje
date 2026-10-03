@@ -1,0 +1,8 @@
+{
+  "id": "sta-ako-je-hitno",
+  "pitanje": "Šta ako je situacija hitna?",
+  "odgovor": "Centar nije hitna služba. Ako je nečiji život ili zdravlje u neposrednoj opasnosti, pozovite [BROJ HITNE SLUŽBE] ili se obratite najbližoj zdravstvenoj ustanovi.",
+  "kategorija": "opste",
+  "redosled": 3,
+  "status": "nacrt"
+}

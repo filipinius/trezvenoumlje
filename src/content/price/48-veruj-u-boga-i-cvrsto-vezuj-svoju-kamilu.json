@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p48",
+  "n": 48,
+  "nedelja": 10,
+  "dan": "10. nedelja – sreda",
+  "naslov": "Veruj u Boga i čvrsto vezuj svoju kamilu",
+  "slug": "veruj-u-boga-i-cvrsto-vezuj-svoju-kamilu",
+  "podnaslov": "Plan za loš dan",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan čovek je bio uveren da će njegova kamila biti bezbedna jer ima poverenja u Boga. Zato ju je ostavio nevezanu i otišao. Kada se vratio, kamile nije bilo.",
+    "Poruka koju je dobio bila je jednostavna: vera i nada ne isključuju ono što čovek sam može da uradi. Ako želiš da kamila ostane tu, veruj – ali je i veži."
+  ],
+  "pitanja": [
+    {
+      "id": "p48-q1",
+      "tekst": "Šta je u oporavku „vezivanje kamile\" pre nego što dođe loš dan?"
+    },
+    {
+      "id": "p48-q2",
+      "tekst": "Koji su prvi znaci da vam tog dana treba više opreza?"
+    },
+    {
+      "id": "p48-q3",
+      "tekst": "Šta možete unapred da pripremite za loš dan?"
+    }
+  ],
+  "poruka": "Nada je važna, ali nije plan. Plan za loš dan pravi se dok je dan dobar, kada možemo mirnije da odlučimo šta ćemo uraditi ako nam rasuđivanje kasnije bude slabije.",
+  "zadatak": "Napišite svoj plan za loš dan u pet kratkih koraka. Neka prvi korak bude nešto što možete da uradite odmah.",
+  "citat": "Post nije bekstvo od iskušenja, već priprema za njega."
+}

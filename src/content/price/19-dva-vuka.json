@@ -1,0 +1,37 @@
+{
+  "status": "objavljeno",
+  "id": "p19",
+  "n": 19,
+  "nedelja": 4,
+  "dan": "4. nedelja – četvrtak",
+  "naslov": "Dva vuka",
+  "slug": "dva-vuka",
+  "podnaslov": "Zašto se vraćam onome što me uništava?",
+  "izvor": "Prema priči navedenoj u knjizi Kenana Crnkića – „Pazi kojeg vuka hraniš\"",
+  "slika": "dva-vuka.webp",
+  "tekst": [
+    "Jedan starac je unuku govorio da se u svakom čoveku vodi borba između dva vuka.",
+    "Jedan predstavlja bes, zavist, pohlepu, samosažaljenje, krivicu, laž i druge sile koje čoveka vuku u jednom pravcu. Drugi predstavlja mir, nadu, dobrotu, istinu, saosećanje i ono što čoveku pomaže da živi drugačije.",
+    "Unuk ga upita:",
+    "– Koji vuk na kraju pobeđuje?",
+    "Starac mu odgovori:",
+    "– Onaj kojeg hraniš."
+  ],
+  "pitanja": [
+    {
+      "id": "p19-q1",
+      "tekst": "Šta u ovoj priči znači „hraniti\" jednog vuka?"
+    },
+    {
+      "id": "p19-q2",
+      "tekst": "Kakvu ulogu imaju misli, fantazije o drogi, kontakti, mesta i razgovori?"
+    },
+    {
+      "id": "p19-q3",
+      "tekst": "Čime biste tokom lečenja mogli svakodnevno da hranite drugi pravac?"
+    }
+  ],
+  "poruka": "Što nešto više ponavljamo, to nam je lakše da ga ponovimo. Zato se stari obrazac ne održava samo drogom, već i svime što ga svakodnevno hrani. Promena se takođe hrani – pažnjom, ljudima, postupcima i malim izborima koji se ponavljaju.",
+  "zadatak": "Do sutra uradite jednu malu stvar koja „hrani\" život koji želite da ojačate. Neka bude konkretna i vidljiva. Čovek postaje rob onoga čemu prestane da govori „ne\".",
+  "citat": "20. KAKO SE PREKIDA KRUG?"
+}

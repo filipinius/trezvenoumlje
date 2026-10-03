@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p12",
+  "n": 12,
+  "nedelja": 3,
+  "dan": "3. nedelja – utorak",
+  "naslov": "Cigla bumerang",
+  "slug": "cigla-bumerang",
+  "podnaslov": "Ko plaća cenu mojih odluka?",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "tekst": [
+    "Jedan čovek je nosio ciglu i odlučio da će njome gađati svakoga ko ga toliko naljuti da poželi da ga povredi. Ubrzo mu je dosadilo da posle svakog bacanja ide po ciglu, pa ju je vezao gumenim užetom – kako bi mu se vraćala.",
+    "Plan je izgledao praktično. Ali svaki put kada bi bacio ciglu, ona bi se vraćala prema njemu. Umesto da reši sukob, čovek je iznova dobijao sopstveni udarac.",
+    "Na kraju je postalo jasno da postupak koji je zamislio kao napad na drugog najpouzdanije povređuje njega samog."
+  ],
+  "pitanja": [
+    {
+      "id": "p12-q1",
+      "tekst": "Koga je čovek želeo da pogodi, a ko je na kraju najčešće primao udarac?"
+    },
+    {
+      "id": "p12-q2",
+      "tekst": "Može li postupak koji u trenutku deluje kao olakšanje kasnije da se vrati kao veća šteta?"
+    },
+    {
+      "id": "p12-q3",
+      "tekst": "Kada je reč o zavisnosti, koja posledica se najčešće „vraćala\" vama?"
+    }
+  ],
+  "poruka": "Odluka se ne završava u trenutku kada je donesemo. Ona nastavlja da deluje kroz posledice, ponekad i na ljude koje nismo nameravali da povredimo. Odgovornost počinje i pitanjem: „Ko će još platiti cenu ovoga što radim?\"",
+  "zadatak": "Do sutra izaberite jednu važnu odluku iz prošlosti i zapišite samo: „Ko je sve platio njenu cenu?\"",
+  "citat": "Čovek se ne gubi odjednom, već malim pristancima."
+}

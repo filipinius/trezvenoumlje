@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p34",
+  "n": 34,
+  "nedelja": 7,
+  "dan": "7. nedelja – četvrtak",
+  "naslov": "Mladić na lancu",
+  "slug": "mladic-na-lancu",
+  "podnaslov": "Dostojanstvo i samopoštovanje",
+  "izvor": "Dragan Vukadinović – „Sabrana dela\"",
+  "tekst": [
+    "Jednog mladića sociolog je zatekao vezanog lancem u štali, prljavog i zapuštenog. Njegovo stanje je bilo takvo da se iza prljavštine više gotovo nije video čovek. Tek kada je njegova priča postala vidljiva drugima, dovezen je u bolnicu i počeo je drugi deo njegovog života.",
+    "Slika lanca nije govorila samo o njegovoj bolesti i nemoći. Govorila je i o tome šta se događa kada čovek prestane da bude viđen kao čovek."
+  ],
+  "pitanja": [
+    {
+      "id": "p34-q1",
+      "tekst": "Može li čovek da izgubi sve – a da ipak ne izgubi pravo na dostojanstvo?"
+    },
+    {
+      "id": "p34-q2",
+      "tekst": "Koje reči i postupci najviše ponižavaju zavisnika?"
+    },
+    {
+      "id": "p34-q3",
+      "tekst": "Koji postupak danas pokazuje da sebe tretirate kao čoveka vrednog brige?"
+    }
+  ],
+  "poruka": "Dostojanstvo nije nagrada za savršeno ponašanje. Odgovornost za postupke i pravo na ljudsko poštovanje mogu da postoje istovremeno.",
+  "zadatak": "Uradite danas jednu konkretnu stvar koja pokazuje samopoštovanje: higijena, razgovor, odbijanje ponižavanja, ispunjeno obećanje ili traženje pomoći.",
+  "citat": "Dostojanstvo ne traži savršenstvo, već pošten odnos prema sebi."
+}

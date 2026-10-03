@@ -1,0 +1,12 @@
+{
+  "naslov": "[Naslov knjige 3]",
+  "slug": "knjiga-3",
+  "autor": "dr Dragan Vukadinović",
+  "godina": "[godina]",
+  "izdavac": "[Izdavač]",
+  "isbn": "[—]",
+  "opis": "[Kratak opis knjige u dve do tri rečenice.]",
+  "nabavka": "[Knjižara, izdavač ili upit centru]",
+  "redosled": 4,
+  "status": "nacrt"
+}

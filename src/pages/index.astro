@@ -1,0 +1,320 @@
+---
+import { Image } from 'astro:assets';
+import ArticleCard from '../components/ArticleCard.astro';
+import AudienceCard from '../components/AudienceCard.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import CtaBand from '../components/CtaBand.astro';
+import EmergencyNote from '../components/EmergencyNote.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFamilyAudiences, getSettings, getVisible } from '../lib/content';
+import { getImageAsset } from '../lib/images';
+import { href } from '../lib/site';
+
+const seo = {
+  title: 'Trezvenoumlje – centar za prevenciju zavisnosti i podršku porodici',
+  description: 'Centar za prevenciju zavisnosti, podršku porodici i zdravim stilovima života. Edukacija, psihoedukacija i savetodavna podrška.',
+  path: '/',
+  isHome: true,
+};
+
+const settings = await getSettings();
+// "Trezven um. Snažna porodica. Stabilan život." breaks after the second sentence, as on the artboard.
+const [sloganFirst, sloganSecond] = (() => {
+  const sentences = settings.slogan.split(/(?<=\.)\s+/);
+  return [sentences.slice(0, 2).join(' '), sentences.slice(2).join(' ')];
+})();
+
+const STATS = [
+  { value: '≈35', label: 'godina u zdravstvu' },
+  { value: '1.000+', label: 'pacijenata kroz odeljenje' },
+  { value: '2000.', label: 'specijalista psihijatrije' },
+  { value: '4', label: 'autorske knjige' },
+];
+
+// "Kome pomažemo": the family audiences come from the collection, the organisation audiences are page copy.
+const familyAudiences = (await getFamilyAudiences()).map(({ data: g }) => (
+  { title: g.naziv, text: g.uvod, path: `/usluge/${g.slug}/`, icon: g.slug, org: false }
+));
+const ORGANISATIONS = [
+  { title: 'Kompanije', text: 'Prevencija na radnom mestu, obuke za rukovodioce i kadrovsku službu, zdravija kultura.', path: '/organizacije/kompanije/', icon: 'kompanije', org: true },
+  { title: 'Škole i NVO', text: 'Predavanja za učenike i roditelje, obuke nastavnika i preventivni projekti.', path: '/organizacije/skole-i-nvo/', icon: 'skole-i-nvo', org: true },
+  { title: 'Advokati i pravni timovi', text: 'Edukacija i stručni konsalting o mehanizmima zavisnosti, u jasno definisanim granicama.', path: '/organizacije/advokati/', icon: 'advokati', org: true },
+];
+const audiences = [...familyAudiences, ...ORGANISATIONS];
+
+const PROGRAM_SLUGS = ['trezvena-kuca', 'cist-izbor', 'put-stabilnosti'];
+const visiblePrograms = await getVisible('programi');
+const programs = PROGRAM_SLUGS.flatMap((slug) => visiblePrograms.filter((p) => p.data.slug === slug));
+
+const REASONS = [
+  'Višedecenijsko kliničko iskustvo u psihijatriji',
+  'Subspecijalizacija iz bolesti zavisnosti',
+  'Više od 1.000 pacijenata na odeljenju tokom godina rada',
+  'Pedagoško, autorsko i javno iskustvo',
+  'Saradnja sa rehabilitacionim centrima i NVO',
+  'Fokus na prevenciju, porodicu i jasnu komunikaciju',
+];
+
+// One article per category, newest first; undated drafts sort last.
+const ARTICLE_CATEGORIES = ['porodica', 'mladi', 'oporavak'] as const;
+const visibleArticles = (await getVisible('clanci')).sort(
+  (a, b) => (b.data.datum?.getTime() ?? 0) - (a.data.datum?.getTime() ?? 0),
+);
+const articles = ARTICLE_CATEGORIES.flatMap((category) => visibleArticles.filter((a) => a.data.kategorija === category).slice(0, 1));
+---
+<BaseLayout seo={seo}>
+  <section class="hero container">
+    <div class="hero-text">
+      <span class="nadnaslov">{settings.podnaslov}</span>
+      <h1>{settings.naziv}</h1>
+      <p class="hero-line">Stručno znanje i ljudska podrška za prevenciju zavisnosti, porodicu i zdravije izbore.</p>
+      <div class="actions hero-actions">
+        <Button href="/kontakt/">Zakažite razgovor</Button>
+        <Button href="/programi/" variant="secondary">Pogledajte programe</Button>
+      </div>
+      <p class="hero-note">Prevencija, edukacija i podrška porodici. Centar nije zdravstvena ustanova ni hitna služba.</p>
+    </div>
+    <div class="hero-panel">
+      <svg class="hero-mark" width="240" height="240" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M60 22 C50 14 34 16 30 28 C22 30 18 40 24 48 C20 56 28 64 38 62 C42 68 52 68 60 62"/><path d="M60 22 C70 14 86 16 90 28 C98 30 102 40 96 48 C100 56 92 64 82 62 C78 68 68 68 60 62"/><path d="M60 22 V62"/><path d="M40 30 C46 32 46 40 40 42"/><path d="M80 30 C74 32 74 40 80 42"/><path d="M36 51 C42 49 47 52 46 57"/><path d="M84 51 C78 49 73 52 74 57"/><path d="M60 62 V90"/><path d="M60 76 C55 73 52 70 51 66"/><path d="M60 72 C65 69 68 66 69 62"/><path d="M16 88 Q38 80 60 90 Q82 80 104 88"/><path d="M16 88 V98 Q38 90 60 100 Q82 90 104 98 V88"/><path d="M60 90 V100"/><path class="hero-mark-line" d="M8 106 H112"/></svg>
+      <p class="slogan">{sloganFirst}{sloganSecond && <><br />{sloganSecond}</>}</p>
+    </div>
+  </section>
+
+  <section class="band band-sand" aria-labelledby="osnivac-h">
+    <div class="container founder">
+      <Image class="founder-photo" src={getImageAsset('osnivac.webp')} alt="dr Dragan Vukadinović" width={380} loading="lazy" />
+      <div class="founder-text">
+        <span class="nadnaslov">Osnivač</span>
+        <h2 id="osnivac-h">Dr Dragan Vukadinović</h2>
+        <p class="founder-lead">Specijalista psihijatrije i subspecijalista za bolesti zavisnosti, sa oko 35 godina rada u zdravstvu. Od 2009. radi na odeljenju za narkomaniju, gotovo sve vreme kao načelnik.</p>
+        <p class="founder-more">Predavao je psihijatriju u srednjoj medicinskoj školi, autor je četiri knjige i stručnih radova, a javnosti je poznat po medijskim nastupima i onlajn inicijativi „Trezvenoumlje“ iz vremena pandemije.</p>
+        <dl class="stats">
+          {STATS.map((s) => <div><dt>{s.value}</dt><dd>{s.label}</dd></div>)}
+        </dl>
+        <a class="text-link" href={href('/dr-dragan-vukadinovic/')}>Pročitajte biografiju <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container block" aria-labelledby="kome-h">
+    <div class="block-head block-head-split">
+      <div class="block-title">
+        <span class="nadnaslov">Kome pomažemo</span>
+        <h2 id="kome-h">Podrška pre nego što problem postane kriza</h2>
+      </div>
+      <p class="block-aside">Izaberite šta vas najviše opisuje. Svaka kartica vodi na odgovarajući deo sajta.</p>
+    </div>
+    <ul class="audience-grid">
+      {audiences.map((a) => <AudienceCard {...a} heading="h3" />)}
+    </ul>
+  </section>
+
+  <section class="band band-green" aria-labelledby="programi-h">
+    <div class="container block">
+      <div class="block-head">
+        <div class="block-title">
+          <span class="nadnaslov">Programi</span>
+          <h2 id="programi-h">Strukturisani ciklusi, ne pojedinačni saveti</h2>
+        </div>
+      </div>
+      <div class="program-grid">
+        {programs.map((p) => (
+          <Card as="article" class="program-card">
+            <span class="program-audience">{p.data.publika}</span>
+            <h3>{p.data.naziv}</h3>
+            <p class="program-text">{p.data.opis}</p>
+            <a class="text-link program-link" href={href(`/programi/${p.data.slug}/`)} aria-label={`Saznajte više: ${p.data.naziv}`}>Saznajte više <span aria-hidden="true">→</span></a>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="container why" aria-labelledby="zasto-h">
+    <div class="why-text">
+      <span class="nadnaslov">Zašto Trezvenoumlje</span>
+      <h2 id="zasto-h">Kliničko iskustvo, prevedeno na razumljiv jezik</h2>
+      <p>Znamo gde je granica naše uloge. Kada je potreban lekar, ustanova ili druga služba, jasno to kažemo i uputimo vas.</p>
+    </div>
+    <ul class="why-list">
+      {REASONS.map((reason) => (
+        <li>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+          <span>{reason}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="band band-sand" aria-labelledby="price-h">
+    <div class="container story">
+      <Image class="story-image" src={getImageAsset('price/okovani-slon.webp')} alt="Slon vezan tankim lancem za mali kolac" width={260} loading="lazy" />
+      <div class="story-text">
+        <span class="nadnaslov">Pričamo priču · nova knjiga</span>
+        <h2 id="price-h">Pedeset priča o izborima, padovima i novim počecima</h2>
+        <p class="story-quote">„Kolac koji ga je nekada zaista zadržavao više nije bio dovoljno jak. Zadržavalo ga je sećanje na nekadašnju nemoć.“</p>
+        <span class="story-source">Iz priče „Okovani slon“, 1. nedelja</span>
+        <div class="actions">
+          <Button href="/pricamo-pricu/price/">Čitajte priče</Button>
+          <Button href="/pricamo-pricu/" variant="secondary">O knjizi</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {articles.length > 0 && (
+    <section class="band band-light articles" aria-labelledby="resursi-h">
+      <div class="container block">
+        <div class="block-head block-head-split">
+          <div class="block-title">
+            <span class="nadnaslov">Trezvene misli</span>
+            <h2 id="resursi-h">Najnoviji tekstovi</h2>
+          </div>
+          <a class="text-link" href={href('/resursi/')}>Svi resursi <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="article-grid">
+          {articles.map((entry) => <ArticleCard entry={entry} mobile="row" />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <div class="closing">
+    <CtaBand
+      title="Ako niste sigurni koji je sledeći korak, javite nam se."
+      text="Potrebno je samo ime ili inicijali i jedan način kontakta. Javićemo vam se radi dogovora o terminu i vrsti razgovora."
+      primary={{ label: 'Zakažite razgovor', href: '/kontakt/' }}
+      secondary={{ label: 'Postavite pitanje', href: '/cesta-pitanja/' }}
+    >
+      <EmergencyNote variant="hero" />
+    </CtaBand>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Section rhythm of the artboards: 48px on a phone, about 100px at 1440px. */
+  .hero, .block, .why { padding-block: clamp(48px, 7vw, 104px); }
+  .founder, .story { padding-block: clamp(48px, 7vw, 96px); }
+
+  h2 { margin: 0; line-height: 1.15; }
+  .nadnaslov { display: block; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .text-link {
+    display: inline-block; padding: 10px 0;
+    font-family: var(--font-naslov); font-weight: 600; text-underline-offset: 4px;
+  }
+
+  .band-sand { background: var(--pesak); }
+  .band-light { background: var(--pesak-svetli); }
+  .band-green { background: var(--zelena); color: var(--bela); }
+  .band-green .nadnaslov { color: var(--zelena-tinta); }
+
+  .block { display: flex; flex-direction: column; gap: 40px; }
+  .block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; }
+  .block-title { display: flex; flex-direction: column; gap: 12px; max-width: 680px; }
+  .block-aside { margin: 0; max-width: 420px; color: var(--tekst-prigusen); }
+
+  /* Hero */
+  .hero { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; padding-bottom: clamp(48px, 7vw, 96px); }
+  .hero-text { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  h1 { margin: 0; font-weight: 700; font-size: var(--h1-hero); line-height: 1.04; letter-spacing: -0.02em; color: var(--zelena); }
+  .hero-line { margin: 0; max-width: 560px; font-size: var(--uvod); line-height: 1.55; }
+  .hero-actions { padding-top: 8px; }
+  .hero-note { margin: 0; font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  .hero-panel {
+    flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 28px;
+    padding: 48px 40px; background: var(--pesak-svetli); border-radius: var(--radius-l);
+  }
+  .hero-mark { max-width: 100%; height: auto; color: var(--zelena); }
+  .hero-mark-line { stroke: var(--plava); stroke-opacity: 0.5; }
+  .slogan { margin: 0; font-family: var(--font-citat); font-style: italic; font-size: 1.5rem; line-height: 1.4; text-align: center; }
+
+  /* Founder */
+  .founder { display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
+  .founder-photo {
+    flex: 0 1 380px; min-width: 260px; width: 380px; max-width: 100%; height: auto;
+    aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-l); display: block;
+  }
+  .founder-text { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .founder-text p { margin: 0; }
+  .founder-lead { font-size: var(--uvod); }
+  .founder-text .text-link { align-self: flex-start; }
+  .founder-more { color: var(--tekst-sekundarni); }
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;
+    margin: 8px 0 0; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--linija-jaka) 45%, var(--pesak));
+  }
+  .stats dt { font-family: var(--font-naslov); font-weight: 700; font-size: var(--h2); line-height: 1.1; color: var(--zelena); }
+  .stats dd { margin: 4px 0 0; font-size: var(--tekst-mali); }
+
+  /* Kome pomažemo */
+  .audience-grid { display: flex; flex-wrap: wrap; gap: 20px; margin: 0; padding: 0; list-style: none; }
+
+  /* Programi */
+  .program-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+  .program-grid .program-card { flex: 1 1 320px; gap: 14px; padding: 32px; border: 0; border-radius: var(--radius-m); color: var(--tekst); }
+  .program-audience { font-size: var(--tekst-sitan); font-weight: 700; color: var(--plava); }
+  .program-text { color: var(--tekst-sekundarni); }
+  .program-link { align-self: flex-start; margin-top: auto; font-size: var(--tekst-mali); }
+
+  /* Zašto Trezvenoumlje */
+  .why { display: flex; flex-wrap: wrap; gap: 48px; }
+  .why-text { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .why-text p { margin: 0; color: var(--tekst-prigusen); }
+  .why-list {
+    flex: 2 1 600px; min-width: 0; margin: 0; padding: 0; list-style: none; align-content: start;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 28px 32px;
+  }
+  .why-list li { display: flex; gap: 14px; }
+  .why-list svg { flex: none; margin-top: 3px; color: var(--zelena); }
+
+  /* Pričamo priču */
+  .story { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px; }
+  .story-image { flex: 0 1 260px; width: 260px; min-width: 200px; max-width: 100%; height: auto; border-radius: var(--radius-m); display: block; }
+  .story-text { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .story-quote { margin: 0; font-family: var(--font-citat); font-size: var(--uvod); line-height: 1.6; }
+  .story-source { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+  .story .actions { padding-top: 4px; }
+
+  /* Najnoviji tekstovi */
+  .article-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+  .article-grid > :global(*) { flex: 1 1 320px; }
+
+  /* Closing call to action */
+  .closing :global(.emergency-note) { margin-top: 24px; }
+
+  /* HomeMobile */
+  @media (max-width: 699px) {
+    .block { gap: 22px; }
+    .block-aside { display: none; }
+    .hero { gap: 26px; }
+    .hero-text { flex-basis: 100%; gap: 18px; }
+    .hero-actions { flex-direction: column; gap: 10px; padding-top: 4px; }
+    .hero-panel { flex-basis: 100%; gap: 16px; padding: 28px 20px; }
+    .hero-mark { width: 150px; }
+    .slogan { font-size: 1.25rem; }
+
+    .founder { gap: 16px; }
+    .founder-photo { flex: none; width: 100%; aspect-ratio: 4 / 3; object-position: center 35%; border-radius: var(--radius-m); }
+    .founder-text { flex-basis: 100%; gap: 16px; }
+    .founder-lead { font-size: var(--tekst-vel); }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding-top: 16px; }
+    .stats dd { margin-top: 2px; font-size: var(--tekst-sitan); }
+
+    .audience-grid { flex-direction: column; gap: 14px; }
+
+    .program-grid { flex-direction: column; gap: 14px; }
+    .program-grid .program-card { flex: none; gap: 8px; padding: 22px; border-radius: 14px; }
+
+    .why { gap: 28px; }
+    .why-text, .why-list { flex-basis: 100%; }
+    .why-list { gap: 18px; }
+    .story { gap: 24px; }
+
+    .articles { background: var(--bela); }
+    .article-grid { flex-direction: column; gap: 14px; }
+    .article-grid > :global(*) { flex: none; }
+    .closing { background: var(--pesak-svetli); }
+  }
+</style>

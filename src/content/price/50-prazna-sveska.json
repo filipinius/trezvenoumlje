@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p50",
+  "n": 50,
+  "nedelja": 10,
+  "dan": "10. nedelja – petak",
+  "naslov": "Prazna sveska",
+  "slug": "prazna-sveska",
+  "podnaslov": "Šta nosim sa sobom iz lečenja?",
+  "izvor": "Prema prologu Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Posle dugog traganja za zvonima potonulog hrama, dečak iz priče odrasta. Kada se mnogo godina kasnije vrati na istu obalu, susreće ženu koja mu je nekada prva govorila o zvonima.",
+    "Ona mu pruža svesku sa praznim belim stranicama.",
+    "Nije mu dala knjigu u kojoj je njegov život već napisan. Nije mu dala ni garanciju šta će se dogoditi. Dala mu je mesto na kojem nastavak tek može da bude napisan."
+  ],
+  "pitanja": [
+    {
+      "id": "p50-q1",
+      "tekst": "Kada bi sledeća stranica vašeg života zaista bila prazna, šta biste želeli da na njoj počne?"
+    },
+    {
+      "id": "p50-q2",
+      "tekst": "Šta ste o sebi primetili što niste znali ili niste želeli da vidite na početku?"
+    },
+    {
+      "id": "p50-q3",
+      "tekst": "Koji će biti vaš prvi konkretan postupak na „prvoj stranici\" posle otpusta?"
+    }
+  ],
+  "poruka": "Lečenje ne piše ostatak života umesto nas. Ono može da ostavi znakove, ljude, reči i iskustva kojima ćemo se vraćati. Sledeća stranica nije garancija – ali još nije napisana starim rukopisom.",
+  "zadatak": "Ostavite jednu praznu stranicu. Ne popunjavajte je danas.",
+  "citat": "Novi život se ne dokazuje obećanjem, već onim što ponavljaš svakog dana."
+}

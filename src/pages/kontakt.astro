@@ -1,0 +1,248 @@
+---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import EmergencyNote from '../components/EmergencyNote.astro';
+import Text from '../components/Text.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contactLinks } from '../lib/contact-links';
+import { getSettings } from '../lib/content';
+import { localBusiness } from '../lib/jsonld';
+import { href, isPreview, site } from '../lib/site';
+
+const INTRO = 'Ako niste sigurni koji je sledeći korak, javite nam se. Dovoljni su ime ili inicijali i jedan način kontakta.';
+
+const seo = { title: 'Zakažite razgovor', description: INTRO, path: '/kontakt/' };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Kontakt', path: '/kontakt/' },
+];
+
+const settings = await getSettings();
+const { tel, mailto } = contactLinks(settings);
+const business = localBusiness(site, settings);
+
+const STEPS = [
+  'Pošaljete kratak upit, bez detalja o zdravlju.',
+  `Javljamo vam se u roku od ${settings.rokOdgovora}, kanalom koji ste izabrali.`,
+  'Dogovaramo termin i vrstu razgovora koja vam odgovara.',
+];
+const DO_NOT_SEND = ['dijagnozu', 'spisak lekova', 'laboratorijske nalaze', 'JMBG', 'fotografiju lične karte', 'medicinsku anamnezu', 'podatke trećih lica'];
+// The value stays in the field: it is never put in the URL or in a link.
+const TYPES = [
+  { value: '', label: 'Izaberite' },
+  { value: 'porodica', label: 'Porodica' },
+  { value: 'mladi', label: 'Mladi (upit šalje roditelj ili staratelj)' },
+  { value: 'organizacije', label: 'Organizacije' },
+  { value: 'pravni', label: 'Pravni sektor' },
+  { value: 'drugo', label: 'Drugo' },
+];
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={business ? [business] : []}>
+  <div class="container page">
+    <div class="about">
+      <div class="hero">
+        <Breadcrumbs items={breadcrumbs} />
+        <h1>Zakažite razgovor</h1>
+      </div>
+      <p class="intro">{INTRO}</p>
+
+      <ol class="steps">
+        {STEPS.map((step, i) => (
+          <li><span class="step-no" aria-hidden="true">{i + 1}</span><Text value={step} /></li>
+        ))}
+      </ol>
+
+      <div class="do-not-send">
+        <h2>Molimo vas da ne šaljete</h2>
+        <ul>{DO_NOT_SEND.map((item) => <li>{item}</li>)}</ul>
+      </div>
+
+      <address class="direct">
+        <strong>Direktan kontakt</strong>
+        {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
+        {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
+        <Text class="direct-place" value={`${settings.adresa} · ${settings.radnoVreme}`} />
+      </address>
+
+      <EmergencyNote variant="full" />
+    </div>
+
+    <div class="panel" data-contact>
+      {isPreview && <p class="preview-note">Dev pregled: forma ne šalje podatke.</p>}
+
+      <noscript>
+        <div class="no-js">
+          <p>Za slanje zahteva potreban je JavaScript. Možete nas kontaktirati i direktno.</p>
+          <address>
+            {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
+            {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
+          </address>
+        </div>
+      </noscript>
+
+      <form method="post" novalidate aria-labelledby="forma-h" data-contact-form>
+        <h2 id="forma-h">Zahtev za razgovor</h2>
+
+        <div class="field">
+          <label for="ime">Ime ili inicijali <span class="optional">(obavezno)</span></label>
+          <input id="ime" name="name" type="text" autocomplete="name" maxlength="80" aria-required="true" />
+          <p class="error" id="ime-greska" data-contact-error="name" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <span>Unesite ime ili inicijale.</span>
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="kontakt">Telefon ili e-mail <span class="optional">(obavezno)</span></label>
+          <input id="kontakt" name="contact" type="text" autocomplete="off" maxlength="120" aria-required="true" aria-describedby="kontakt-pomoc" />
+          <span class="hint" id="kontakt-pomoc">Dovoljan je jedan kanal.</span>
+          <p class="error" id="kontakt-greska" data-contact-error="contact" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <span>Unesite ispravan broj telefona ili e-mail.</span>
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="tip">Tip upita <span class="optional">(nije obavezno)</span></label>
+          <select id="tip" name="type">
+            {TYPES.map((t) => <option value={t.value}>{t.label}</option>)}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="poruka">Kratka poruka <span class="optional">(nije obavezno)</span></label>
+          <textarea id="poruka" name="message" rows="4" maxlength="1000" aria-describedby="poruka-pomoc"></textarea>
+          <span class="hint" id="poruka-pomoc">Ne šaljite medicinsku dokumentaciju ni laboratorijske rezultate.</span>
+        </div>
+
+        <!-- Honeypot: off-screen and out of the tab order and the accessibility tree; only a bot fills it. -->
+        <div class="trap" aria-hidden="true">
+          <label for="website">Ostavite prazno</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label class="consent">
+            <input name="consent" type="checkbox" aria-required="true" />
+            <span>Upoznat/a sam sa <a href={href('/politika-privatnosti/')}>politikom privatnosti</a> i načinom na koji se ovaj upit obrađuje.</span>
+          </label>
+          <p class="error error-consent" id="saglasnost-greska" data-contact-error="consent" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+            <span>Potrebna je potvrda da ste pročitali politiku privatnosti.</span>
+          </p>
+        </div>
+
+        {/* The text is written in when the alert is shown: an alert that only loses `hidden` is not announced reliably. */}
+        <p class="error fail" role="alert" data-contact-fail data-message="Slanje nije uspelo. Pokušajte ponovo ili nas kontaktirajte direktno." hidden>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>
+          <span data-contact-fail-text></span>
+        </p>
+
+        <button type="submit" class="submit" disabled>Pošaljite zahtev</button>
+        <Text as="p" class="retention" value={`Upit vide samo ovlašćena lica centra. Čuva se ${settings.rokCuvanja} i ne koristi se za marketing.`} />
+      </form>
+
+      <div class="done" data-contact-done tabindex="-1" hidden>
+        <span class="done-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>
+        <h2>Hvala, <span data-contact-name></span>. Zahtev je poslat.</h2>
+        <Text as="p" class="done-lead" value={`Javićemo vam se radi dogovora o terminu i vrsti usluge, u roku od ${settings.rokOdgovora}.`} />
+        <Text as="p" class="done-note" value={`Ako se stanje u međuvremenu pogorša, ne čekajte naš odgovor: obratite se zdravstvenoj ustanovi ili pozovite ${settings.hitnaSluzba}.`} />
+        <button type="button" class="again" data-contact-new>Pošaljite novi upit</button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/contact-form.ts';
+</script>
+
+<style>
+  h1, h2, p { margin: 0; }
+
+  .page {
+    display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px 72px;
+    padding-block: clamp(24px, 5vw, 64px) clamp(56px, 7vw, 96px);
+  }
+  .about { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  .hero { display: flex; flex-direction: column; gap: 10px; }
+  .intro { font-size: var(--uvod); color: var(--tekst-sekundarni); }
+
+  .steps { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+  .steps li { display: flex; gap: 14px; }
+  .step-no {
+    flex: none; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--zelena-tinta); color: var(--zelena); font-family: var(--font-naslov); font-weight: 700; font-size: var(--tekst-sitan);
+  }
+
+  .do-not-send { display: flex; flex-direction: column; gap: 10px; padding: 24px; background: var(--pesak-svetli); border-radius: var(--radius-m); }
+  .do-not-send h2 { font-size: var(--uvod); }
+  .do-not-send ul {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 4px 20px;
+    margin: 0; padding-left: 20px; color: var(--tekst-sekundarni);
+  }
+
+  address { font-style: normal; }
+  .direct { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .direct strong { font-family: var(--font-naslov); font-weight: 600; }
+  .direct a, .no-js a { display: inline-flex; align-items: center; min-height: 44px; }
+  .direct :global(.direct-place) { color: var(--tekst-prigusen); }
+
+  .panel {
+    flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 22px;
+    padding: clamp(24px, 3vw, 40px); background: var(--bela); border: 1px solid var(--linija); border-radius: var(--radius-l);
+  }
+  .preview-note { padding: 8px 12px; border-radius: 8px; background: var(--pesak); font-size: var(--tekst-sitan); }
+  .no-js { display: flex; flex-direction: column; gap: 10px; }
+  .no-js address { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  /* Without JavaScript nothing could handle a submit, so the fields are not offered at all. */
+  :global(html:not(.js)) form { display: none; }
+
+  form { display: flex; flex-direction: column; gap: 22px; }
+  form h2 { font-size: var(--h3); }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font-weight: 700; }
+  .optional { font-weight: 400; color: var(--tekst-prigusen); }
+  .hint { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+
+  input[type='text'], select, textarea {
+    width: 100%; min-height: 50px; padding: 0 14px; border: 1.5px solid var(--linija-jaka); border-radius: 8px;
+    background: var(--bela); color: var(--tekst); font: inherit;
+  }
+  select { padding: 0 12px; }
+  textarea { padding: 12px 14px; resize: vertical; }
+  /* Focus is the global outline, as on the Contact artboard. An error is a red 2px frame. */
+  input[type='text'][aria-invalid='true'] { border-color: var(--greska); box-shadow: inset 0 0 0 0.5px var(--greska); }
+
+  .error { display: flex; align-items: flex-start; gap: 6px; font-size: var(--tekst-sitan); color: var(--greska); }
+  .error svg { flex: none; margin-top: 3px; }
+  .error-consent { padding-left: 34px; }
+
+  .consent { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-weight: 400; cursor: pointer; }
+  .consent input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--zelena); }
+  .consent input[aria-invalid='true'] { outline: 2px solid var(--greska); outline-offset: 2px; }
+  .consent input:focus-visible { outline: 3px solid var(--plava); outline-offset: 2px; }
+
+  /* Off-screen rather than display: none, which some bots detect and skip. */
+  .trap { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+  .submit, .again {
+    min-height: 52px; padding: 8px 22px; border-radius: 8px; cursor: pointer;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-vel); line-height: 1.2;
+  }
+  .submit { border: 1.5px solid var(--zelena); background: var(--zelena); color: var(--bela); }
+  .submit:hover { border-color: var(--zelena-hover); background: var(--zelena-hover); }
+  .submit:disabled { opacity: 0.55; cursor: not-allowed; }
+  .retention { font-size: var(--nadnaslov); color: var(--tekst-prigusen); }
+
+  .done { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding-block: 16px; }
+  .done:focus { outline: none; }
+  .done-icon {
+    display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%;
+    background: var(--zelena-tinta); color: var(--zelena);
+  }
+  .done h2 { font-size: var(--h2); overflow-wrap: anywhere; }
+  .done :global(.done-lead) { font-size: var(--uvod); color: var(--tekst-sekundarni); }
+  .done :global(.done-note) { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+  .again { min-height: var(--dodir); border: 1.5px solid var(--zelena); background: var(--bela); color: var(--zelena); }
+  .again:hover { background: var(--zelena-tinta); color: var(--zelena-hover); }
+</style>

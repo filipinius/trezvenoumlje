@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "n": 8,
+  "oznaka": "osma nedelja",
+  "tema": "Greška, pad i recidiv",
+  "uvod": [
+    "Promena nije prava linija. Važno je ne samo kako čovek ide napred, već i šta radi kada pogreši ili padne.",
+    "Na ovoj stranici zapišite šta su vaši rani znaci da se vraćate starom putu i šta želite da uradite drugačije ako ih primetite."
+  ],
+  "osvrt": {
+    "naslov": "Greška, pad i recidiv",
+    "napomena": "Cilj nije da obećam da nikada neću pogrešiti. Cilj je da što ranije prepoznam kuda idem i znam šta radim ako počnem da se vraćam starom putu.",
+    "pitanja": [
+      {
+        "id": "n08-o1",
+        "tekst": "Šta mi je ova nedelja promenila u načinu na koji gledam grešku, pad ili recidiv?"
+      },
+      {
+        "id": "n08-o2",
+        "tekst": "Koji rani znak kod sebe sada prepoznajem bolje nego ranije?"
+      },
+      {
+        "id": "n08-o3",
+        "tekst": "Šta bih želeo da uradim drugačije ako primetim prvi znak povratka starom obrascu?"
+      },
+      {
+        "id": "n08-o4",
+        "tekst": "Kome mogu da se obratim pre nego što situacija postane ozbiljna?"
+      },
+      {
+        "id": "n08-o5",
+        "tekst": "Šta želim da zapamtim ako jednog dana ipak pogrešim ili padnem?"
+      }
+    ]
+  }
+}

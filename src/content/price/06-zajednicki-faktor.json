@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p06",
+  "n": 6,
+  "nedelja": 2,
+  "dan": "2. nedelja – ponedeljak",
+  "naslov": "Zajednički faktor",
+  "slug": "zajednicki-faktor",
+  "podnaslov": "Kako sebi objašnjavam ono što radim?",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "tekst": [
+    "Jedan čovek je voleo da popije. Pio je uzo sa vodom – i napio bi se. Pio je viski sa vodom – i opet bi se napio. Pio je vino sa vodom – i ishod bi bio isti.",
+    "Jednog dana odlučio je da nešto mora da promeni. Razmišljao je šta je zajedničko svim tim pićima i našao odgovor koji mu je zvučao logično.",
+    "Odlučio je da ostavi – vodu."
+  ],
+  "pitanja": [
+    {
+      "id": "p06-q1",
+      "tekst": "Šta je čovek u ovoj priči proglasio uzrokom problema – i šta je prevideo?"
+    },
+    {
+      "id": "p06-q2",
+      "tekst": "Kako možemo promeniti spoljašnji deo, a ostaviti isti obrazac?"
+    },
+    {
+      "id": "p06-q3",
+      "tekst": "Koji je „zajednički faktor\" u situacijama u kojima vam se problem sa zavisnošću vraća?"
+    }
+  ],
+  "poruka": "Ponekad zaista nešto promenimo, ali ne promenimo ono što održava problem. Važno je da razlikujemo promenu sredstva od promene obrasca. Lečenje nije samo pitanje šta čovek uzima ili ne uzima, već i kako živi, odlučuje i traži pomoć.",
+  "zadatak": "Do sutra dovršite rečenicu: „Jedna stvar koju sam promenio, a možda nisam promenio suštinu, jeste...\"",
+  "citat": "Opravdanje čuva stari obrazac, iskrenost otvara put promeni."
+}

@@ -1,0 +1,13 @@
+{
+  "naziv": "Trezvena kuća",
+  "slug": "trezvena-kuca",
+  "publika": "Porodice",
+  "opis": "Strukturisani ciklus za razumevanje zavisnosti, granice, komunikaciju i podršku.",
+  "format": "[BROJ] susreta",
+  "ciljneGrupe": [
+    "porodice"
+  ],
+  "uIzradi": true,
+  "redosled": 1,
+  "status": "objavljeno"
+}

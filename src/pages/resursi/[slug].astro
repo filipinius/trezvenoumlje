@@ -1,0 +1,118 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import EmergencyNote from '../../components/EmergencyNote.astro';
+import Prose from '../../components/Prose.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import Text from '../../components/Text.astro';
+import { NAZIVI_KATEGORIJA } from '../../content/schemas';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticles } from '../../lib/content';
+import { formatDate, isoDate } from '../../lib/date';
+import { getImageAsset, ogImageUrl } from '../../lib/images';
+import { article } from '../../lib/jsonld';
+import { abs, href, site } from '../../lib/site';
+import { isIndexable } from '../../lib/status';
+
+export async function getStaticPaths() {
+  return (await getArticles()).map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+interface Props { entry: CollectionEntry<'clanci'> }
+const { entry } = Astro.props;
+const { data } = entry;
+const path = `/resursi/${data.slug}/`;
+const category = NAZIVI_KATEGORIJA[data.kategorija];
+
+const seo = {
+  title: data.seo?.naslov ?? data.naslov,
+  description: data.seo?.opis ?? data.sazetak,
+  path,
+  image: data.slika ? await ogImageUrl(data.slika) : undefined,
+  noindex: !isIndexable({ status: data.status, noindex: data.seo?.noindex }, site.env),
+  type: 'article' as const,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Trezvene misli', path: '/resursi/' },
+  { label: data.naslov, path },
+];
+
+const { Content } = await render(entry);
+const related = (await getArticles()).filter((a) => a.data.kategorija === data.kategorija && a.id !== entry.id).slice(0, 3);
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={[article({ ...data, path, image: seo.image && abs(seo.image) }, site)]}>
+  <article>
+    <header class="hero container">
+      <Breadcrumbs items={breadcrumbs} />
+      <a class="category" href={href(`/resursi/tema/${data.kategorija}/`)}>{category}</a>
+      <h1>{data.naslov}</h1>
+      <Text as="p" class="intro" value={data.sazetak} />
+      <div class="meta">
+        <Text as="p" class="author" value={data.autor} />
+        {data.recenzent && <Text as="p" value={`Stručni pregled: ${data.recenzent}`} />}
+        {(data.datum || data.datumRevizije) && (
+          <p>
+            {data.datum && <span>Objavljeno: <time datetime={isoDate(data.datum)}>{formatDate(data.datum)}</time></span>}
+            {data.datum && data.datumRevizije && <span aria-hidden="true"> · </span>}
+            {data.datumRevizije && <span>Poslednja revizija: <time datetime={isoDate(data.datumRevizije)}>{formatDate(data.datumRevizije)}</time></span>}
+          </p>
+        )}
+      </div>
+      <StatusBadge status={data.status} />
+    </header>
+
+    <div class="container body">
+      {data.slika && <Image class="image" src={getImageAsset(data.slika)} alt={data.slikaAlt ?? ''} width={820} loading="eager" />}
+      <Prose><Content /></Prose>
+      {data.pravnaNapomena && <Text as="p" class="legal" value={data.pravnaNapomena} />}
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="container related" aria-labelledby="povezano-h">
+      <h2 id="povezano-h">Još iz kategorije {category}</h2>
+      <div class="article-grid">
+        {related.map((a) => <ArticleCard entry={a} />)}
+      </div>
+    </section>
+  )}
+
+  <div class="closing">
+    <CtaBand
+      title="Ako niste sigurni koji je sledeći korak, javite nam se."
+      text="Potrebno je samo ime ili inicijali i jedan način kontakta. Javićemo vam se radi dogovora o terminu i vrsti razgovora."
+      primary={{ label: 'Zakažite razgovor', href: '/kontakt/' }}
+      secondary={{ label: 'Postavite pitanje', href: '/cesta-pitanja/' }}
+    >
+      <EmergencyNote />
+    </CtaBand>
+  </div>
+</BaseLayout>
+
+<style>
+  h1, h2 { margin: 0; }
+  .closing { background: var(--pesak-svetli); }
+  .closing :global(.emergency-note) { margin-top: 24px; }
+
+  .hero, .body { max-width: calc(820px + 2 * var(--gutter)); }
+  .hero { display: flex; flex-direction: column; gap: 18px; padding-block: clamp(24px, 5vw, 64px) 32px; }
+  .category {
+    align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px;
+    font-size: var(--nadnaslov); font-weight: 700; color: var(--plava);
+  }
+  .intro { margin: 0; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+  .meta { display: flex; flex-direction: column; gap: 4px; font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  .meta :global(p) { margin: 0; }
+  .meta :global(.author) { font-size: var(--tekst-mali); font-weight: 700; color: var(--tekst); }
+
+  .body { display: flex; flex-direction: column; gap: 32px; padding-bottom: clamp(56px, 7vw, 96px); }
+  .image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-m); }
+  .legal { margin: 0; font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+
+  .related { display: flex; flex-direction: column; gap: 28px; padding-bottom: clamp(56px, 7vw, 96px); }
+  .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 24px; }
+  .article-grid > :global(.article-card) { border: 1px solid var(--linija); }
+</style>

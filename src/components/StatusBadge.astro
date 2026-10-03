@@ -1,0 +1,17 @@
+---
+// Editorial status, shown in the preview build only. Published content carries no badge.
+import { isPreview } from '../lib/site';
+import type { Status } from '../lib/status';
+interface Props { status: Status }
+const { status } = Astro.props;
+const LABELS: Record<Status, string | null> = { nacrt: 'Nacrt', pregled: 'Na pregledu', objavljeno: null };
+const label = isPreview ? LABELS[status] : null;
+---
+{label && <span class="status-badge" data-status={status}>{label}</span>}
+<style>
+  .status-badge {
+    display: inline-flex; align-items: center; align-self: flex-start; padding: 2px 10px;
+    border: 1.5px dashed var(--linija-jaka); border-radius: 999px; background: var(--pesak-svetli); color: var(--tekst);
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--nadnaslov); line-height: 1.5; white-space: nowrap;
+  }
+</style>

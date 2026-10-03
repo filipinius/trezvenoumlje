@@ -1,0 +1,239 @@
+---
+import { Image } from 'astro:assets';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Dialog from '../components/Dialog.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import Text from '../components/Text.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getVisible } from '../lib/content';
+import { getImageAsset } from '../lib/images';
+import { href } from '../lib/site';
+
+const INTRO = 'Trezvenoumlje nastavlja onlajn inicijativu koju je osnivač pokrenuo tokom pandemije COVID-19 i decenije javnog i stručnog rada. Sada postaje centar za prevenciju, edukaciju i podršku porodici, van bolničkog okruženja.';
+
+// The whole intro is too long for a description: its first sentence, verbatim.
+const seo = { title: 'O nama', description: INTRO.slice(0, INTRO.indexOf('. ') + 1), path: '/o-nama/' };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'O Trezvenoumlju', path: '/o-nama/' },
+];
+const FOUNDER_PATH = '/dr-dragan-vukadinovic/';
+// Rendered width of the founder photo; it is never shown wider than this (no upscaling until the real photo arrives).
+const PHOTO_WIDTH = 280;
+
+const PHASES = [
+  { title: 'Lokalni centar i digitalno prisustvo.', text: ' Prevencija, porodica, edukacija i organizacije.' },
+  { title: 'Programi i partnerstva.', text: ' Priručnici, video, onlajn edukacije, saradnja sa centrima.' },
+  { title: 'Privatna psihijatrijska praksa', text: ', jasno odvojena pravno i komunikaciono.' },
+  { title: 'Regionalni hab', text: ' za adiktologiju, porodicu i mentalno zdravlje, kao stručna mreža.' },
+];
+const VALUES = ['Stručnost', 'Poverenje', 'Dostojanstvo', 'Neosuđivanje', 'Porodica', 'Prevencija', 'Odgovornost', 'Jasne profesionalne granice'];
+const LIMITS = ['medicinske preglede', 'postavljanje dijagnoze', 'propisivanje lekova', 'lečenje akutnih stanja', 'laboratorijsko testiranje', 'vođenje zdravstvenog kartona'];
+const CREDENTIALS = ['specijalista psihijatrije', 'subspecijalista za bolesti zavisnosti', 'autor četiri knjige'];
+
+const team = (await getVisible('tim')).sort((a, b) => a.data.redosled - b.data.redosled);
+const dialogId = (slug: string) => `tim-${slug}`;
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
+  <section class="hero container">
+    <Breadcrumbs items={breadcrumbs} />
+    <h1>Iskustvo iz adiktologije, dostupno pre nego što problem postane kriza</h1>
+    <p class="intro">{INTRO}</p>
+  </section>
+
+  <section class="container pair">
+    <article class="mission">
+      <h2 class="nadnaslov">Misija</h2>
+      <p class="mission-lead">Da prevenciju zavisnosti, razumevanje rizičnih ponašanja i podršku porodici učinimo dostupnim, razumljivim i profesionalno utemeljenim van bolničkog okruženja.</p>
+      <p class="mission-more">Ne zamenjujemo bolnicu, ambulantu ni laboratoriju. Prepoznajemo granicu svoje uloge i, kada je potrebno, upućujemo u zdravstveni sistem ili drugu odgovarajuću službu.</p>
+    </article>
+    <article class="vision">
+      <h2 class="nadnaslov">Vizija u fazama</h2>
+      <ol class="phases">
+        {PHASES.map((phase, i) => (
+          <li>
+            <span class="phase-number" data-phase={i + 1} aria-hidden="true">{i + 1}</span>
+            <span><strong>{phase.title}</strong>{phase.text}</span>
+          </li>
+        ))}
+      </ol>
+    </article>
+  </section>
+
+  <section class="band-sand" aria-labelledby="vrednosti-h">
+    <div class="container values">
+      <div class="values-text">
+        <h2 id="vrednosti-h">Vrednosti</h2>
+        <ul class="chips">
+          {VALUES.map((value) => <li>{value}</li>)}
+        </ul>
+      </div>
+      <div class="limits">
+        <h3>Granice našeg rada</h3>
+        <p>U prvoj fazi Trezvenoumlje pruža isključivo nezdravstvene usluge. Ne obavljamo:</p>
+        <ul>
+          {LIMITS.map((limit) => <li>{limit}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="osnivac" class="container founder" aria-labelledby="osnivac-h">
+    <Image class="founder-photo" src={getImageAsset('osnivac.webp')} alt="dr Dragan Vukadinović" width={PHOTO_WIDTH} style={`max-width: min(100%, ${PHOTO_WIDTH}px)`} loading="lazy" />
+    <div class="founder-text">
+      <span class="nadnaslov">Osnivač</span>
+      <h2 id="osnivac-h">Dr Dragan Vukadinović</h2>
+      <ul class="credentials">
+        {CREDENTIALS.map((line) => <li>{line}</li>)}
+      </ul>
+      <a class="text-link" href={href(FOUNDER_PATH)}>Cela biografija <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  {team.length > 0 && (
+    <section class="band-light" aria-labelledby="tim-h">
+      <div class="container team">
+        <h2 id="tim-h">Tim</h2>
+        <div class="team-grid">
+          {team.map(({ data: m }) => (
+            <button type="button" class="member" data-dialog-open={dialogId(m.slug)}>
+              <Image class:list={['member-photo', { square: m.oblik === 'kvadrat' }]} src={getImageAsset(m.fotografija)} alt="" width={96} height={96} loading="lazy" />
+              <span class="member-text">
+                <Text as="strong" class="member-name" value={m.ime} />
+                <span class="member-role">{m.uloga}</span>
+                <Text class="member-short" value={m.kratko} />
+                <StatusBadge status={m.status} />
+                <span class="member-more">Više o ulozi <span aria-hidden="true">→</span></span>
+              </span>
+            </button>
+          ))}
+        </div>
+        {team.map(({ data: m }) => (
+          <Dialog id={dialogId(m.slug)}>
+            <div class="profile-head">
+              <Image class:list={['profile-photo', { square: m.oblik === 'kvadrat' }]} src={getImageAsset(m.fotografija)} alt="" width={96} height={96} loading="lazy" />
+              <div class="profile-title">
+                <h2 id={`${dialogId(m.slug)}-title`}><Text value={m.ime} /></h2>
+                <span class="member-role">{m.uloga}</span>
+              </div>
+            </div>
+            <Text as="p" class="profile-bio" value={m.bio} />
+            <div class="profile-tasks">
+              <h3>U centru radi na</h3>
+              <ul>
+                {m.zadaci.map((task) => <li>{task}</li>)}
+              </ul>
+            </div>
+            {m.napomena && <Text as="p" class="profile-note" value={m.napomena} />}
+            {m.stranica && <a class="text-link" href={href(m.stranica)}>Cela biografija <span aria-hidden="true">→</span></a>}
+          </Dialog>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  h2, h3 { margin: 0; }
+  .nadnaslov { display: block; line-height: 1.65; }
+  .band-sand { background: var(--pesak); }
+  .band-light { background: var(--pesak-svetli); }
+  .text-link {
+    display: inline-flex; align-items: center; gap: 0.3em; align-self: flex-start; min-height: 44px;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+
+  /* Hero */
+  .hero { display: flex; flex-direction: column; gap: 20px; padding-block: clamp(24px, 5vw, 64px) 48px; }
+  h1 { margin: 0; max-width: 900px; }
+  .intro { margin: 0; max-width: 780px; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+
+  /* Misija i vizija */
+  .pair { display: flex; flex-wrap: wrap; gap: 24px; padding-bottom: clamp(56px, 7vw, 96px); }
+  .mission, .vision { min-width: 0; display: flex; flex-direction: column; padding: clamp(28px, 3.5vw, 48px); border-radius: var(--radius-l); }
+  .mission { flex: 1 1 520px; gap: 16px; background: var(--zelena); color: var(--bela); }
+  .mission .nadnaslov { color: var(--zelena-tinta); }
+  .mission p { margin: 0; }
+  .mission-lead { font-family: var(--font-citat); font-size: var(--h3); line-height: 1.45; }
+  .mission-more { color: var(--zelena-tinta); }
+  .vision { flex: 1 1 420px; gap: 18px; background: var(--pesak-svetli); }
+  .phases { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .phases li { display: flex; gap: 14px; }
+  .phase-number {
+    flex: none; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;
+    border: 2px solid var(--plava); border-radius: 50%; color: var(--plava);
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-sitan);
+  }
+  .phase-number[data-phase='1'] { border-color: var(--zelena); background: var(--zelena); color: var(--bela); }
+  .phase-number[data-phase='2'] { background: var(--plava); color: var(--bela); }
+  .phase-number[data-phase='4'] { border-color: var(--linija-jaka); color: var(--tekst-prigusen); }
+
+  /* Vrednosti i granice */
+  .values { display: flex; flex-wrap: wrap; gap: 40px 64px; padding-block: clamp(56px, 7vw, 88px); }
+  .values-text { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .chips li { padding: 8px 16px; border-radius: 999px; background: var(--bela); font-weight: 700; font-size: var(--tekst-mali); }
+  .limits { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 28px; background: var(--bela); border-radius: var(--radius-m); }
+  .limits p { margin: 0; color: var(--tekst-sekundarni); }
+  .limits ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 6px 24px; margin: 0; padding-left: 20px; }
+
+  /* Osnivač */
+  .founder { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 56px; padding-block: clamp(56px, 7vw, 104px); }
+  .founder-photo {
+    flex: 0 1 280px; width: 280px; min-width: 200px; max-width: 100%; height: auto;
+    aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-l); display: block;
+  }
+  .founder-text { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .credentials { display: flex; flex-direction: column; gap: 4px; max-width: 400px; margin: 0; padding: 20px; list-style: none; background: var(--pesak-svetli); border-radius: 14px; font-size: var(--tekst-mali); }
+
+  /* Tim */
+  .team { display: flex; flex-direction: column; gap: 32px; padding-block: clamp(56px, 7vw, 88px); }
+  .team-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+  .member {
+    flex: 1 1 320px; min-width: 0; display: flex; align-items: flex-start; gap: 20px; padding: 28px;
+    background: var(--bela); border: 1px solid var(--linija); border-radius: var(--radius-m);
+    font: inherit; color: inherit; text-align: left; cursor: pointer;
+  }
+  .member:hover { border-color: var(--zelena); }
+  .member-photo, .profile-photo { flex: none; object-fit: cover; border-radius: 50%; }
+  .member-photo { width: 88px; height: 88px; }
+  .profile-photo { width: 96px; height: 96px; }
+  .member-photo.square, .profile-photo.square { border-radius: var(--radius-m); }
+  .member-text { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .member-name { font-family: var(--font-naslov); font-weight: 600; font-size: var(--uvod); line-height: 1.3; }
+  .member-role { font-size: var(--tekst-mali); font-weight: 700; color: var(--plava); }
+  .member-short { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+  .member-more { margin-top: 6px; font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); color: var(--zelena); }
+
+  /* Team overlay */
+  .profile-head { display: flex; align-items: flex-start; gap: 20px; }
+  .profile-title { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .profile-title h2 { margin: 0; font-size: var(--h3); line-height: 1.2; }
+  .profile-bio { margin: 18px 0; color: var(--tekst-sekundarni); }
+  .profile-tasks { display: flex; flex-direction: column; gap: 8px; }
+  .profile-tasks h3 { font-size: var(--tekst-vel); }
+  .profile-tasks ul { display: flex; flex-direction: column; gap: 4px; margin: 0; padding-left: 20px; }
+  .profile-note { margin: 18px 0 0; padding: 14px 16px; border-radius: 12px; background: var(--plava-tinta); font-size: var(--tekst-sitan); }
+  .profile-tasks + .text-link { margin-top: 12px; }
+  @media (min-width: 700px) {
+    :global(dialog.overlay[id^='tim-']) { max-width: 620px; }
+  }
+
+  /* Without JavaScript the cards cannot open anything: the profiles follow the cards as plain blocks. */
+  :global(html:not(.js) dialog.overlay[id^='tim-']) {
+    position: static; display: block; width: 100%; max-width: none; height: auto; margin: 0; border: 1px solid var(--linija);
+  }
+  :global(html:not(.js) dialog.overlay[id^='tim-'] .overlay-close) { display: none; }
+  :global(html:not(.js)) .member { cursor: default; }
+  :global(html:not(.js)) .member-more { display: none; }
+
+  @media (max-width: 699px) {
+    .hero { padding-bottom: 32px; }
+    .founder { align-items: flex-start; }
+    .founder-photo { flex: none; width: 100%; margin-inline: auto; aspect-ratio: 4 / 3; object-position: center 35%; border-radius: var(--radius-m); }
+    .founder-text { flex-basis: 100%; }
+    .member { padding: 20px; gap: 16px; }
+    .member-photo { width: 64px; height: 64px; }
+    .profile-photo { width: 72px; height: 72px; }
+  }
+</style>

@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p36",
+  "n": 36,
+  "nedelja": 8,
+  "dan": "8. nedelja – ponedeljak",
+  "naslov": "Druga prilika",
+  "slug": "druga-prilika",
+  "podnaslov": "Greška nije isto što i poraz",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Koeljov ratnik nije čovek koji je uvek ispravno postupao. On je grešio, povređivao druge i donosio loše odluke. Ali tokom puta ponovo susreće ljude i situacije u kojima dobija priliku da nešto ispravi.",
+    "Druga prilika ne briše prvu grešku. Ona samo otvara mogućnost da sledeći postupak ne bude isti."
+  ],
+  "pitanja": [
+    {
+      "id": "p36-q1",
+      "tekst": "Kada greška postaje poraz?"
+    },
+    {
+      "id": "p36-q2",
+      "tekst": "Koja je razlika između učenja iz greške i opravdavanja greške?"
+    },
+    {
+      "id": "p36-q3",
+      "tekst": "Kako izgleda „druga prilika\" koja ima konkretan postupak, a ne samo obećanje?"
+    }
+  ],
+  "poruka": "Greška je događaj iz kog možemo nešto da saznamo. Poraz počinje onda kada iz jedne greške napravimo dokaz da više nema smisla nastaviti.",
+  "zadatak": "Izaberite jednu staru grešku i dovršite: „Ona mi danas pokazuje da sledeći put treba da...\"",
+  "citat": "Ne postoji prečica do unutrašnjeg mira."
+}

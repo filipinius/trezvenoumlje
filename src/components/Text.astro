@@ -1,0 +1,9 @@
+---
+// A text value that may still contain [PLACEHOLDERS]: highlighted in preview, plain in production.
+import type { HTMLTag } from 'astro/types';
+import { isPreview } from '../lib/site';
+import { markPlaceholders } from '../lib/text';
+interface Props { value: string; as?: HTMLTag; class?: string; [attr: `data-${string}`]: unknown }
+const { value, as: Tag = 'span', ...rest } = Astro.props;
+---
+{isPreview ? <Tag {...rest} set:html={markPlaceholders(value)} /> : <Tag {...rest}>{value}</Tag>}

@@ -1,0 +1,35 @@
+{
+  "segment": "Kompanije",
+  "slug": "kompanije",
+  "naslov": "Moduli za radno okruženje",
+  "uvod": "Svaki modul se prilagođava veličini tima i formatu: predavanje, radionica ili ciklus.",
+  "moduli": [
+    {
+      "naziv": "Prevencija zavisnosti na radnom mestu",
+      "opis": "Rizici alkohola, supstanci i kocke kroz prizmu bezbednosti i produktivnosti."
+    },
+    {
+      "naziv": "Obuka za kadrovsku službu i rukovodioce",
+      "opis": "Kako prepoznati rizik, kako razgovarati i gde su granice uloge poslodavca."
+    },
+    {
+      "naziv": "Težak razgovor sa zaposlenim",
+      "opis": "Praktična struktura razgovora koji ne ponižava i ne prećutkuje problem."
+    },
+    {
+      "naziv": "Stres, sagorevanje i zdrave navike",
+      "opis": "Edukacija o stresu kao organizacionoj temi, bez predstavljanja kao zdravstvene usluge."
+    },
+    {
+      "naziv": "Dan ili nedelja mentalnog zdravlja",
+      "opis": "Predavanja, panel diskusije i radionice kao edukativna kampanja."
+    },
+    {
+      "naziv": "Poverljivi individualni razgovori",
+      "opis": "Ne objavljuje se dok format ne bude pravno definisan. U CMS-u ostaje kao nacrt.",
+      "status": "nacrt"
+    }
+  ],
+  "kategorijaPitanja": "organizacije",
+  "status": "objavljeno"
+}

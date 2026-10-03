@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Button from '../components/Button.astro';
+import Text from '../components/Text.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getVisible } from '../lib/content';
+import { getImageAsset, ogImageUrl } from '../lib/images';
+import { person } from '../lib/jsonld';
+import { site } from '../lib/site';
+
+const LEAD = 'Specijalista psihijatrije i subspecijalista za lečenje bolesti zavisnosti, sa približno 35 godina profesionalnog iskustva u zdravstvu.';
+
+const seo = {
+  title: 'Dr Dragan Vukadinović – psihijatar, subspecijalista za bolesti zavisnosti',
+  description: LEAD,
+  path: '/dr-dragan-vukadinovic/',
+  image: await ogImageUrl('osnivac.webp'),
+  type: 'website' as const,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'O Trezvenoumlju', path: '/o-nama/' },
+  { label: 'Dr Dragan Vukadinović', path: '/dr-dragan-vukadinovic/' },
+];
+
+// The media section of /resursi/ exists only while a media entry is visible: no link to an anchor that is not there.
+const hasMedia = (await getVisible('mediji')).length > 0;
+
+// Rendered width of the photo; it is never shown wider than this (no upscaling until the real photo arrives).
+const PHOTO_WIDTH = 400;
+const CREDENTIALS = ['specijalista psihijatrije', 'subspecijalista za bolesti zavisnosti', 'autor četiri knjige'];
+const TIMELINE = [
+  { year: '1994.', text: 'Lekar u psihijatrijskoj bolnici' },
+  { year: '2000.', text: 'Specijalista psihijatrije; kasnije subspecijalizacija iz bolesti zavisnosti' },
+  { year: '≈2009.', text: 'Odeljenje za narkomaniju, većinom kao načelnik' },
+  { year: '2020.', text: 'Onlajn inicijativa „Trezvenoumlje“ tokom pandemije' },
+  { year: '[GODINA]', text: 'Osnivanje centra Trezvenoumlje' },
+];
+---
+<BaseLayout seo={seo} jsonLd={[person(site)]} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
+  <div class="container page">
+    <div class="trail"><Breadcrumbs items={breadcrumbs} /></div>
+    {/* The heading comes first in the document at every width; the grid places the photo beside it on a wide screen. */}
+    <div class="title">
+      <span class="nadnaslov">Osnivač</span>
+      <h1>Dr Dragan Vukadinović</h1>
+    </div>
+    <div class="aside">
+      <Image class="photo" src={getImageAsset('osnivac.webp')} alt="dr Dragan Vukadinović" width={PHOTO_WIDTH} style={`max-width: min(100%, ${PHOTO_WIDTH}px)`} loading="eager" />
+      <div class="credentials">
+        <strong>dr Dragan Vukadinović</strong>
+        {CREDENTIALS.map((line) => <span>{line}</span>)}
+      </div>
+    </div>
+    <div class="text">
+      <p class="lead">{LEAD}</p>
+      <p>Od 1994. godine radi u psihijatrijskoj bolnici, a od 2000. kao specijalista psihijatrije. Od približno 2009. profesionalni fokus mu je rad na odeljenju za narkomaniju, gde je gotovo sve vreme obavljao dužnost načelnika. Kroz odeljenje je tokom tog perioda prošlo više od 1.000 pacijenata.</p>
+      <p>Oko pet godina radio je kao nastavnik psihijatrije u srednjoj medicinskoj školi, a kasnije i u privatnoj medicinskoj školi. Učestvovao je na brojnim domaćim stručnim skupovima, mnogim sa međunarodnim učešćem. Ima objavljene radove u celosti i rezimee, a autor je i četiri knjige.</p>
+      <blockquote>Iskustvo adiktologa treba da bude dostupno ne samo osobi koja već ima razvijen problem, već i porodici, mladima, školama i kompanijama koji žele da reaguju ranije.</blockquote>
+      <p>Razvio je saradnju sa rehabilitacionim centrima i nevladinim organizacijama koje se bave zavisnostima. Javnosti je poznat kroz televizijske nastupe, a tokom pandemije pokrenuo je Facebook inicijativu „Trezvenoumlje“, koja je nudila besplatnu psihijatrijsku podršku putem interneta.</p>
+
+      <h2>Profesionalni put</h2>
+      <ol class="timeline">
+        {TIMELINE.map((row) => (
+          <li><Text as="strong" value={row.year} /><span>{row.text}</span></li>
+        ))}
+      </ol>
+      <div class="actions">
+        <Button href="/knjige/" variant="secondary">Knjige i publikacije</Button>
+        {hasMedia && <Button href="/resursi/#mediji" variant="secondary">Medijski nastupi</Button>}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px 56px; padding-block: clamp(24px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .trail { margin-bottom: -4px; }
+  .title { display: flex; flex-direction: column; gap: 20px; }
+
+  .aside { min-width: 0; max-width: 400px; display: flex; flex-direction: column; gap: 16px; }
+  .photo { display: block; width: 100%; height: auto; margin-inline: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-l); }
+  .credentials { display: flex; flex-direction: column; gap: 4px; padding: 20px; background: var(--pesak-svetli); border-radius: 14px; font-size: var(--tekst-mali); }
+  .credentials strong { font-family: var(--font-naslov); font-weight: 600; }
+
+  .text { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .nadnaslov { display: block; }
+  h1 { margin: 0; line-height: 1.12; }
+  .text p { margin: 0; color: var(--tekst-sekundarni); }
+  .text .lead { font-size: var(--uvod); color: var(--tekst); }
+  blockquote {
+    margin: 8px 0; padding: 24px 28px; background: var(--zelena-tinta); border-radius: var(--radius-m);
+    font-family: var(--font-citat); font-style: italic; font-size: var(--h3); line-height: 1.5; color: var(--zelena);
+  }
+  h2 { margin: 16px 0 0; font-size: var(--h3); }
+  .timeline { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--linija); }
+  .timeline li { display: flex; gap: 20px; padding: 14px 0; border-top: 1px solid var(--linija); }
+  .timeline :global(strong) { flex: 0 0 96px; font-family: var(--font-naslov); font-weight: 600; color: var(--zelena); }
+  .actions { display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px; }
+
+  /* Two columns: the photo beside the heading and the text, as on the Founder artboard. */
+  @media (min-width: 1040px) {
+    .page { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); grid-template-rows: auto auto 1fr; align-items: start; }
+    .trail { grid-column: 1 / -1; }
+    .aside { grid-column: 1; grid-row: 2 / span 2; }
+    .title, .text { grid-column: 2; }
+  }
+
+  @media (max-width: 699px) {
+    .aside { max-width: none; }
+    .photo { aspect-ratio: 4 / 3; object-position: center 35%; border-radius: var(--radius-m); }
+    blockquote { padding: 20px; }
+    .timeline li { gap: 12px; }
+    .timeline :global(strong) { flex-basis: 84px; }
+    .actions { flex-direction: column; gap: 10px; }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+// The services table from the Services artboard: name and meta, description, price (when shown) and the way to contact.
+import type { CollectionEntry } from 'astro:content';
+import { priceLabel } from '../lib/price';
+import { href } from '../lib/site';
+import PriceNote from './PriceNote.astro';
+import StatusBadge from './StatusBadge.astro';
+import Text from './Text.astro';
+
+interface Props {
+  services: CollectionEntry<'usluge'>[];
+  /** Heading level of a service name; depends on the section the list sits in. */
+  heading?: 'h2' | 'h3';
+}
+const { services, heading: Heading = 'h2' } = Astro.props;
+const noPriceShown = services.every(({ data }) => priceLabel(data.prikazCene, data.cena) === null);
+---
+<ul class="service-list">
+  {services.map(({ data: s }) => (
+    <li id={s.slug} data-usluga>
+      <div class="service-head">
+        <Heading class="service-name">{s.naziv}</Heading>
+        <span class="service-meta">{s.meta}</span>
+        <StatusBadge status={s.status} />
+      </div>
+      <div class="service-text">
+        <Text as="p" value={s.opis} />
+        {s.pravnaNapomena && <Text as="p" class="service-legal" value={s.pravnaNapomena} />}
+      </div>
+      <div class="service-action">
+        <PriceNote prikaz={s.prikazCene} cena={s.cena} />
+        <a class="service-link" href={href('/kontakt/')} aria-label={`Zakažite razgovor: ${s.naziv}`}>Zakažite razgovor <span aria-hidden="true">→</span></a>
+      </div>
+    </li>
+  ))}
+</ul>
+{noPriceShown && <p class="price-line" data-cena-napomena>Informacije o ceni dobijate pri dogovoru termina.</p>}
+<style>
+  .service-list { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--tekst); }
+  li {
+    display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px 40px;
+    padding: 28px 0; border-bottom: 1px solid var(--linija); scroll-margin-top: 16px;
+  }
+  .service-head { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .service-name { margin: 0; font-size: var(--h3); line-height: 1.3; }
+  .service-meta { font-size: var(--tekst-sitan); font-weight: 700; color: var(--plava); }
+  .service-text { flex: 2 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; color: var(--tekst-sekundarni); }
+  .service-text :global(p) { margin: 0; }
+  .service-legal { font-size: var(--tekst-sitan); color: var(--tekst-prigusen); }
+  .service-action { flex: 0 0 180px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .service-action :global(.price-note) { font-family: var(--font-naslov); font-weight: 600; font-size: var(--uvod); }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.3em; min-height: 44px;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+  .price-line { margin: 20px 0 0; font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+</style>

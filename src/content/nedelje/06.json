@@ -1,0 +1,37 @@
+{
+  "status": "objavljeno",
+  "n": 6,
+  "oznaka": "šesta nedelja",
+  "tema": "Porodica i odnosi",
+  "uvod": [
+    "Niko ne živi sam.",
+    "Naši izbori utiču na ljude oko nas, a njihovi postupci utiču na nas.",
+    "Na ovoj stranici pogledajte svoje najvažnije odnose: šta je u njima sačuvano, šta je narušeno i šta biste želeli da počne da se menja."
+  ],
+  "osvrt": {
+    "naslov": "Moji odnosi, poverenje i granice",
+    "napomena": "Ova stranica nije za traženje krivca. Ona je pokušaj da vidim šta se dogodilo u mojim odnosima i šta je moj deo posla dalje.",
+    "pitanja": [
+      {
+        "id": "n06-o1",
+        "tekst": "Koji odnos mi je ove nedelje bio najvažniji za razmišljanje – i zašto?"
+      },
+      {
+        "id": "n06-o2",
+        "tekst": "Gde sam ove nedelje jasnije video kako je moje ponašanje uticalo na druge?"
+      },
+      {
+        "id": "n06-o3",
+        "tekst": "Šta u svom odnosu sa porodicom želim da ponesem dalje, a šta da ne ponavljam?"
+      },
+      {
+        "id": "n06-o4",
+        "tekst": "Koju granicu sada bolje razumem – svoju ili tuđu?"
+      },
+      {
+        "id": "n06-o5",
+        "tekst": "Koji realan postupak želim da napravim u važnom odnosu?"
+      }
+    ]
+  }
+}

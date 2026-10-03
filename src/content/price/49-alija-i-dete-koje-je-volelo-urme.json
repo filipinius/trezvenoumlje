@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p49",
+  "n": 49,
+  "nedelja": 10,
+  "dan": "10. nedelja – četvrtak",
+  "naslov": "Alija i dete koje je volelo urme",
+  "slug": "alija-i-dete-koje-je-volelo-urme",
+  "podnaslov": "Kome se javljam pre nego što uzmem drogu?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedna majka je dovela dete mudrom čoveku i zamolila ga da mu kaže da prestane da jede toliko urmi. Mudrac ih nije odmah posavetovao. Rekao im je da dođu sledećeg dana.",
+    "Kada su se vratili, rekao je detetu da jede manje urmi. Majka ga je upitala zašto to nije mogao da kaže i juče.",
+    "Odgovorio je da je prethodnog dana i sam jeo urme. Pre nego što od drugog zatraži da podnese istu želju, morao je najpre da se suoči sa sopstvenom."
+  ],
+  "pitanja": [
+    {
+      "id": "p49-q1",
+      "tekst": "Zašto savet ponekad drugačije čujemo od čoveka koji ne govori samo „sa visine\"?"
+    },
+    {
+      "id": "p49-q2",
+      "tekst": "Da li je važno da ta osoba razume zavisnost?"
+    },
+    {
+      "id": "p49-q3",
+      "tekst": "Koje tri osobe ili službe želite da imate u svom planu?"
+    }
+  ],
+  "poruka": "Pomoć je najkorisnija kada je tražimo pre nego što smo doneli odluku od koje se posle teško vraćamo. Nijedan čovek nije savršen oslonac, ali u krizi je važno da ne ostanemo sami sa jednom jedinom mišlju.",
+  "zadatak": "Zapišite tri imena ili broja koje možete da pozovete pre upotrebe. Pored svakog napišite u kojoj situaciji biste ga pozvali.",
+  "citat": "Ne moraš biti bez straha da bi izabrao hrabrije."
+}

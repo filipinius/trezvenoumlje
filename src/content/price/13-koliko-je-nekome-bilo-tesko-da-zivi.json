@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p13",
+  "n": 13,
+  "nedelja": 3,
+  "dan": "3. nedelja – sreda",
+  "naslov": "Koliko je nekome bilo teško da živi",
+  "slug": "koliko-je-nekome-bilo-tesko-da-zivi",
+  "podnaslov": "Krivica i odgovornost nisu isto",
+  "izvor": "Prema misli Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Andrić na jednom mestu razmišlja da bismo čoveku možda lakše oprostili i ono loše što je učinio i dobro koje je propustio kada bismo znali koliki je napor za njega bio sam život.",
+    "To ne znači da učinjeno nestaje, niti da posledice prestaju da postoje. Znači samo da čovek nije jednak zbiru svojih grešaka i da razumevanje okolnosti nije isto što i opravdavanje postupaka.",
+    "Između „učinio sam nešto za šta sam odgovoran\" i „ja sam bezvredan čovek\" postoji velika razlika."
+  ],
+  "pitanja": [
+    {
+      "id": "p13-q1",
+      "tekst": "Da li razumeti zašto je neko pogrešio znači i osloboditi ga svake odgovornosti?"
+    },
+    {
+      "id": "p13-q2",
+      "tekst": "Koja je razlika između osećanja krivice i preuzimanja odgovornosti?"
+    },
+    {
+      "id": "p13-q3",
+      "tekst": "Za šta u svom životu želite da preuzmete odgovornost, a da zbog toga ne ponižavate sebe?"
+    }
+  ],
+  "poruka": "Razumevanje nije isto što i opravdavanje. Krivica nas lako zadrži u prošlosti; odgovornost pita šta danas možemo da priznamo, popravimo ili uradimo drugačije. Čovek može biti odgovoran za svoje postupke, a da ne proglasi sebe bezvrednim.",
+  "zadatak": "Do sutra dovršite dve rečenice: „Žao mi je zbog...\" i „Zbog toga danas mogu da...\"",
+  "citat": "Savest je najtiši, ali najuporniji svedok."
+}

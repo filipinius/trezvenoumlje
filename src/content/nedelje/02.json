@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "n": 2,
+  "oznaka": "druga nedelja",
+  "tema": "Poricanje, racionalizacija i samozavaravanje",
+  "uvod": [
+    "Prošla je prva nedelja.",
+    "Ova bela stranica je mesto da zapišete šta ste do sada sebi objašnjavali, a šta sada počinjete da vidite drugačije."
+  ],
+  "osvrt": {
+    "naslov": "Šta sebi objašnjavam, a šta počinjem da vidim",
+    "napomena": "Ovo nije ispit iskrenosti. Cilj je da primetim svoja objašnjenja i proverim da li mi pomažu da vidim problem jasnije.",
+    "pitanja": [
+      {
+        "id": "n02-o1",
+        "tekst": "Koje svoje objašnjenje ili izgovor sada vidim malo drugačije nego na početku nedelje?"
+      },
+      {
+        "id": "n02-o2",
+        "tekst": "Gde sada vidim svoj deo odgovornosti u nečemu što sam ranije uglavnom objašnjavao drugima ili okolnostima?"
+      },
+      {
+        "id": "n02-o3",
+        "tekst": "Šta su mi drugi više puta govorili, a što sam ove nedelje bar malo ozbiljnije čuo?"
+      },
+      {
+        "id": "n02-o4",
+        "tekst": "Koju pomoć, savet ili granicu sada mogu da pogledam malo drugačije?"
+      },
+      {
+        "id": "n02-o5",
+        "tekst": "Šta želim da ponesem u sledeću nedelju kao iskreniji pogled na sebe?"
+      }
+    ]
+  }
+}

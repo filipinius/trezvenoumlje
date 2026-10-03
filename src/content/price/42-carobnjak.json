@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p42",
+  "n": 42,
+  "nedelja": 9,
+  "dan": "9. nedelja – utorak",
+  "naslov": "Čarobnjak",
+  "slug": "carobnjak",
+  "podnaslov": "Za šta vredi podneti neprijatnost?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan mula je zavukao ruku u ćup sa orasima i zgrabio punu šaku oraha. Kada je pokušao da izvuče ruku, nije mogao: stisnuta šaka bila je suviše široka za otvor ćupa.",
+    "Pozvali su suseda. On mu je rekao da ponovo gurne ruku dublje, otvori šaku i pusti orahe. Muli se to nije dopalo – baš je orahe želeo. Ipak je poslušao. Kada je pustio ono što je grčevito držao, lako je izvukao ruku.",
+    "Sused je zatim nagnuo ćup i sipao mu onoliko oraha koliko mu je bilo potrebno."
+  ],
+  "pitanja": [
+    {
+      "id": "p42-q1",
+      "tekst": "Šta je mula morao kratkoročno da pusti da bi dobio nešto važnije – slobodnu ruku?"
+    },
+    {
+      "id": "p42-q2",
+      "tekst": "Koju neprijatnost čovek u oporavku mora ponekad da podnese da bi sačuvao nešto važnije?"
+    },
+    {
+      "id": "p42-q3",
+      "tekst": "Šta trenutno držite „stisnutom šakom\", iako vas to možda drži zaglavljenim?"
+    }
+  ],
+  "poruka": "Neprijatnost sama po sebi nije cilj. Ali ponekad moramo da pustimo nešto što nam je trenutno drago da bismo sačuvali ono što nam je važnije.",
+  "zadatak": "Izaberite jednu kratku neprijatnost koju ste spremni da podnesete danas zbog nečega što vam je važno.",
+  "citat": "Snaga nije u mogućnosti, nego u uzdržavanju."
+}

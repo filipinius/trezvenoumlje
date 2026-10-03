@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p43",
+  "n": 43,
+  "nedelja": 9,
+  "dan": "9. nedelja – sreda",
+  "naslov": "Ne zaboraviti pomoć",
+  "slug": "ne-zaboraviti-pomoc",
+  "podnaslov": "Zahvalnost bez idealizovanja života",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ratnik ne zaboravlja ljude koji su mu pomogli dok mu je bilo teško. On ne tvrdi da je sve u njegovom životu bilo dobro, niti da je svaka patnja imala neku skrivenu korist. Samo ne dozvoljava da teškoće izbrišu iz sećanja i ono što je primio od drugih.",
+    "Zahvalnost zato nije poricanje gubitaka. Ona je sposobnost da pored onoga što je bolelo primetimo i čoveka, postupak ili priliku koji su nam nešto dali."
+  ],
+  "pitanja": [
+    {
+      "id": "p43-q1",
+      "tekst": "Može li čovek istovremeno da kaže „bilo mi je veoma teško\" i „neko mi je ipak pomogao\"?"
+    },
+    {
+      "id": "p43-q2",
+      "tekst": "Ko vam je pomogao u periodu kada vam je bilo najteže pomoći?"
+    },
+    {
+      "id": "p43-q3",
+      "tekst": "Kako se zahvalnost pokazuje postupkom, a ne samo rečima?"
+    }
+  ],
+  "poruka": "Zahvalnost ne traži da poreknemo ono što je bilo loše. Ona samo proširuje sliku: uz gubitke i bol ponekad su postojali i ljudi, prilike i postupci koji su nam pomogli da ostanemo u životu.",
+  "zadatak": "Zapišite ime jedne osobe kojoj ste za nešto stvarno zahvalni i konkretno šta je ta osoba uradila.",
+  "citat": "Zahvalnost čuva čoveka od pohlepe."
+}

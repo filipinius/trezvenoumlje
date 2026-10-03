@@ -1,0 +1,199 @@
+---
+// The whole "Trezvene misli" page. /resursi/ renders it without a category, /resursi/tema/<kategorija>/ with one.
+// Both carry every visible article; a topic page only hides the cards outside its category,
+// so src/scripts/filter.ts has the full set on every page and the chips stay real links without JavaScript.
+// Guides, the books link and the media section belong to the main page only; the media section needs a visible entry.
+import { KATEGORIJE_CLANAKA, NAZIVI_KATEGORIJA } from '../content/schemas';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getArticles, getVisible } from '../lib/content';
+import { videoObject } from '../lib/jsonld';
+import { RESOURCES_INTRO as INTRO } from '../lib/resursi';
+import { buildSeo } from '../lib/seo';
+import { href, isPreview, site } from '../lib/site';
+import ArticleCard from './ArticleCard.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import StatusBadge from './StatusBadge.astro';
+import VideoCard from './VideoCard.astro';
+
+type Kategorija = (typeof KATEGORIJE_CLANAKA)[number];
+interface Props { kategorija?: Kategorija }
+const { kategorija } = Astro.props;
+
+const ROOT = '/resursi/';
+const topicPath = (k: Kategorija) => `${ROOT}tema/${k}/`;
+
+// The artboard sentence speaks of a category; the unfiltered page has none.
+const EMPTY_CATEGORY = 'U ovoj kategoriji još nema objavljenih tekstova.';
+const EMPTY_ALL = 'Još nema objavljenih tekstova.';
+
+const articles = await getArticles();
+const shown = kategorija ? articles.filter((a) => a.data.kategorija === kategorija) : articles;
+
+// A guide becomes a link once its file exists; until then it is listed in preview only.
+const GUIDES: { naslov: string; fajl?: string }[] = [
+  { naslov: 'Vodič za roditelje: prvi razgovor o riziku' },
+  { naslov: 'Priručnik za nastavnike: prepoznavanje rizika u školi' },
+  { naslov: 'Priručnik za kadrovsku službu: granice uloge poslodavca' },
+];
+const guides = GUIDES.filter((g) => isPreview || g.fajl).map((g) => {
+  const cut = g.naslov.indexOf(':') + 1;
+  return { ...g, lead: g.naslov.slice(0, cut), rest: g.naslov.slice(cut) };
+});
+
+const media = kategorija ? [] : await getVisible('mediji');
+
+// What each view is called and described as; a chip carries the same title and heading for the in-place filter.
+const view = (k?: Kategorija) => ({
+  title: k ? `Trezvene misli: ${NAZIVI_KATEGORIJA[k]}` : 'Trezvene misli',
+  description: k ? `Tekstovi iz kategorije ${NAZIVI_KATEGORIJA[k]} u rubrici Trezvene misli centra Trezvenoumlje.` : INTRO,
+  path: k ? topicPath(k) : ROOT,
+});
+const { title, path } = view(kategorija);
+const seo = { ...view(kategorija), noindex: kategorija ? shown.length === 0 : false };
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Trezvene misli', path: ROOT },
+  ...(kategorija ? [{ label: NAZIVI_KATEGORIJA[kategorija], path }] : []),
+];
+const jsonLd = media.flatMap(({ data }) => (data.youtubeId ? [videoObject({ ...data, youtubeId: data.youtubeId, path: ROOT }, site)] : []));
+
+const chips = [undefined, ...KATEGORIJE_CLANAKA].map((k) => ({
+  value: k ?? '',
+  label: k ? NAZIVI_KATEGORIJA[k] : 'Sve',
+  path: view(k).path,
+  heading: view(k).title,
+  documentTitle: buildSeo(view(k), site).title,
+}));
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={jsonLd}>
+  <div data-filter-root data-filter-active={kategorija ? '' : undefined}>
+    <section class="hero container">
+      <Breadcrumbs items={breadcrumbs} />
+      <h1 data-filter-heading>{title}</h1>
+      <p class="intro">{INTRO}</p>
+      <nav class="chips" aria-label="Filter po temi">
+        <ul>
+          {chips.map((chip) => (
+            <li>
+              <a
+                href={href(chip.path)}
+                data-filter-value={chip.value}
+                data-filter-title={chip.documentTitle}
+                data-filter-heading={chip.heading}
+                aria-current={chip.value === (kategorija ?? '') ? 'true' : undefined}
+              >{chip.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </section>
+
+    <section class="container articles" aria-label="Članci">
+      <div class="article-grid">
+        {articles.map((entry) => <ArticleCard entry={entry} heading="h2" hidden={!shown.includes(entry)} />)}
+      </div>
+      {/* The live region is always in the page; only the message inside it is toggled. */}
+      <div aria-live="polite">
+        <p class="empty" data-filter-empty data-filter-empty-all={EMPTY_ALL} data-filter-empty-value={EMPTY_CATEGORY} hidden={shown.length > 0}>
+          {kategorija ? EMPTY_CATEGORY : EMPTY_ALL}
+        </p>
+      </div>
+    </section>
+  </div>
+
+  {!kategorija && guides.length > 0 && (
+    <section class="band-green" aria-labelledby="vodici-h">
+      <div class="container guides">
+        <div class="guides-title">
+          <h2 id="vodici-h">Vodiči za preuzimanje</h2>
+          <p>Kratki PDF vodiči, bez prijave i bez ostavljanja podataka.</p>
+        </div>
+        <ul class="guide-list">
+          {guides.map((g) => (
+            <li>
+              <span><strong>{g.lead}</strong>{g.rest}</span>
+              {g.fajl
+                ? <a href={href(g.fajl)}>Pročitajte vodič<span class="visually-hidden">: {g.naslov}</span> <span aria-hidden="true">→</span></a>
+                : <StatusBadge status="nacrt" />}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {!kategorija && (
+    <section class="container books" aria-labelledby="knjige-h">
+      <h2 id="knjige-h">Knjige dr Dragana Vukadinovića</h2>
+      <a class="text-link" href={href('/knjige/')}>Knjige i publikacije <span aria-hidden="true">→</span></a>
+    </section>
+  )}
+
+  {media.length > 0 && (
+    <section id="mediji" class="band-light" aria-labelledby="mediji-h">
+      <div class="container media">
+        <h2 id="mediji-h">Medijski nastupi</h2>
+        <div class="media-grid">
+          {media.map((entry) => <VideoCard entry={entry} />)}
+        </div>
+      </div>
+      {/* Only this section can hold a player, so only the page that renders it loads the player script. */}
+      <script>
+        import '../scripts/video.ts';
+      </script>
+    </section>
+  )}
+</BaseLayout>
+
+<script>
+  import '../scripts/filter.ts';
+</script>
+
+<style>
+  h1, h2, h3 { margin: 0; }
+  .band-green { background: var(--zelena-tinta); }
+  .band-light { background: var(--pesak-svetli); }
+
+  .hero { display: flex; flex-direction: column; gap: 18px; padding-block: clamp(24px, 5vw, 64px) 32px; }
+  .intro { margin: 0; max-width: 720px; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+
+  .chips { padding-top: 12px; }
+  .chips ul { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .chips a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+    border: 1.5px solid var(--linija-jaka); border-radius: 999px; background: var(--bela); color: var(--tekst);
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-sitan); text-decoration: none;
+  }
+  .chips a:hover { border-color: var(--zelena); color: var(--zelena); }
+  .chips a[aria-current] { border-color: var(--zelena); background: var(--zelena); color: var(--bela); }
+
+  .articles { padding-block: 16px clamp(56px, 7vw, 88px); }
+  .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 24px; }
+  .article-grid > :global(.article-card) { border: 1px solid var(--linija); }
+  .empty { margin: 0; padding: 32px; border-radius: 14px; background: var(--pesak-svetli); color: var(--tekst-prigusen); }
+
+  .guides { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 64px; padding-block: clamp(48px, 6vw, 80px); }
+  .guides-title { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+  .guides-title p { margin: 0; color: var(--tekst-sekundarni); }
+  .guide-list { flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .guide-list li {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px;
+    padding: 16px 20px; border-radius: 12px; background: var(--bela);
+  }
+  .guide-list a {
+    display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali);
+  }
+
+  .books {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px;
+    padding-block: clamp(48px, 6vw, 80px);
+  }
+  .text-link {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
+    font-family: var(--font-naslov); font-weight: 600; text-underline-offset: 4px;
+  }
+
+  .media { display: flex; flex-direction: column; gap: 24px; padding-block: clamp(48px, 6vw, 80px); }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 20px; }
+</style>

@@ -1,0 +1,14 @@
+---
+import { isPreview } from '../lib/site';
+---
+{isPreview && (
+  <aside class="dev-banner" aria-label="Napomena o pregledu">
+    <strong>Dev pregled</strong> · sadržaj i podaci u uglastim zagradama još nisu konačni
+  </aside>
+)}
+<style>
+  .dev-banner {
+    padding: 6px var(--gutter); background: var(--pesak); color: var(--tekst);
+    font-size: var(--nadnaslov); line-height: 1.5; text-align: center;
+  }
+</style>

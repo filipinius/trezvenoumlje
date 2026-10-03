@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p32",
+  "n": 32,
+  "nedelja": 7,
+  "dan": "7. nedelja – utorak",
+  "naslov": "Ispod površine",
+  "slug": "ispod-povrsine",
+  "podnaslov": "Bolest nije ceo moj identitet",
+  "izvor": "Prema misli Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Andrić piše da život nije samo ono što vidimo na površini. Koliko god se prostire u širinu, toliko ima i dubine, sa brojnim mogućnostima koje se spolja ne vide.",
+    "I čovek može biti viđen samo po onome što je trenutno najupadljivije: dijagnozi, greškama, izgledu, prošlosti. Ali vidljivi deo nije cela ličnost."
+  ],
+  "pitanja": [
+    {
+      "id": "p32-q1",
+      "tekst": "Šta se gubi kada čoveka opišemo samo jednom rečju?"
+    },
+    {
+      "id": "p32-q2",
+      "tekst": "Šta je stvarno u rečenici „ja sam zavisnik\", a šta ona ne govori o vama?"
+    },
+    {
+      "id": "p32-q3",
+      "tekst": "Šta bi čovek koji vas dobro poznaje rekao da još postoji „ispod površine\"?"
+    }
+  ],
+  "poruka": "Dijagnoza može da objasni važan deo našeg iskustva, ali ne može da opiše celog čoveka. Iza najvidljivijeg dela života ostaju sposobnosti, odnosi i mogućnosti koje tek treba ponovo otkriti.",
+  "zadatak": "Napišite tri osobine koje imate i koje nisu povezane sa zavisnošću.",
+  "citat": "Karakter je ono što ostane kada nestanu svedoci."
+}

@@ -1,0 +1,12 @@
+{
+  "naziv": "Psihoedukacija o zavisnostima",
+  "slug": "psihoedukacija",
+  "meta": "pojedinci i porodice",
+  "opis": "Mehanizmi zavisnosti, rizici, recidiv, porodična dinamika, zablude i realna očekivanja.",
+  "ciljneGrupe": [
+    "porodice",
+    "posle-rehabilitacije"
+  ],
+  "redosled": 2,
+  "status": "objavljeno"
+}

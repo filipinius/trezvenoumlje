@@ -1,0 +1,13 @@
+---
+// Typography for a rendered Markdown body (articles, legal pages). The content comes from <Content />, hence :global.
+---
+<div class="prose"><slot /></div>
+<style>
+  .prose { font-size: var(--tekst-vel); overflow-wrap: break-word; }
+  .prose :global(> :first-child) { margin-top: 0; }
+  .prose :global(> :last-child) { margin-bottom: 0; }
+  .prose :global(h2) { margin: 1.8em 0 0.6em; font-size: var(--h3); }
+  .prose :global(h3) { margin: 1.6em 0 0.5em; font-size: var(--tekst-vel); }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1em; }
+  .prose :global(blockquote) { margin: 1.4em 0; padding-left: 20px; border-left: 3px solid var(--zelena); font-family: var(--font-citat); font-style: italic; }
+</style>

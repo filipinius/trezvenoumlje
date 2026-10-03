@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p08",
+  "n": 8,
+  "nedelja": 2,
+  "dan": "2. nedelja – sreda",
+  "naslov": "Prljava gnezda",
+  "slug": "prljava-gnezda",
+  "podnaslov": "Šta drugi vide, a ja ne vidim?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan golub je stalno menjao gnezda. Posle izvesnog vremena svako gnezdo bi mu postalo nepodnošljivo zbog neprijatnog mirisa, pa bi se preselio u drugo.",
+    "Najzad se požali jednom starom i iskusnom golubu da nigde ne može da nađe dobro mesto.",
+    "Stari golub ga sasluša i reče mu da stalnim menjanjem gnezda neće rešiti problem, jer miris od kojeg beži ne dolazi iz gnezda.",
+    "Dolazi od njega samog."
+  ],
+  "pitanja": [
+    {
+      "id": "p08-q1",
+      "tekst": "Zašto je stari golub video nešto što mlađi nije mogao da vidi?"
+    },
+    {
+      "id": "p08-q2",
+      "tekst": "Zašto drugi ponekad lakše prepoznaju obrazac koji se kod nas ponavlja?"
+    },
+    {
+      "id": "p08-q3",
+      "tekst": "Koju povratnu informaciju o sebi vam je najteže da čujete?"
+    }
+  ],
+  "poruka": "Promena okruženja ponekad je neophodna, ali ne rešava svaki problem. Ako se isti obrazac ponavlja na različitim mestima, vredi proveriti šta mi sami nosimo sa sobom.",
+  "zadatak": "Do sutra se setite jedne stvari koju su vam različiti ljudi više puta govorili o vašem ponašanju. Samo je zapišite, bez raspravljanja da li su bili u pravu.",
+  "citat": "Čovek sazri kada prestane da traži krivca."
+}

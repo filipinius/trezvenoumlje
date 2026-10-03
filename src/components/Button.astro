@@ -1,0 +1,25 @@
+---
+// Always a link. `href` is a site path ("/kontakt/"), a fragment or an external URL; the base path is added here.
+import type { HTMLAttributes } from 'astro/types';
+import { href as withBase } from '../lib/site';
+interface Props extends Omit<HTMLAttributes<'a'>, 'href'> { href: string; variant?: 'primary' | 'secondary' | 'inverse' | 'text' }
+const { href, variant = 'primary', class: className, ...rest } = Astro.props;
+---
+<a {...rest} href={withBase(href)} class:list={['btn', `btn-${variant}`, className]}><slot /></a>
+<style>
+  .btn { font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-vel); line-height: 1.2; }
+  .btn-primary, .btn-secondary, .btn-inverse {
+    display: inline-flex; align-items: center; justify-content: center; text-align: center;
+    min-height: var(--dodir); padding: 8px 24px; border-radius: 8px; text-decoration: none;
+  }
+  .btn-primary { background: var(--zelena); color: var(--bela); border: 1.5px solid var(--zelena); }
+  .btn-primary:hover, .btn-primary:active { background: var(--zelena-hover); border-color: var(--zelena-hover); color: var(--bela); }
+  .btn-secondary { background: transparent; color: var(--zelena); border: 1.5px solid var(--zelena); }
+  .btn-secondary:hover, .btn-secondary:active { background: var(--zelena-tinta); color: var(--zelena-hover); }
+  /* For dark surfaces: white on the band, green text. */
+  .btn-inverse { background: var(--bela); color: var(--zelena); border: 1.5px solid var(--bela); }
+  .btn-inverse:hover, .btn-inverse:active { background: var(--zelena-tinta); border-color: var(--zelena-tinta); color: var(--zelena-hover); }
+  .btn-inverse:focus-visible { outline-color: var(--bela); }
+  .btn-text { display: inline-flex; align-items: center; min-height: 44px; color: var(--zelena); text-decoration: underline; text-underline-offset: 4px; }
+  .btn:focus-visible { outline-offset: 3px; }
+</style>

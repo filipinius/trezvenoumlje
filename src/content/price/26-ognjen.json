@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p26",
+  "n": 26,
+  "nedelja": 6,
+  "dan": "6. nedelja – ponedeljak",
+  "naslov": "Ognjen",
+  "slug": "ognjen",
+  "podnaslov": "Pripadanje i koreni",
+  "izvor": "Dragan Vukadinović – „Sabrana dela\"",
+  "tekst": [
+    "Jedan deda govori unuku o vremenu koje stoji iza porodice – o roditeljima, babama, dedama, ratovima, radostima i patnjama koje su preživeli. Kada pogled usmeri ka budućnosti, pojavljuje se strah od nepoznatog.",
+    "Tada mu ispriča priču o čoveku koji se plašio da krene preko ogromne ravnice. Napravio je strelu i rekao sebi da će ići samo do mesta gde ona padne. Kada bi stigao, ispalio bi sledeću. Od strele do strele prešao je ravnicu, a jednog dana je njegov sin nastavio put."
+  ],
+  "pitanja": [
+    {
+      "id": "p26-q1",
+      "tekst": "Šta u ovoj priči čovek nasleđuje, a šta ipak mora sam da pređe?"
+    },
+    {
+      "id": "p26-q2",
+      "tekst": "Može li čovek da bude blizak porodici, a da ne ponovi sve njene obrasce?"
+    },
+    {
+      "id": "p26-q3",
+      "tekst": "Šta biste voleli da se sa vama završi i ne pređe na sledeću generaciju?"
+    }
+  ],
+  "poruka": "Koreni nas povezuju sa onim što je bilo pre nas, ali ne propisuju svaki naš korak. Nešto nasleđujemo; nešto možemo da prekinemo, a nešto vredno da prenesemo dalje.",
+  "zadatak": "Napišite dve kratke rečenice: „Iz svoje porodice želim da ponesem...\" i „Ne želim da prenesem dalje...\"",
+  "citat": "Ne menjaju nas godine, već odluke."
+}

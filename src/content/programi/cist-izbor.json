@@ -1,0 +1,13 @@
+{
+  "naziv": "Čist izbor",
+  "slug": "cist-izbor",
+  "publika": "Mladi i roditelji",
+  "opis": "Preventivni program o riziku, izborima, pritisku vršnjaka i zdravim alternativama.",
+  "format": "[BROJ] susreta",
+  "ciljneGrupe": [
+    "mladi"
+  ],
+  "uIzradi": true,
+  "redosled": 2,
+  "status": "objavljeno"
+}

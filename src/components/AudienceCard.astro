@@ -1,0 +1,57 @@
+---
+// One card of "Kome pomažemo" (Home, and the family audiences again on Usluge). The whole card is the link.
+// `icon` is the slug of the audience the drawing belongs to.
+import { href } from '../lib/site';
+import Card from './Card.astro';
+
+interface Props {
+  title: string;
+  text: string;
+  /** Site path the card leads to. */
+  path: string;
+  icon: string;
+  /** Heading level of the title; depends on the section the card sits in. */
+  heading?: 'h2' | 'h3';
+  /** An organisation audience: blue icon tile. */
+  org?: boolean;
+}
+const { title, text, path, icon, heading: Heading = 'h3', org = false } = Astro.props;
+---
+<Card as="li" class={org ? 'audience-card audience-org' : 'audience-card'}>
+  <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    {icon === 'porodice' && <><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></>}
+    {icon === 'mladi' && <><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 4-3 7-8 7z"/><path d="M12 15c0-3-2.5-5.5-7-5.5 0 3 2.5 5.5 7 5.5z"/></>}
+    {icon === 'posle-rehabilitacije' && <><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h7"/></>}
+    {icon === 'kompanije' && <><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2M10 21v-3h4v3"/></>}
+    {icon === 'skole-i-nvo' && <><path d="M3 6c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 7v13"/></>}
+    {icon === 'advokati' && <><path d="M12 4v16M7 20h10M5 8h14"/><path d="M5 8l-3 6a3 3 0 0 0 6 0z"/><path d="M19 8l-3 6a3 3 0 0 0 6 0z"/></>}
+  </svg>
+  <Heading><a href={href(path)}>{title}</a></Heading>
+  <p class="audience-text">{text}</p>
+  <span class="audience-more" aria-hidden="true"><span class="audience-more-label">Saznajte više </span>→</span>
+</Card>
+<style>
+  /* Cards sit in a wrapping flex list (`ul`) that the page lays out. */
+  .audience-card.card { position: relative; flex: 1 1 340px; padding: 28px; border-radius: var(--radius-m); }
+  .audience-card :global(.card-icon) { width: 48px; height: 48px; border-radius: 12px; }
+  .audience-org :global(.card-icon) { background: var(--plava-tinta); color: var(--plava); }
+  .audience-card :is(h2, h3) a { color: var(--tekst); text-decoration: none; }
+  /* The whole card is the click target; the heading link stays the only focusable element. */
+  .audience-card :is(h2, h3) a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+  /* Focus rings the whole card where :has() exists; elsewhere the link keeps its own outline. */
+  @supports selector(:has(a)) {
+    .audience-card :is(h2, h3) a:focus-visible { outline: none; }
+    .audience-card:has(a:focus-visible) { outline: 3px solid var(--plava); outline-offset: 2px; }
+  }
+  .audience-card:hover { border-color: var(--zelena); }
+  .audience-text { color: var(--tekst-prigusen); }
+  .audience-more { margin-top: auto; font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); color: var(--zelena); }
+
+  @media (max-width: 699px) {
+    .audience-card.card { flex: none; flex-direction: row; align-items: center; gap: 14px; padding: 16px; border-radius: 14px; }
+    .audience-card :global(.card-icon) { width: 44px; height: 44px; border-radius: 10px; }
+    .audience-card :is(h2, h3) { flex: 1; font-size: var(--tekst-vel); }
+    .audience-text, .audience-more-label { display: none; }
+    .audience-more { margin-top: 0; }
+  }
+</style>

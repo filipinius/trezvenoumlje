@@ -1,0 +1,63 @@
+---
+// One <nav> serves desktop and mobile: a row from 900px up, the panel of MobileMenu below.
+import { NAV } from '../lib/nav';
+import { href } from '../lib/site';
+import Logo from './Logo.astro';
+import MobileMenu from './MobileMenu.astro';
+const { pathname } = Astro.url;
+const isCurrent = (item: (typeof NAV)[number]) => [item.path, ...(item.owns ?? [])].some((path) => pathname.startsWith(href(path)));
+---
+<header class="site-header">
+  <div class="bar container">
+    <a class="brand" href={href('/')} aria-label="Trezvenoumlje – početna">
+      <span class="mark-desktop"><Logo size={44} /></span>
+      <span class="mark-mobile"><Logo variant="symbol" size={34} /></span>
+      <span class="wordmark">Trezvenoumlje</span>
+    </a>
+    <MobileMenu>
+      <nav class="main-nav" aria-label="Glavna navigacija">
+        <ul>
+          {NAV.map((item) => (
+            <li><a href={href(item.path)} aria-current={isCurrent(item) ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </MobileMenu>
+  </div>
+</header>
+<style>
+  .site-header { position: relative; z-index: 20; background: var(--bela); border-bottom: 1px solid var(--linija); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 16px; min-height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; min-height: var(--dodir); color: var(--zelena); text-decoration: none; }
+  .mark-mobile { display: flex; }
+  .mark-desktop { display: none; }
+  .wordmark { font-family: var(--font-naslov); font-weight: 700; font-size: var(--h3); letter-spacing: -0.01em; line-height: 1; }
+
+  .main-nav ul { margin: 0; padding: 0; list-style: none; font-family: var(--font-naslov); font-weight: 600; font-size: var(--uvod); }
+  .main-nav li + li { border-top: 1px solid var(--linija); }
+  .main-nav a { display: block; padding: 14px 0; color: var(--tekst); text-decoration: none; }
+  .main-nav a:hover, .main-nav a[aria-current] { color: var(--zelena); }
+  /* Current page: never colour alone. Underlined in the mobile list, a bottom rule in the desktop row. */
+  .main-nav a[aria-current] { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+  /* With JavaScript the header sticks and the panel drops over the page; without it the panel stays in the flow. */
+  @media (max-width: 899px) {
+    :global(.js) .site-header { position: sticky; top: 0; }
+  }
+
+  @media (min-width: 900px) {
+    .bar { gap: 4px 32px; padding-block: 14px; }
+    .brand { gap: 12px; }
+    .mark-desktop { display: flex; }
+    .mark-mobile { display: none; }
+    .main-nav ul { display: flex; flex-wrap: wrap; gap: 4px clamp(18px, 1.6vw, 26px); font-weight: 500; font-size: var(--tekst-mali); }
+    .main-nav li + li { border-top: 0; }
+    .main-nav a { display: inline-block; padding: 10px 0; border-bottom: 2px solid transparent; }
+    .main-nav a[aria-current] { text-decoration: none; border-bottom-color: var(--zelena); }
+    /* Until one row fits (logo + seven items + CTA inside the container), the nav takes a second row under logo and CTA. */
+    .main-nav { order: 1; flex: 1 0 100%; }
+  }
+  @media (min-width: 1280px) {
+    .main-nav { order: 0; flex: 0 1 auto; }
+  }
+</style>

@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p28",
+  "n": 28,
+  "nedelja": 6,
+  "dan": "6. nedelja – sreda",
+  "naslov": "Solomonov sud",
+  "slug": "solomonov-sud",
+  "podnaslov": "Kako zavisnost menja porodicu?",
+  "izvor": "Prema priči koju Nosrat Pezeškijan razmatra u „Istočnjačkim pričama u psihoterapiji\"",
+  "slika": "solomonov-sud.webp",
+  "tekst": [
+    "Dve žene su pred Solomonom tvrdile da je isto dete njihovo. Kada je predloženo rešenje koje bi doslovno podelilo dete, jedna žena je odustala od svog zahteva da bi dete ostalo živo.",
+    "U Pezeškijanovom tumačenju ova slika podseća na porodične sukobe u kojima odrasli vuku na različite strane, dok onaj oko koga se spor vodi plaća cenu tog povlačenja."
+  ],
+  "pitanja": [
+    {
+      "id": "p28-q1",
+      "tekst": "Ko najviše strada kada se dvoje bore da dokažu ko je u pravu?"
+    },
+    {
+      "id": "p28-q2",
+      "tekst": "Šta se dešava sa decom kada moraju da biraju stranu?"
+    },
+    {
+      "id": "p28-q3",
+      "tekst": "Šta bi u vašoj porodici moralo postepeno da se menja zajedno sa vašim oporavkom?"
+    }
+  ],
+  "poruka": "Zavisnost retko ostaje samo u životu jednog čoveka. Ona menja odnose, uloge i poverenje u čitavoj porodici. Oporavak zato ponekad traži promenu više odnosa, a ne samo prestanak upotrebe.",
+  "zadatak": "Nacrtajte krug sa imenima 3--5 bliskih ljudi i pored svakog napišite jednu reč o tome kako je vaša zavisnost uticala na taj odnos.",
+  "citat": "Ljubav bez slobode postaje posedovanje."
+}

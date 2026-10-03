@@ -1,0 +1,44 @@
+---
+// A book cover drawn in CSS, for a book that has no cover image (yet). Sizes follow the cover's own width,
+// so the same drawing works as the hero of the book page and as a thumbnail in a list.
+// Optional slots carry the extra lines of a particular edition: `top`, `sub` (under the title), `meta` (beside the author);
+// `title` replaces the plain title where the cover sets it in its own way (a fixed line break).
+import { coverAlt } from '../lib/knjige';
+import Logo from './Logo.astro';
+import Text from './Text.astro';
+interface Props { naslov: string; autor: string; class?: string; [attr: `data-${string}`]: unknown }
+const { naslov, autor, class: className, ...rest } = Astro.props;
+// Under a title that is still a placeholder the cover is decorative.
+const label = coverAlt(naslov);
+const a11y = label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': 'true' as const };
+---
+<div {...rest} class:list={['book-cover', className]} {...a11y}>
+  <div class="cover-face">
+    {Astro.slots.has('top') && <span class="cover-top"><slot name="top" /></span>}
+    <div class="cover-middle">
+      <Logo size={72} />
+      <span class="cover-title"><slot name="title"><Text value={naslov} /></slot></span>
+      {Astro.slots.has('sub') && <span class="cover-sub"><slot name="sub" /></span>}
+    </div>
+    <div class="cover-bottom">
+      <Text as="strong" value={autor} />
+      {Astro.slots.has('meta') && <span class="cover-meta"><slot name="meta" /></span>}
+    </div>
+  </div>
+</div>
+<style>
+  /* Lengths in cqi scale with the cover; each is capped at the value the full-size cover of the Book artboard uses. */
+  .book-cover { container-type: inline-size; width: 100%; aspect-ratio: 2 / 3; }
+  .cover-face {
+    height: 100%; display: flex; flex-direction: column; overflow: hidden;
+    padding: 10.5cqi 9cqi 9cqi 11.75cqi; border-radius: 6px min(14px, 4cqi) min(14px, 4cqi) 6px; background: var(--pesak-svetli); color: var(--tekst);
+    box-shadow: inset max(-10px, -3cqi) 0 0 var(--zelena-hover), var(--cover-shadow, 0 12px 24px color-mix(in srgb, var(--tekst) 12%, transparent));
+  }
+  .cover-top { font-family: var(--font-naslov); font-weight: 600; font-size: min(var(--nadnaslov), 5.5cqi); letter-spacing: 0.16em; text-transform: uppercase; color: var(--plava); }
+  .cover-middle { display: flex; flex-direction: column; gap: min(12px, 5cqi); margin-block: auto; }
+  .cover-middle :global(.logo) { width: min(72px, 30cqi); height: auto; }
+  .cover-title { font-family: var(--font-naslov); font-weight: 700; font-size: min(var(--h2), 11.7cqi); line-height: 1.02; color: var(--zelena); overflow-wrap: break-word; }
+  .cover-sub { font-family: var(--font-citat); font-style: italic; font-size: min(var(--tekst-vel), 7cqi); }
+  .cover-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 4px 12px; font-size: min(var(--nadnaslov), 5.5cqi); }
+  .cover-meta { color: var(--tekst-prigusen); }
+</style>

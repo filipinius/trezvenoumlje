@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p17",
+  "n": 17,
+  "nedelja": 4,
+  "dan": "4. nedelja – utorak",
+  "naslov": "Pauza u bici",
+  "slug": "pauza-u-bici",
+  "podnaslov": "Okidač – misao – želja – postupak",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ratnik zna da se bitka ponekad prekida. Ne pokušava uvek da nastavi na silu.",
+    "U trenutku zatišja osluškuje sebe. Primećuje da je napet, da se plaši ili da mu nešto nedostaje. Proverava svoju snagu, svoju pripremljenost i ono što mu je potrebno pre nego što napravi sledeći potez.",
+    "Pauza zato nije odustajanje. Ona može biti vreme u kojem čovek prestane da reaguje automatski i ponovo dobije mogućnost izbora."
+  ],
+  "pitanja": [
+    {
+      "id": "p17-q1",
+      "tekst": "Zašto pauza u ovoj priči nije isto što i slabost?"
+    },
+    {
+      "id": "p17-q2",
+      "tekst": "Koliko je vremena ponekad potrebno da se između želje i postupka pojavi izbor?"
+    },
+    {
+      "id": "p17-q3",
+      "tekst": "Šta možete da uradite u prvih deset minuta jake želje?"
+    }
+  ],
+  "poruka": "Želja može biti jaka, ali ona nije isto što i postupak. Između onoga što nas pokrene i onoga što uradimo ponekad postoji samo kratka pauza. Upravo u toj pauzi može da počne drugačiji izbor.",
+  "zadatak": "Danas jednom namerno napravite kratku pauzu pre neke automatske reakcije. Primetite: šta osećam, šta mislim i šta mi se upravo radi?",
+  "citat": "Mudrost nije znati sve, nego znati kada stati."
+}

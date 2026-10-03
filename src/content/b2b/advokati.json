@@ -1,0 +1,24 @@
+{
+  "segment": "Advokati i pravni timovi",
+  "slug": "advokati",
+  "nadnaslov": "Advokati i pravni timovi · Adiktologija u pravu",
+  "naslov": "Razumevanje zavisnosti za bolja pitanja u predmetu",
+  "uvod": "Razumevanje zavisnosti kao složenog bihejvioralnog i psihijatrijskog fenomena može biti važno za pravilno postavljanje pitanja, komunikaciju sa strankom i razumevanje dokumentacije.",
+  "stavke": [
+    "Konsultacije o opštim adiktološkim mehanizmima relevantnim za predmet",
+    "Edukacija advokatskih kancelarija",
+    "Stručni brifing o rehabilitaciji, recidivu, porodičnim obrascima i motivaciji"
+  ],
+  "nije": {
+    "uvod": "Edukativni i stručni konsalting jasno se razlikuje od:",
+    "stavke": [
+      "sudskog veštačenja",
+      "sudsko-psihijatrijskog nalaza",
+      "procene uračunljivosti",
+      "medicinskog mišljenja za sud"
+    ],
+    "napomena": "Pisani stručni osvrt objavljuje se tek kada se pravno definiše priroda dokumenta."
+  },
+  "kategorijaPitanja": "pravni-sektor",
+  "status": "objavljeno"
+}

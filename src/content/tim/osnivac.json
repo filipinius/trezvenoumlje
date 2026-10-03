@@ -1,0 +1,19 @@
+{
+  "ime": "dr Dragan Vukadinović",
+  "slug": "dr-dragan-vukadinovic",
+  "uloga": "Osnivač, nosilac stručnog koncepta",
+  "kratko": "Programi, adiktološke edukacije, rad sa porodicama i organizacijama, stručna supervizija sadržaja.",
+  "bio": "Specijalista psihijatrije i subspecijalista za bolesti zavisnosti, sa približno 35 godina rada u zdravstvu, od toga većinu kao načelnik odeljenja za narkomaniju. Autor je četiri knjige i programa narativnih grupa „Pričamo priču“.",
+  "zadaci": [
+    "Stručni koncept centra i razvoj programa",
+    "Adiktološke edukacije i složeniji konsultativni razgovori",
+    "Rad sa porodicama, stručnjacima, advokatima i organizacijama",
+    "Javna predavanja, publikacije i stručna supervizija sadržaja"
+  ],
+  "fotografija": "tim-osnivac.webp",
+  "oblik": "krug",
+  "zdravstvenaUloga": false,
+  "stranica": "/dr-dragan-vukadinovic/",
+  "redosled": 1,
+  "status": "objavljeno"
+}

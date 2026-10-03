@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "n": 9,
+  "oznaka": "deveta nedelja",
+  "tema": "Vrednosti i smisao",
+  "uvod": [
+    "Kada se odmaknemo od starog načina života, ostaje pitanje: čemu želim da se približim?",
+    "Ova bela stranica je mesto da zapišete šta vam je danas zaista važno i zbog čega vredi podneti neprijatnost, odlaganje i trud."
+  ],
+  "osvrt": {
+    "naslov": "Šta mi je zaista važno",
+    "napomena": "Ne tražim „veliki odgovor\". Pokušavam da vidim šta želim da čuvam i zbog čega mi vredi da izdržim neprijatnost.",
+    "pitanja": [
+      {
+        "id": "n09-o1",
+        "tekst": "Šta mi je ove nedelje postalo jasnije da mi je zaista važno?"
+      },
+      {
+        "id": "n09-o2",
+        "tekst": "Koju neprijatnost sam spreman da podnesem zbog nečega što mi je važnije?"
+      },
+      {
+        "id": "n09-o3",
+        "tekst": "Koju osobu, pomoć ili odnos ne želim da uzmem zdravo za gotovo?"
+      },
+      {
+        "id": "n09-o4",
+        "tekst": "Kakav trag želim da moji postupci ostavljaju kod ljudi oko mene?"
+      },
+      {
+        "id": "n09-o5",
+        "tekst": "Šta iz ove nedelje želim da čuvam i onda kada mi bude teško?"
+      }
+    ]
+  }
+}

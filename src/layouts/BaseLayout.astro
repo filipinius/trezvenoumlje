@@ -1,0 +1,64 @@
+---
+import '../styles/base.css';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import DevBanner from '../components/DevBanner.astro';
+import Footer from '../components/Footer.astro';
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import { assertContentIntegrity, getSettings } from '../lib/content';
+import { breadcrumbs as breadcrumbsLd, organization } from '../lib/jsonld';
+import type { SeoInput } from '../lib/seo';
+import { site } from '../lib/site';
+
+// `breadcrumbs` always feeds the BreadcrumbList JSON-LD. With renderBreadcrumbs={false} the page places
+// <Breadcrumbs items> inside its own hero instead of the default strip at the top of <main>.
+interface Props { seo: SeoInput; jsonLd?: object[]; breadcrumbs?: { label: string; path: string }[]; renderBreadcrumbs?: boolean }
+const { seo, jsonLd = [], breadcrumbs, renderBreadcrumbs = true } = Astro.props;
+assertContentIntegrity();
+const settings = await getSettings();
+const ld = [
+  organization(site, settings),
+  ...(breadcrumbs && breadcrumbs.length > 1 ? [breadcrumbsLd(breadcrumbs, site)] : []),
+  ...jsonLd,
+];
+---
+<!doctype html>
+<html lang="sr-Latn">
+  <head>
+    <Head seo={seo} jsonLd={ld} />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#sadrzaj">Preskoči na sadržaj</a>
+    <DevBanner />
+    <Header />
+    <!-- Inline on purpose: the head script collapses the menu, so the code that opens it must ship in the same document. -->
+    <script is:inline>
+      (function () {
+        var toggle = document.querySelector('.menu-toggle');
+        var panel = document.getElementById('glavni-meni');
+        if (!toggle || !panel) return;
+        function isOpen() { return toggle.getAttribute('aria-expanded') === 'true'; }
+        function setOpen(open) {
+          panel.toggleAttribute('data-open', open);
+          toggle.setAttribute('aria-expanded', String(open));
+        }
+        toggle.addEventListener('click', function () { setOpen(!isOpen()); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+        });
+        panel.addEventListener('click', function (e) {
+          if (e.target instanceof Element && e.target.closest('a')) setOpen(false);
+        });
+      })();
+    </script>
+    <main id="sadrzaj">
+      {breadcrumbs && renderBreadcrumbs && <div class="container"><Breadcrumbs items={breadcrumbs} /></div>}
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/dialog.ts';
+    </script>
+  </body>
+</html>

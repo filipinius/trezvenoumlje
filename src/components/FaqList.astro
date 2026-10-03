@@ -1,0 +1,39 @@
+---
+// The questions themselves: one <details> per question, opened in place. Each is linkable by its stable id.
+import type { CollectionEntry } from 'astro:content';
+import StatusBadge from './StatusBadge.astro';
+import Text from './Text.astro';
+interface Props { questions: CollectionEntry<'pitanja'>[] }
+const { questions } = Astro.props;
+---
+<div class="faq-list">
+  {questions.map(({ data: q }) => (
+    <details id={q.id}>
+      <summary><Text value={q.pitanje} /> <StatusBadge status={q.status} /></summary>
+      <Text as="p" class="faq-answer" value={q.odgovor} />
+    </details>
+  ))}
+</div>
+<script>
+  // CSS :target cannot open a <details>: a link to one question opens it on arrival.
+  function openTarget() {
+    let id = location.hash.slice(1);
+    try { id = decodeURIComponent(id); } catch { /* malformed escape: use the raw hash */ }
+    const target = id ? document.getElementById(id) : null;
+    if (target instanceof HTMLDetailsElement) target.open = true;
+  }
+  openTarget();
+  window.addEventListener('hashchange', openTarget);
+</script>
+<style>
+  .faq-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--linija); }
+  details { border-top: 1px solid var(--linija); scroll-margin-top: 16px; }
+  summary {
+    min-height: 44px; padding: 18px 0; cursor: pointer;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-vel); line-height: 1.4;
+  }
+  summary:hover { color: var(--zelena); }
+  summary :global(.status-badge) { margin-left: 8px; vertical-align: middle; }
+  details[open] summary { padding-bottom: 10px; }
+  .faq-answer { margin: 0; padding-bottom: 18px; color: var(--tekst-sekundarni); }
+</style>

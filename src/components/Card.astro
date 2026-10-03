@@ -1,0 +1,22 @@
+---
+// The card from the brand sheet: white surface, hairline border, optional icon tile, stacked content.
+import type { HTMLTag } from 'astro/types';
+interface Props { as?: HTMLTag; class?: string; id?: string; [attr: `data-${string}`]: unknown }
+const { as: Tag = 'div', class: className, ...rest } = Astro.props;
+---
+<Tag {...rest} class:list={['card', className]}>
+  {Astro.slots.has('icon') && <span class="card-icon"><slot name="icon" /></span>}
+  <slot />
+</Tag>
+<style>
+  .card {
+    display: flex; flex-direction: column; gap: 12px; min-width: 0;
+    padding: 24px; background: var(--bela); border: 1px solid var(--linija); border-radius: 14px;
+  }
+  .card-icon {
+    display: flex; align-items: center; justify-content: center; flex: none;
+    width: 44px; height: 44px; border-radius: 10px; background: var(--zelena-tinta); color: var(--zelena);
+  }
+  .card :global(h2), .card :global(h3) { margin: 0; font-size: var(--h3); }
+  .card :global(p) { margin: 0; }
+</style>

@@ -1,0 +1,52 @@
+---
+// One program teaser (Services artboard, "Programi"). The card id is the program slug, so old #anchors keep working.
+import type { CollectionEntry } from 'astro:content';
+import { priceLabel } from '../lib/price';
+import { href } from '../lib/site';
+import Card from './Card.astro';
+import PriceNote from './PriceNote.astro';
+import StatusBadge from './StatusBadge.astro';
+import Text from './Text.astro';
+
+interface Props {
+  entry: CollectionEntry<'programi'>;
+  /** Heading level of the name; depends on the section the card sits in. */
+  heading?: 'h2' | 'h3';
+}
+const { entry, heading: Heading = 'h3' } = Astro.props;
+const p = entry.data;
+const hasPrice = priceLabel(p.prikazCene, p.cena) !== null;
+---
+<Card as="article" class="program-card" id={p.slug} data-program={p.slug}>
+  <div class="program-top">
+    <span class="program-audience">{p.publika}</span>
+    {p.uIzradi && <span class="program-draft">Sadržaj u izradi</span>}
+    <StatusBadge status={p.status} />
+  </div>
+  <Heading>{p.naziv}</Heading>
+  <p class="program-text">{p.opis}</p>
+  <dl class="program-facts">
+    <div><dt>Format</dt><Text as="dd" value={p.format} /></div>
+    {hasPrice && <div><dt>Cena paketa</dt><dd><PriceNote prikaz={p.prikazCene} cena={p.cena} /></dd></div>}
+  </dl>
+  <a class="program-link" href={href(`/programi/${p.slug}/`)} aria-label={`Pogledajte program: ${p.naziv}`}>Pogledajte program <span aria-hidden="true">→</span></a>
+</Card>
+<style>
+  .program-card { flex: 1 1 340px; max-width: 620px; gap: 14px; padding: 30px; border: 0; border-radius: var(--radius-m); scroll-margin-top: 16px; }
+  .program-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; }
+  .program-audience { padding: 4px 12px; border-radius: 999px; background: var(--zelena-tinta); color: var(--zelena); font-size: var(--nadnaslov); font-weight: 700; }
+  .program-draft { font-size: var(--nadnaslov); color: var(--tekst-prigusen); }
+  .program-text { color: var(--tekst-sekundarni); }
+  .program-facts { display: flex; flex-direction: column; gap: 6px; margin: 0; padding-top: 14px; border-top: 1px solid var(--linija); font-size: var(--tekst-mali); }
+  .program-facts div { display: flex; justify-content: space-between; gap: 12px; }
+  .program-facts dt { color: var(--tekst-prigusen); }
+  .program-facts :global(dd) { margin: 0; font-weight: 700; text-align: right; }
+  .program-link {
+    display: inline-flex; align-items: center; gap: 0.3em; align-self: flex-start; min-height: 44px; margin-top: auto;
+    font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-underline-offset: 4px;
+  }
+
+  @media (max-width: 699px) {
+    .program-card { flex-basis: 100%; padding: 22px; border-radius: 14px; }
+  }
+</style>

@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p35",
+  "n": 35,
+  "nedelja": 7,
+  "dan": "7. nedelja – petak",
+  "naslov": "Čovek koji se gradi",
+  "slug": "covek-koji-se-gradi",
+  "podnaslov": "Kakav čovek želim da postanem?",
+  "izvor": "Prema odlomcima Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ratnik svetlosti ne meri sebe samo po onome što je nekada bio. On zna da se čovek oblikuje kroz postupke koje ponavlja, obećanja koja drži, odnose koje neguje i izbore koje pravi kada niko ne gleda.",
+    "Zato pitanje nije samo „šta više neću da radim\", već i „koje osobine želim da vežbam dok ne postanu deo mene\"."
+  ],
+  "pitanja": [
+    {
+      "id": "p35-q1",
+      "tekst": "Kakvog čoveka želite da vaši postupci pokazuju da ste?"
+    },
+    {
+      "id": "p35-q2",
+      "tekst": "Šta je razlika između „želim da budem drugačiji\" i vežbanja jedne osobine?"
+    },
+    {
+      "id": "p35-q3",
+      "tekst": "Koju osobinu želite svesno da vežbate tokom ostatka lečenja?"
+    }
+  ],
+  "poruka": "Identitet nije samo priča o prošlosti. On se gradi i sada, kroz ono što ponavljamo dovoljno dugo da postane naš način života.",
+  "zadatak": "Izaberite jednu osobinu koju želite da jačate i napišite jedan postupak kojim ćete je danas pokazati.",
+  "citat": "Karakter raste u tišini donetih odluka."
+}

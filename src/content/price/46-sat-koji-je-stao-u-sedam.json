@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p46",
+  "n": 46,
+  "nedelja": 10,
+  "dan": "10. nedelja – ponedeljak",
+  "naslov": "Sat koji je stao u sedam",
+  "slug": "sat-koji-je-stao-u-sedam",
+  "podnaslov": "Šta me čeka posle otpusta?",
+  "izvor": "Prema priči Horhea Bukaja – „Ispričaću ti priču\"",
+  "tekst": [
+    "Jedan sat je stao u sedam. Dok su drugi satovi nastavili da mere vreme, on je ostao na istom mestu. Dva puta dnevno čak je pokazivao tačno vreme, ali između tih trenutaka svet se kretao dalje.",
+    "Čovek ponekad živi kao takav sat. Vraća se staroj kući, starim odnosima i starim očekivanjima kao da se ništa nije promenilo. Ali vreme nije stajalo dok je on bio odsutan.",
+    "Posle lečenja povratak nije nastavak iste rečenice sa mesta na kojem je prekinuta. Potrebno je prvo videti koliko je sada sati."
+  ],
+  "pitanja": [
+    {
+      "id": "p46-q1",
+      "tekst": "Šta bi bilo opasno očekivati da posle otpusta bude potpuno isto kao pre lečenja?"
+    },
+    {
+      "id": "p46-q2",
+      "tekst": "Šta se neće automatski vratiti samim tim što ste apstinirali u bolnici?"
+    },
+    {
+      "id": "p46-q3",
+      "tekst": "Kako možete da proverite „koliko je sada sati\" pre nego što počnete da donosite velike odluke?"
+    }
+  ],
+  "poruka": "Otpust nije povratak u zamrznuti život. Ljudi, odnosi i okolnosti su se kretali dalje. Prvi zadatak je da vidimo stvarnost kakva je sada, a ne kakvu bismo želeli da zateknemo.",
+  "zadatak": "Napišite tri stvari za koje očekujete da će posle otpusta biti drugačije nego pre dolaska na lečenje.",
+  "citat": "Poverenje se vraća malim postupcima koje vreme potvrđuje."
+}

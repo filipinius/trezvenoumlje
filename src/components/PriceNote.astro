@@ -1,0 +1,12 @@
+---
+// The price as the owner chose to show it; renders nothing when hidden or not yet set.
+import { priceLabel, type PrikazCene } from '../lib/price';
+import Text from './Text.astro';
+interface Props { prikaz: PrikazCene; cena?: string }
+const { prikaz, cena } = Astro.props;
+const label = priceLabel(prikaz, cena);
+---
+{label && <Text value={label} class="price-note" data-price={prikaz} />}
+<style>
+  .price-note { font-weight: 700; }
+</style>

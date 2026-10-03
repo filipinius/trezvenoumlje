@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p07",
+  "n": 7,
+  "nedelja": 2,
+  "dan": "2. nedelja – utorak",
+  "naslov": "Istinoljubivi lopov",
+  "slug": "istinoljubivi-lopov",
+  "podnaslov": "Izgovor ili razlog?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jednog mladog lopova dovedoše mudracu. Umesto duge pridike o krađi, mudrac je sa njim mirno razgovarao i zatražio samo jedno: da od tog dana uvek govori istinu.",
+    "Mladiću je taj uslov izgledao lak. Pristao je i otišao.",
+    "Iste noći krenuo je da nešto ukrade. Ali mu pade na pamet: ako ga neko sutra pita gde je bio i šta je radio, moraće da kaže istinu. Ako prizna krađu, slede posledice; ako slaže, prekršiće obećanje.",
+    "Tako mu je jedno jednostavno obećanje počelo da otežava staro ponašanje."
+  ],
+  "pitanja": [
+    {
+      "id": "p07-q1",
+      "tekst": "Zašto je obećanje da će govoriti istinu mladom lopovu postalo teže nego što je očekivao?"
+    },
+    {
+      "id": "p07-q2",
+      "tekst": "Da li razlog može biti istinit, a da ipak ne opravdava postupak?"
+    },
+    {
+      "id": "p07-q3",
+      "tekst": "Koji svoj čest izgovor danas želite da pogledate preciznije?"
+    }
+  ],
+  "poruka": "Razumeti razlog nije isto što i opravdati sve što smo uradili. Istina može da bude neprijatna, ali nam pomaže da vidimo gde počinje naš izbor. Bez tog mesta teško je nešto menjati.",
+  "zadatak": "Do sutra izaberite jedan svoj čest izgovor i pretvorite ga u dve rečenice: „Razlog je...\" i „Moj deo odgovornosti je...\"",
+  "citat": "Iskrenost boli kratko, laž dugo."
+}

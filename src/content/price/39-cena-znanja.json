@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p39",
+  "n": 39,
+  "nedelja": 8,
+  "dan": "8. nedelja – četvrtak",
+  "naslov": "Cena znanja",
+  "slug": "cena-znanja",
+  "podnaslov": "Traženje pomoći pre nego što bude kasno",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Seljaku se pokvario traktor. On i prijatelji su dugo pokušavali da ga poprave, ali nisu uspeli. Na kraju su pozvali majstora.",
+    "Majstor je pažljivo pregledao mašinu, uzeo čekić i jednom udario na pravo mesto. Traktor je proradio. Kada je seljak negodovao zbog cene, majstor mu je objasnio da sam udarac malo vredi; najviše vredi znati gde treba udariti."
+  ],
+  "pitanja": [
+    {
+      "id": "p39-q1",
+      "tekst": "Zašto je ponekad važnije znati kome se obratiti nego uporno pokušavati da sve rešimo sami?"
+    },
+    {
+      "id": "p39-q2",
+      "tekst": "Da li svaka pomoć ima istu vrednost?"
+    },
+    {
+      "id": "p39-q3",
+      "tekst": "Koji znak treba da bude vaš prag posle kog više ne pokušavate sami?"
+    }
+  ],
+  "poruka": "Samostalnost ne znači rešavati sve bez drugih. Ponekad je zrelost upravo u tome da dovoljno rano prepoznamo da nam treba znanje ili podrška koju sami nemamo.",
+  "zadatak": "Napišite imena tri osobe ili službe kojima možete da se obratite pre nego što kriza postane recidiv.",
+  "citat": "Pomoć ne oduzima snagu; ponekad je način da je ponovo pronađemo."
+}

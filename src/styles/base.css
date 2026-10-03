@@ -1,0 +1,88 @@
+@import '@fontsource/montserrat/latin-500.css'; @import '@fontsource/montserrat/latin-ext-500.css';
+@import '@fontsource/montserrat/latin-600.css'; @import '@fontsource/montserrat/latin-ext-600.css';
+@import '@fontsource/montserrat/latin-700.css'; @import '@fontsource/montserrat/latin-ext-700.css';
+@import '@fontsource/lato/latin-400.css'; @import '@fontsource/lato/latin-ext-400.css';
+@import '@fontsource/lato/latin-700.css'; @import '@fontsource/lato/latin-ext-700.css';
+@import '@fontsource/lato/latin-400-italic.css'; @import '@fontsource/lato/latin-ext-400-italic.css';
+@import '@fontsource/lora/latin-500.css'; @import '@fontsource/lora/latin-ext-500.css';
+@import '@fontsource/lora/latin-400-italic.css'; @import '@fontsource/lora/latin-ext-400-italic.css';
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-tekst);
+  font-size: var(--tekst-vel);
+  line-height: 1.65;
+  color: var(--tekst);
+  background: var(--bela);
+}
+
+h1, h2, h3 { font-family: var(--font-naslov); font-weight: 600; }
+h1 { font-size: var(--h1); line-height: 1.1; }
+h2 { font-size: var(--h2); line-height: 1.2; }
+h3 { font-size: var(--h3); line-height: 1.3; }
+
+a { color: var(--zelena); }
+a:hover { color: var(--plava); }
+
+:focus-visible { outline: 3px solid var(--plava); outline-offset: 2px; }
+
+img { max-width: 100%; height: auto; }
+
+/* `hidden` must win over any component's own `display`. */
+[hidden] { display: none !important; }
+
+.container {
+  max-width: calc(var(--sirina) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.nadnaslov {
+  font-family: var(--font-naslov);
+  font-weight: 600;
+  font-size: var(--nadnaslov);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--plava);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Off-screen until focused; the first tab stop on every page. */
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--dodir);
+  padding: 0 20px;
+  border-radius: 0 0 var(--radius-s) var(--radius-s);
+  background: var(--zelena);
+  color: var(--bela);
+  font-family: var(--font-naslov);
+  font-weight: 600;
+  transform: translateY(-100%);
+}
+.skip-link:focus { transform: none; color: var(--bela); }
+
+/* Unfilled [PLACEHOLDER] values, highlighted in the preview build. */
+mark.ph { background: var(--ph-pozadina); color: var(--tekst); padding: 0 2px; border-radius: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p27",
+  "n": 27,
+  "nedelja": 6,
+  "dan": "6. nedelja – utorak",
+  "naslov": "Učenjak i prorok",
+  "slug": "ucenjak-i-prorok",
+  "podnaslov": "Poverenje koje se dugo gradi, a brzo ruši",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan učenik je neprestano govorio Aviceni koliko mu se divi i koliko mu veruje. Avicena mu je obećao da će mu jednom pokazati koliko zaista vredi takvo poverenje.",
+    "Kada je kasnije ležao bolestan i usred hladne noći zatražio od učenika čašu vode, učenik je odbijao. Govorio je da to čini za učiteljevo dobro, iako mu je sam Avicena više puta govorio šta mu je potrebno.",
+    "Tek kada je poverenje zatražilo konkretan postupak i rizik, pokazalo se da reči i stvarna pouzdanost nisu isto."
+  ],
+  "pitanja": [
+    {
+      "id": "p27-q1",
+      "tekst": "Kada se poverenje najbolje vidi – u rečima ili u onome što čovek radi kada nije lako?"
+    },
+    {
+      "id": "p27-q2",
+      "tekst": "Zašto čovek posle dugog laganja očekuje da mu drugi odmah poveruju kada kaže istinu?"
+    },
+    {
+      "id": "p27-q3",
+      "tekst": "Šta možete da radite dosledno, bez zahteva da vam drugi odmah veruju?"
+    }
+  ],
+  "poruka": "Poverenje se retko vraća jednim razgovorom. Ono raste kada reči i postupci počnu dovoljno dugo da se poklapaju.",
+  "zadatak": "Izaberite jedno malo obećanje koje možete da ispunite u naredna 24 časa. Neka bude realno i proverljivo.",
+  "citat": "Istina ne viče; ona traje."
+}

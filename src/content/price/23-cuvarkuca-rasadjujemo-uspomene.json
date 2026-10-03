@@ -1,0 +1,34 @@
+{
+  "status": "objavljeno",
+  "id": "p23",
+  "n": 23,
+  "nedelja": 5,
+  "dan": "5. nedelja – sreda",
+  "naslov": "Čuvarkuća – rasađujemo uspomene",
+  "slug": "cuvarkuca-rasadjujemo-uspomene",
+  "podnaslov": "Tuga i gubitak",
+  "izvor": "Dragan Vukadinović – „Sabrana dela\"",
+  "tekst": [
+    "Poslednjih meseci života majka je bila teško bolesna i sve teže se kretala. Jednog sunčanog jutra zatražila je da joj sin pomogne da izađe u dvorište. Tamo je, uz mnogo napora, došla do starih saksija i počela da razdvaja male rozete čuvarkuće.",
+    "Dok je presađivala biljku, pričala je kako je nekada njenim sokom lečila decu i kako se čuvarkuća čuvala po kućama kao znak zaštite i trajanja. Tek mnogo kasnije sin je shvatio da tog jutra nisu presađivali samo biljku.",
+    "Rasađivali su uspomene.",
+    "Kasnije je i sam počeo da tu istu biljku presađuje sa svojim unučićima. Neko je otišao, ali nešto iz odnosa nije nestalo."
+  ],
+  "pitanja": [
+    {
+      "id": "p23-q1",
+      "tekst": "Šta u ovoj priči ostaje i onda kada čoveka više nema?"
+    },
+    {
+      "id": "p23-q2",
+      "tekst": "Šta sve čovek može da izgubi osim osobe – zdravlje, godine, poverenje, prilike, deo sebe?"
+    },
+    {
+      "id": "p23-q3",
+      "tekst": "Postoji li nešto vredno što želite da prenesete dalje, uprkos gubicima?"
+    }
+  ],
+  "poruka": "Tuga govori da nam je nešto bilo važno. Oporavak ne traži da zaboravimo, već da nađemo način da živimo dalje sa onim što je ostalo u nama.",
+  "zadatak": "Zapišite jednu osobu, odnos ili period koji ste izgubili i jednu stvar koju ste iz tog odnosa ipak poneli sa sobom.",
+  "citat": "Mir nije odsustvo problema, nego prisustvo smisla."
+}

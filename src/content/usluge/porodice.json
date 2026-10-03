@@ -1,0 +1,11 @@
+{
+  "naziv": "Inicijalni informativno-savetodavni razgovor",
+  "slug": "porodice",
+  "meta": "60 min · pojedinci i porodice",
+  "opis": "Razumevanje problema, definisanje potreba i mogućih sledećih koraka. Najčešće prvi kontakt sa centrom.",
+  "ciljneGrupe": [
+    "porodice"
+  ],
+  "redosled": 1,
+  "status": "objavljeno"
+}

@@ -1,0 +1,31 @@
+{
+  "status": "objavljeno",
+  "id": "p01",
+  "n": 1,
+  "nedelja": 1,
+  "dan": "1. nedelja – ponedeljak",
+  "naslov": "Provera hrabrosti",
+  "slug": "provera-hrabrosti",
+  "podnaslov": "Kako sam dospeo ovde?",
+  "izvor": "Nosrat Pezeškijan",
+  "slika": "provera-hrabrosti.webp",
+  "tekst": [
+    "Reši car da zbog nekog važnog položaja na dvoru stavi svoje dvorane na probu. Okupi moćne i mudre ljude i reče im da želi da vidi ko je među njima sposoban da reši jedan težak zadatak. Zatim ih odvede do ogromnih vrata, najvećih i najtežih u carstvu, i upita ko može da ih otvori.",
+    "Neki su odmahivali glavom. Drugi su vrata pažljivo razgledali, ali su i oni zaključili da je zadatak suviše težak. Na kraju su se gotovo svi složili da se vrata ne mogu otvoriti.",
+    "Tada jedan vezir priđe vratima. Pogleda ih, opipa, isproba i najzad snažno povuče. Vrata se otvoriše. Bila su samo pritvorena, a ne zaključana.",
+    "Car mu tada reče da će upravo on dobiti položaj, jer se nije oslonio samo na ono što vidi i na mišljenje drugih, već je prizvao sopstvenu snagu i usudio se da pokuša."
+  ],
+  "pitanja": [
+    {
+      "id": "p01-q1",
+      "tekst": "Ko je u ovoj priči zaista bio hrabar – i zašto?"
+    },
+    {
+      "id": "p01-q2",
+      "tekst": "Koliko često čovek nešto proglasi nemogućim pre nego što stvarno pokuša?"
+    }
+  ],
+  "poruka": "Neke prepreke jesu teške, ali neke postaju nepremostive zato što im nikada ne priđemo. Prvi korak nije da budemo sigurni da ćemo uspeti. Prvi korak je da proverimo šta je zaista moguće.",
+  "zadatak": "Do sutra uočite jednu stvar za koju obično kažete „ne mogu\" i pokušajte da tu rečenicu zamenite pitanjem: „Šta mogu da pokušam?\"",
+  "citat": "Prava hrabrost nema potrebu da se dokazuje – ona je već u nama."
+}

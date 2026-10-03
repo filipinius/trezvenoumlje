@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p40",
+  "n": 40,
+  "nedelja": 8,
+  "dan": "8. nedelja – petak",
+  "naslov": "Ustani",
+  "slug": "ustani",
+  "podnaslov": "Ustati još jednom",
+  "izvor": "Prema priči iz zbirke Olge Kljukin – „Sto hrišćanskih priča za čitanje i razmišljanje\"",
+  "tekst": [
+    "Jedan monah je prišao starcu i rekao mu da je pogrešio i ponovo pao. Starac ga je saslušao i kratko rekao: „Ustani.\"",
+    "Monah mu je odgovorio da je već mnogo puta padao i ustajao. Starac mu je ponovo rekao: „Opet ustani.\""
+  ],
+  "pitanja": [
+    {
+      "id": "p40-q1",
+      "tekst": "Šta je u ovoj priči važnije – koliko puta je čovek pao ili šta uradi posle pada?"
+    },
+    {
+      "id": "p40-q2",
+      "tekst": "Zašto čovek posle više padova može da poveruje da više nema smisla pokušavati?"
+    },
+    {
+      "id": "p40-q3",
+      "tekst": "Šta bi za vas konkretno značilo „ustati\" posle recidiva?"
+    }
+  ],
+  "poruka": "Pad ne postaje konačan samim tim što se dogodio. Važno je šta čovek uradi posle njega. Ustati ne znači poreći pad, već priznati ga, prihvatiti pomoć i vratiti se pravcu oporavka.",
+  "zadatak": "Dovršite rečenicu: „Ako ponovo padnem, ustajanje za mene znači da prvo...\"",
+  "citat": "Oporavak nije odsustvo iskušenja, već drugačiji odgovor na njega."
+}

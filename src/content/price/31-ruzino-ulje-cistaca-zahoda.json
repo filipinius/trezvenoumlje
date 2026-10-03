@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p31",
+  "n": 31,
+  "nedelja": 7,
+  "dan": "7. nedelja – ponedeljak",
+  "naslov": "Ružino ulje čistača zahoda",
+  "slug": "ruzino-ulje-cistaca-zahoda",
+  "podnaslov": "Ko sam kada nema droge?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Čovek koji je čitav život radio u neprijatnom smradu toliko se na njega navikao da ga više gotovo nije primećivao. Jednog dana je na pijaci došao do prodavca ružinog ulja. Miris koji je drugima bio prijatan njega je toliko uznemirio da se onesvestio.",
+    "Ono što je dugo bilo njegovo „normalno\" postalo je merilo po kojem je telo prepoznavalo svet. Nova sredina mu nije odmah bila prijatna samo zato što je bila drugačija."
+  ],
+  "pitanja": [
+    {
+      "id": "p31-q1",
+      "tekst": "Da li je ono na šta smo navikli isto što i ono što nam pripada?"
+    },
+    {
+      "id": "p31-q2",
+      "tekst": "Zašto mirniji život ponekad u početku deluje prazno, dosadno ili strano?"
+    },
+    {
+      "id": "p31-q3",
+      "tekst": "Koju stranu sebe želite ponovo da upoznate?"
+    }
+  ],
+  "poruka": "Navika može dugo da liči na identitet. Ali ono na šta smo se navikli nije sve što jesmo. Novo ponekad prvo deluje strano, pre nego što postane naše.",
+  "zadatak": "Napišite pet odgovora na rečenicu „Ja sam...\" bez upotrebe reči „droga\", „zavisnik\", „bolest\" ili „lečenje\".",
+  "citat": "Čovek je slobodan onoliko koliko nije na prodaju."
+}

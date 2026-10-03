@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "id": "p03",
+  "n": 3,
+  "nedelja": 1,
+  "dan": "1. nedelja – sreda",
+  "naslov": "Vilinsko kolo – kolo iz kog se ne izlazi bez rana",
+  "slug": "vilinsko-kolo-kolo-iz-kog-se-ne-izlazi-bez-rana",
+  "podnaslov": "Cena koju sam platio i cena koju još plaćam",
+  "izvor": "Dragan Vukadinović – prema priči iz „Sabranih dela\"",
+  "tekst": [
+    "U starim predanjima govorilo se da čovek koji uđe u vilinsko kolo ne izlazi iz njega isti. U početku ga privuku muzika, igra i nešto što izgleda lepše od običnog života. Ali što duže ostaje u kolu, sve mu je teže da iz njega izađe.",
+    "Jedne noći pomislih da takvo kolo postoji i danas.",
+    "Samo u njemu nisu vile, nego ljudi koje je zavisnost najpre privukla, a zatim počela da im uzima jedno po jedno: vreme, zdravlje, novac, poverenje, porodicu, dostojanstvo.",
+    "U početku čovek plaća malo i veruje da još uvek može da stane kad poželi. Kasnije shvati da se cena povećavala dok je on igrao isti krug.",
+    "Iz tog kola se možda ne izlazi bez rana.",
+    "Ali ostajanje u njemu takođe ima cenu."
+  ],
+  "pitanja": [
+    {
+      "id": "p03-q1",
+      "tekst": "U kom trenutku u ovoj priči igra prestaje da bude igra i postaje cena?"
+    },
+    {
+      "id": "p03-q2",
+      "tekst": "Šta sve čovek može da izgubi dok ostaje u takvom kolu?"
+    },
+    {
+      "id": "p03-q3",
+      "tekst": "Ako se ništa ne promeni, šta bi mogla da uzme u narednih pet godina?"
+    }
+  ],
+  "poruka": "Cena izlaska može da boli, ali cena ostanka se nastavlja. Cilj nije da se kažnjavamo zbog onoga što smo izgubili, nego da vidimo šta više ne želimo da gubimo.",
+  "zadatak": "Do sutra dovršite rečenicu: „Cena koju više nisam spreman da plaćam je...\"",
+  "citat": "Lak put često ima najskuplju cenu."
+}

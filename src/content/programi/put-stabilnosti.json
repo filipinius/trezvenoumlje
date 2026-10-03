@@ -1,0 +1,13 @@
+{
+  "naziv": "Put stabilnosti",
+  "slug": "put-stabilnosti",
+  "publika": "Posle rehabilitacije",
+  "opis": "Povratak u svakodnevicu, porodična podrška, zdrave rutine i rano prepoznavanje rizika.",
+  "format": "[BROJ] susreta",
+  "ciljneGrupe": [
+    "posle-rehabilitacije"
+  ],
+  "uIzradi": true,
+  "redosled": 3,
+  "status": "objavljeno"
+}

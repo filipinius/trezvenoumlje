@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p09",
+  "n": 9,
+  "nedelja": 2,
+  "dan": "2. nedelja – četvrtak",
+  "naslov": "Čovek koji je stajao na jednoj nozi",
+  "slug": "covek-koji-je-stajao-na-jednoj-nozi",
+  "podnaslov": "Kada pomoć doživljavam kao napad?",
+  "izvor": "Prema priči Nosrata Pezeškijana – „Istočnjačke priče u psihoterapiji\"",
+  "tekst": [
+    "Jedan čovek je dugo stajao samo na jednoj nozi. Posle nekog vremena noga ga je zabolela, mišići su se zgrčili, a napetost se proširila na celo telo. Počeo je da traži pomoć.",
+    "Jedan čovek mu je masirao bolnu nogu. Drugi je pokušavao da opusti ukočene mišiće. Treći mu je ponudio ruku da ne izgubi ravnotežu. Drugi su davali savete kako da lakše izdrži.",
+    "Na kraju mu priđe jedan posmatrač i upita: „Zašto stojiš samo na jednoj nozi? Imaš i drugu. Spusti je i osloni se na nju.\""
+  ],
+  "pitanja": [
+    {
+      "id": "p09-q1",
+      "tekst": "Zašto niko od prethodnih pomagača nije promenio ono što je održavalo problem?"
+    },
+    {
+      "id": "p09-q2",
+      "tekst": "Kako se osećamo kada nam neko predloži promenu koju nismo želeli da čujemo?"
+    },
+    {
+      "id": "p09-q3",
+      "tekst": "Koju pomoć ili mogućnost u lečenju nedovoljno koristite?"
+    }
+  ],
+  "poruka": "Ne mora svaka pomoć biti dobra za nas, ali ni svaka neprijatna poruka nije napad. Ponekad nas najviše uznemiri upravo predlog koji traži da nešto uradimo drugačije.",
+  "zadatak": "Setite se jednog saveta koji ste prvo odbili. Zapišite: „Šta me je u tome toliko naljutilo ili uplašilo?\"",
+  "citat": "Najteže je pobediti sebe dok si uveren da si u pravu."
+}

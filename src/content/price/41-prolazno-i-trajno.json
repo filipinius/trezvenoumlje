@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p41",
+  "n": 41,
+  "nedelja": 9,
+  "dan": "9. nedelja – ponedeljak",
+  "naslov": "Prolazno i trajno",
+  "slug": "prolazno-i-trajno",
+  "podnaslov": "Šta mi je zaista važno?",
+  "izvor": "Prema odlomku Paula Koelja – „Priručnik za ratnika svetlosti\"",
+  "tekst": [
+    "Ratnik svetlosti zna da nisu sve stvari koje snažno želimo podjednako važne. Neke nas privuku trenutno, obećavaju uzbuđenje, olakšanje ili priznanje, a zatim prođu. Druge se grade sporo: odnosi, poverenje, zdravlje, sposobnost da čovek stoji iza svojih odluka.",
+    "Zato ponekad mora da zastane i razlikuje ono što je prolazno od onoga što želi da ostane deo njegovog života."
+  ],
+  "pitanja": [
+    {
+      "id": "p41-q1",
+      "tekst": "Šta ste u životu nekada mnogo želeli, a danas vidite da vam zapravo nije bilo važno?"
+    },
+    {
+      "id": "p41-q2",
+      "tekst": "Šta je zbog zavisnosti bilo potisnuto, iako vam je dugoročno bilo važno?"
+    },
+    {
+      "id": "p41-q3",
+      "tekst": "Šta želite da ostane važno i onda kada vam bude teško?"
+    }
+  ],
+  "poruka": "Nije sve što snažno želimo isto što i ono što nam je važno. Vrednosti se najbolje vide u onome čemu se vraćamo i šta čuvamo kada moramo da biramo.",
+  "zadatak": "Napišite tri stvari koje želite da ostanu važne u vašem životu i pored svake jedan postupak koji to pokazuje.",
+  "citat": "Ne meri život onim što si stekao, nego onim čega si se dostojanstveno odrekao."
+}

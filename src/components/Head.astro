@@ -1,0 +1,27 @@
+---
+import { buildSeo, type SeoInput } from '../lib/seo';
+import { href, site } from '../lib/site';
+interface Props { seo: SeoInput; jsonLd?: object[] }
+const { seo, jsonLd = [] } = Astro.props;
+const m = buildSeo(seo, site);
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{m.title}</title>
+<meta name="description" content={m.description} />
+<meta name="robots" content={m.robots} />
+{m.canonical && <link rel="canonical" href={m.canonical} />}
+<link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+<meta property="og:type" content={m.ogType} />
+<meta property="og:site_name" content="Trezvenoumlje" />
+<meta property="og:locale" content="sr_RS" />
+<meta property="og:title" content={m.title} />
+<meta property="og:description" content={m.description} />
+{m.canonical && <meta property="og:url" content={m.canonical} />}
+<meta property="og:image" content={m.ogImage} />
+<meta property="og:image:alt" content={m.title} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={m.title} />
+<meta name="twitter:description" content={m.description} />
+<link rel="alternate" type="application/rss+xml" title="Trezvene misli" href={href('/resursi/rss.xml')} />
+{jsonLd.filter(Boolean).map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj).replace(/</g, '\\u003c')} />)}

@@ -1,0 +1,19 @@
+{
+  "ime": "[NAZIV FIRME]",
+  "slug": "digitalni-partner",
+  "uloga": "Digitalni partner",
+  "kratko": "Sajt, hosting, održavanje i onlajn programi.",
+  "bio": "Firma zadužena za digitalnu infrastrukturu centra, uz ugovor koji uređuje poverljivost, obradu podataka, pristup sistemima i intelektualnu svojinu.",
+  "zadaci": [
+    "Sajt, hosting, rezervne kopije i održavanje",
+    "CMS i administratorski tokovi",
+    "Onlajn programi i infrastruktura za predavanja",
+    "Analitika i SEO uz zaštitu privatnosti"
+  ],
+  "napomena": "Nema pristup sadržaju poruka korisnika osim ako je to neophodno.",
+  "fotografija": "tim-partner.webp",
+  "oblik": "kvadrat",
+  "zdravstvenaUloga": false,
+  "redosled": 3,
+  "status": "nacrt"
+}

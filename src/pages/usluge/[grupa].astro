@@ -1,0 +1,126 @@
+---
+// Landing page of one audience, composed from what the collections already say about it.
+import type { CollectionEntry } from 'astro:content';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import EmergencyNote from '../../components/EmergencyNote.astro';
+import FaqBlock from '../../components/FaqBlock.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+import ServiceList from '../../components/ServiceList.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import Text from '../../components/Text.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getFaq, getVisible } from '../../lib/content';
+import { ogImageUrl } from '../../lib/images';
+import { faqPage } from '../../lib/jsonld';
+
+export async function getStaticPaths() {
+  return (await getVisible('ciljneGrupe')).map((group) => ({ params: { grupa: group.data.slug }, props: { group } }));
+}
+interface Props { group: CollectionEntry<'ciljneGrupe'> }
+const { data: group } = Astro.props.group;
+const path = `/usluge/${group.slug}/`;
+
+const seo = {
+  title: group.seo?.naslov ?? group.naziv,
+  description: group.seo?.opis ?? group.uvod,
+  path,
+  image: group.seo?.slika ? await ogImageUrl(group.seo.slika) : undefined,
+  noindex: group.seo?.noindex ?? false,
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Usluge', path: '/usluge/' },
+  { label: group.naziv, path },
+];
+
+const forGroup = (entry: { data: { ciljneGrupe: string[]; redosled: number } }) => entry.data.ciljneGrupe.includes(group.slug);
+const byOrder = (a: { data: { redosled: number } }, b: { data: { redosled: number } }) => a.data.redosled - b.data.redosled;
+const services = (await getVisible('usluge')).filter(forGroup).sort(byOrder);
+const programs = (await getVisible('programi')).filter(forGroup).sort(byOrder);
+// Newest first; undated drafts sort last.
+const articles = (await getVisible('clanci'))
+  .filter((a) => group.kategorijeClanaka.includes(a.data.kategorija))
+  .sort((a, b) => (b.data.datum?.getTime() ?? 0) - (a.data.datum?.getTime() ?? 0))
+  .slice(0, 3);
+const questions = await getFaq(group.kategorijaPitanja);
+const faqLd = faqPage(questions.map((q) => q.data));
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={faqLd ? [faqLd] : []}>
+  <section class="hero container">
+    <Breadcrumbs items={breadcrumbs} />
+    <h1>{group.naziv}</h1>
+    <p class="intro">{group.uvod}</p>
+    {group.slug === 'mladi' && <p class="hero-line">Upit šalje roditelj ili staratelj.</p>}
+    {group.pravnaNapomena && <Text as="p" class="hero-line" value={group.pravnaNapomena} />}
+    <StatusBadge status={group.status} />
+  </section>
+
+  {services.length > 0 && (
+    <section class="container block services" aria-labelledby="usluge-h">
+      <h2 id="usluge-h">Usluge</h2>
+      <ServiceList services={services} heading="h3" />
+    </section>
+  )}
+
+  {programs.length > 0 && (
+    <section class="band-light" aria-labelledby="programi-h">
+      <div class="container block">
+        <h2 id="programi-h">Programi</h2>
+        <div class="program-grid">
+          {programs.map((entry) => <ProgramCard entry={entry} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {articles.length > 0 && (
+    <section class="container block" aria-labelledby="resursi-h">
+      <h2 id="resursi-h">Iz Trezvenih misli</h2>
+      <div class="article-grid">
+        {articles.map((entry) => <ArticleCard entry={entry} />)}
+      </div>
+    </section>
+  )}
+
+  <FaqBlock questions={questions} category={group.kategorijaPitanja} />
+
+  <div class="closing">
+    <CtaBand
+      title="Ako niste sigurni koji je sledeći korak, javite nam se."
+      text="Potrebno je samo ime ili inicijali i jedan način kontakta. Javićemo vam se radi dogovora o terminu i vrsti razgovora."
+      primary={{ label: 'Zakažite razgovor', href: '/kontakt/' }}
+      secondary={{ label: 'Postavite pitanje', href: '/cesta-pitanja/' }}
+    >
+      <EmergencyNote />
+    </CtaBand>
+  </div>
+</BaseLayout>
+
+<style>
+  h2 { margin: 0; }
+  .band-light { background: var(--pesak-svetli); }
+  .closing { background: var(--pesak-svetli); }
+  .closing :global(.emergency-note) { margin-top: 24px; }
+
+  /* Hero */
+  .hero { display: flex; flex-direction: column; gap: 18px; padding-block: clamp(24px, 5vw, 64px) 40px; }
+  h1 { margin: 0; max-width: 900px; }
+  .intro { margin: 0; max-width: 720px; font-size: var(--uvod); color: var(--tekst-sekundarni); }
+  .hero-line { margin: 0; max-width: 720px; font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+
+  .block { display: flex; flex-direction: column; gap: 32px; padding-block: clamp(48px, 6vw, 88px); }
+  .services { padding-top: 16px; }
+
+  .program-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+  /* Članci */
+  .article-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+  .article-grid > :global(*) { flex: 1 1 320px; max-width: 620px; border: 1px solid var(--linija); }
+
+  @media (max-width: 699px) {
+    .hero { padding-bottom: 32px; }
+    .block { gap: 22px; }
+  }
+</style>

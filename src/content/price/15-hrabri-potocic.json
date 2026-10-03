@@ -1,0 +1,33 @@
+{
+  "status": "objavljeno",
+  "id": "p15",
+  "n": 15,
+  "nedelja": 3,
+  "dan": "3. nedelja – petak",
+  "naslov": "Hrabri potočić",
+  "slug": "hrabri-potocic",
+  "podnaslov": "Jedan izbor danas koji menja sutra",
+  "izvor": "Prema priči iz knjige Kenana Crnkića – „Pazi kojeg vuka hraniš\"",
+  "tekst": [
+    "Jedan potočić stigao je do ruba pustinje. Želeo je da nastavi dalje, da bude veći i da stigne do novih mesta, ali ga je istovremeno plašilo sve što nije poznavao.",
+    "Hteo je promenu, ali bi najradije da sve ostane isto. Stajao je na granici poznatog i nepoznatog, pokušavajući da dobije garanciju da će sve ispasti dobro pre nego što krene.",
+    "Ali takve garancije nije bilo. Da bi saznao šta je moguće, morao je najpre da se pokrene."
+  ],
+  "pitanja": [
+    {
+      "id": "p15-q1",
+      "tekst": "Šta je potočić želeo, a šta ga je sprečavalo da krene?"
+    },
+    {
+      "id": "p15-q2",
+      "tekst": "Da li je moguće unapred znati da će dobra odluka imati lak put?"
+    },
+    {
+      "id": "p15-q3",
+      "tekst": "Šta možete da uradite danas – ne jednog dana posle otpusta, nego danas?"
+    }
+  ],
+  "poruka": "Sutrašnji život ne menja se sutra, nego izborima koji počinju danas. Ne moramo znati ceo put da bismo napravili sledeći korak. Ponekad tek kretanjem saznamo šta je dalje moguće.",
+  "zadatak": "Izaberite jednu malu odluku koju možete da sprovedete danas. Zapišite je u jednoj rečenici i do večeras proverite da li ste je zaista uradili.",
+  "citat": "Svaka velika odluka prvo se rodi kao mala misao."
+}

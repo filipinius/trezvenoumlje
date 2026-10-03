@@ -1,0 +1,32 @@
+{
+  "status": "objavljeno",
+  "id": "p37",
+  "n": 37,
+  "nedelja": 8,
+  "dan": "8. nedelja – utorak",
+  "naslov": "Znakovi pored puta",
+  "slug": "znakovi-pored-puta",
+  "podnaslov": "Kako prepoznajem da se približavam recidivu?",
+  "izvor": "Prema početnoj priči Ive Andrića – „Znakovi pored puta\"",
+  "tekst": [
+    "Jedan mladić je krenuo opasnim i nepoznatim putem. Da se ne bi izgubio, pravio je zaseke na stablima pored puta. Ti znakovi nisu mogli da uklone opasnost, ali su mu mogli pokazati gde je već prošao i kako da nađe put nazad.",
+    "I čovek koji se oporavlja može da ima svoje znakove pored puta – promene u mislima, snu, kontaktima, raspoloženju i ponašanju koje se javljaju pre samog recidiva."
+  ],
+  "pitanja": [
+    {
+      "id": "p37-q1",
+      "tekst": "Koji znak treba primetiti pre nego što čovek shvati da se već potpuno izgubio?"
+    },
+    {
+      "id": "p37-q2",
+      "tekst": "Koji su vaši lični rani znaci?"
+    },
+    {
+      "id": "p37-q3",
+      "tekst": "Koji znak za vas treba da znači: „Sada tražim pomoć\"?"
+    }
+  ],
+  "poruka": "Recidiv često ima predistoriju. Što ranije prepoznamo sopstvene znakove pored puta, više izbora imamo pre nego što stari obrazac preuzme vođstvo.",
+  "zadatak": "Zapišite svoja tri rana znaka recidiva i pored svakog jednu radnju koju možete da preduzmete.",
+  "citat": "Svako ima svoja iskušenja."
+}

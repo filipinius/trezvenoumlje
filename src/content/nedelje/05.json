@@ -1,0 +1,36 @@
+{
+  "status": "objavljeno",
+  "n": 5,
+  "oznaka": "peta nedelja",
+  "tema": "Emocije",
+  "uvod": [
+    "Iza postupaka često stoje osećanja koja nismo umeli da prepoznamo, podnesemo ili izgovorimo.",
+    "Ova stranica je mesto da zapišete šta vas najčešće plaši, ljuti, rastužuje ili pogađa – i šta obično radite kada to postane teško."
+  ],
+  "osvrt": {
+    "naslov": "Moje emocije",
+    "napomena": "Ne moram da rešim sva osećanja. Pokušavam da ih prepoznam, imenujem i vidim šta obično radim kada postanu teška.",
+    "pitanja": [
+      {
+        "id": "n05-o1",
+        "tekst": "Koje osećanje sam ove nedelje kod sebe najjasnije prepoznao?"
+      },
+      {
+        "id": "n05-o2",
+        "tekst": "Šta sada malo bolje razumem o tome šta radim kada mi osećanja postanu teška?"
+      },
+      {
+        "id": "n05-o3",
+        "tekst": "Koju emociju sam ranije najčešće pokušavao da izbegnem ili ugasim?"
+      },
+      {
+        "id": "n05-o4",
+        "tekst": "Kome mogu da kažem kako se stvarno osećam bez potrebe da se pretvaram?"
+      },
+      {
+        "id": "n05-o5",
+        "tekst": "Šta želim da ponesem iz ove nedelje u način na koji se odnosim prema sopstvenim osećanjima?"
+      }
+    ]
+  }
+}

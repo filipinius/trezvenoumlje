@@ -1,0 +1,61 @@
+---
+// Every visible question, grouped by category. Each section is the target of a FaqBlock's "Sva česta pitanja" link.
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqList from '../components/FaqList.astro';
+import { KATEGORIJE_PITANJA, NAZIVI_KATEGORIJA_PITANJA } from '../content/schemas';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFaq } from '../lib/content';
+import { faqPage } from '../lib/jsonld';
+
+const seo = {
+  title: 'Česta pitanja',
+  description: 'Česta pitanja o centru Trezvenoumlje, grupisana po temama.',
+  path: '/cesta-pitanja/',
+};
+const breadcrumbs = [
+  { label: 'Početna', path: '/' },
+  { label: 'Česta pitanja', path: '/cesta-pitanja/' },
+];
+
+const groups = (await Promise.all(KATEGORIJE_PITANJA.map(async (category) => ({ category, questions: await getFaq(category) }))))
+  .filter((group) => group.questions.length > 0);
+const faqLd = faqPage(groups.flatMap((group) => group.questions.map((q) => q.data)));
+---
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={faqLd ? [faqLd] : []}>
+  <section class="hero container">
+    <Breadcrumbs items={breadcrumbs} />
+    <h1>Česta pitanja</h1>
+  </section>
+
+  <div class="container groups">
+    {groups.map(({ category, questions }) => (
+      <section class="group" id={category} aria-labelledby={`${category}-h`}>
+        <h2 id={`${category}-h`}>{NAZIVI_KATEGORIJA_PITANJA[category]}</h2>
+        <div class="group-body"><FaqList questions={questions} /></div>
+      </section>
+    ))}
+  </div>
+
+  <div class="closing">
+    <CtaBand
+      title="Ako niste sigurni koji je sledeći korak, javite nam se."
+      text="Potrebno je samo ime ili inicijali i jedan način kontakta. Javićemo vam se radi dogovora o terminu i vrsti razgovora."
+      primary={{ label: 'Zakažite razgovor', href: '/kontakt/' }}
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero { display: flex; flex-direction: column; gap: 18px; padding-block: clamp(24px, 5vw, 64px) 40px; }
+  h1 { margin: 0; }
+  .groups { display: flex; flex-direction: column; gap: clamp(40px, 5vw, 64px); padding-bottom: clamp(56px, 7vw, 96px); }
+  .group { display: flex; flex-wrap: wrap; gap: 16px 64px; scroll-margin-top: 16px; }
+  h2 { flex: 1 1 280px; min-width: 0; margin: 0; font-size: var(--h3); }
+  .group-body { flex: 2 1 560px; min-width: 0; }
+  .closing { background: var(--pesak-svetli); }
+
+  @media (max-width: 699px) {
+    .hero { padding-bottom: 24px; }
+  }
+</style>
