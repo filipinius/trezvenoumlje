@@ -157,6 +157,7 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `datum` | ne | datum ili godina, kao tekst; izostavlja se dok datum nije potvrđen | `23. 8. 2024.` |
 | `youtubeId` | ne | oznaka YouTube videa od 11 znakova (ne cela adresa) | `AbCdEfGhIjK` |
 | `pocetak` | ne | sekunda od koje video počinje (ceo broj, 0 ili više), kada je nastup deo dužeg snimka | `2141` |
+| `slicica` | ne | kadar za karticu: `.webp` fajl sačuvan u `src/assets/img/` (ne adresa sa YouTube-a); bez njega kartica dobija opštu sliku | `mediji/kako-se-boriti-protiv-bolesti-zavisnosti.webp` |
 | `link` | ne | adresa objave, počinje sa `http://` ili `https://` | `https://example.rs/emisija` |
 | `opis` | ne | kratak opis, prikazan na kartici i u prozoru sa videom | `Studijski razgovor na temu…` |
 | `redosled` | ne | redni broj u listi (podrazumevano `0`); isti brojevi se ređaju po naslovu | `2` |

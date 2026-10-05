@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import type { Browser, BrowserContext, BrowserContextOptions, Page } from '@playwright/test';
 
 // Resolved from this file, so the tests read the same content whatever directory they are started from.
-const CONTENT_DIR = fileURLToPath(new URL('../../src/content/', import.meta.url));
+export const CONTENT_DIR = fileURLToPath(new URL('../../src/content/', import.meta.url));
 
 /** Number of entries (JSON files) in a content collection. The preview build shows every entry, drafts too. */
 export const countEntries = (collection: string): number => readdirSync(join(CONTENT_DIR, collection)).filter((name) => name.endsWith('.json')).length;

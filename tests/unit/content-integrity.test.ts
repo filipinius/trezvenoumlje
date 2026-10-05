@@ -79,3 +79,6 @@ test('the 2020 initiative note is a media entry that stays a draft', () => {
   expect(note.youtubeId).toBeUndefined();
   expect(note.link).toBeUndefined();
 });
+test('every media still exists as a local file', () => {
+  for (const m of json('mediji')) if (m.slicica) expect(statSync(join('src/assets/img', m.slicica)).isFile(), m.slicica).toBe(true);
+});

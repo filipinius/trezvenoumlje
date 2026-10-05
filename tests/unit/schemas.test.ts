@@ -124,3 +124,13 @@ test('a book may carry its edition, format and price note, and may leave them ou
   expect([full.izdanje, full.format, full.cenaNapomena]).toEqual(['Prvo izdanje', '[FORMAT]', '[NAPOMENA O CENI]']);
   expect(() => knjigaSchema.parse({ ...k, izdanje: '' })).toThrow();
 });
+
+test('media still must be a local .webp path, never a URL', () => {
+  const m = { naslov: 'N', slug: 'n', medij: 'M', status: 'objavljeno' };
+  expect(medijSchema.parse({ ...m, slicica: 'mediji/n.webp' }).slicica).toBe('mediji/n.webp');
+  expect(medijSchema.parse(m).slicica).toBeUndefined();
+  expect(() => medijSchema.parse({ ...m, slicica: 'https://i.ytimg.com/vi/abc/maxresdefault.jpg' })).toThrow();
+  expect(() => medijSchema.parse({ ...m, slicica: '../x.webp' })).toThrow();
+  expect(() => medijSchema.parse({ ...m, slicica: '/x.webp' })).toThrow();
+  expect(() => medijSchema.parse({ ...m, slicica: 'mediji//x.webp' })).toThrow();
+});

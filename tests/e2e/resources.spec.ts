@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
-import { countEntries, noJsContext, watchForeign } from './helpers';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { CONTENT_DIR, countEntries, noJsContext, readEntry, watchForeign } from './helpers';
 
 test('topic chip filters in place and updates the address', async ({ page }) => {
   await page.goto('resursi/');
@@ -194,4 +196,49 @@ test('the empty state is announced from a live region that is always in the page
   await page.getByRole('link', { name: 'Sve', exact: true }).click();
   await expect(empty).toBeHidden();
   await expect(empty).toHaveText('Još nema objavljenih tekstova.');
+});
+
+test('each playable card shows its own self-hosted still, readable notice included', async ({ page, baseURL }) => {
+  const foreign = watchForeign(page, baseURL);
+  await page.goto('resursi/');
+  const stills = page.locator('#mediji img[data-video-still]');
+  // Derived from content: an appearance may deliberately have no still and keep the generic poster.
+  const withStill = readdirSync(join(CONTENT_DIR, 'mediji')).filter((f) => f.endsWith('.json'))
+    .filter((f) => readEntry<{ slicica?: string }>(`mediji/${f}`).slicica).length;
+  expect(withStill).toBeGreaterThan(0);
+  await expect(stills).toHaveCount(withStill);
+  const sources = await stills.evaluateAll((imgs) => imgs.map((img) => (img as HTMLImageElement).currentSrc || (img as HTMLImageElement).src));
+  // Different local files under the site's own base path — never YouTube's image host.
+  expect(new Set(sources).size).toBe(withStill);
+  for (const src of sources) {
+    expect(new URL(src).origin).toBe(new URL(baseURL!).origin);
+    expect(new URL(src).pathname.startsWith('/trezvenoumlje/_astro/')).toBe(true);
+  }
+  for (const img of await stills.all()) {
+    await img.scrollIntoViewIfNeeded();
+    await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  }
+  // The notice is stacked under the still, so it never covers the picture.
+  const poster = page.locator('#mediji .video-poster').first();
+  const stillBox = (await poster.locator('.video-still').boundingBox())!;
+  const noticeBox = (await poster.locator('.video-notice').boundingBox())!;
+  expect(noticeBox.y).toBeGreaterThanOrEqual(stillBox.y + stillBox.height - 1);
+  const strip = await page.locator('#mediji .video-notice').first().evaluate((el) => getComputedStyle(el).backgroundColor);
+  expect(strip).not.toBe('rgba(0, 0, 0, 0)');
+  await page.waitForLoadState('networkidle');
+  expect(foreign).toEqual([]);
+});
+
+test('keyboard focus on a video card is visible over the photograph', async ({ page, isMobile }) => {
+  test.skip(!!isMobile, 'keyboard focus');
+  await page.goto('resursi/');
+  const poster = page.locator('#mediji .video-poster').first();
+  await poster.focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(poster).toBeFocused();
+  // A multi-band inset ring drawn above the image (a plain outline disappears on light frames).
+  const ring = await poster.evaluate((el) => getComputedStyle(el, '::after').boxShadow);
+  expect(ring).toContain('inset');
+  expect(ring.split('inset').length - 1).toBe(3);
 });

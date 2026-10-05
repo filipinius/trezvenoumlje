@@ -1,6 +1,8 @@
 ---
 // One media appearance. With a `youtubeId` the card has a poster button that opens the player in a dialog
-// (src/scripts/video.ts inserts the iframe only then; the poster is a local image, never a YouTube thumbnail). Without one there is nothing to play, so there is no poster:
+// (src/scripts/video.ts inserts the iframe only then). The poster is always a local file: the entry's own
+// `slicica` when it has one, otherwise the generic poster — never an image loaded from YouTube.
+// Without a `youtubeId` there is nothing to play, so there is no poster:
 // the title links to `link` when the entry has it, otherwise the card is plain text.
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -10,7 +12,7 @@ import StatusBadge from './StatusBadge.astro';
 import Text from './Text.astro';
 
 interface Props { entry: CollectionEntry<'mediji'> }
-const { naslov, slug, medij, datum, opis, youtubeId, pocetak, link, status } = Astro.props.entry.data;
+const { naslov, slug, medij, datum, opis, youtubeId, pocetak, slicica, link, status } = Astro.props.entry.data;
 const dialogId = `video-${slug}`;
 const meta = datum ? `${medij} · ${datum}` : medij;
 const NOTICE = 'Video se učitava tek na klik (YouTube, režim privatnosti).';
@@ -18,9 +20,11 @@ const NOTICE = 'Video se učitava tek na klik (YouTube, režim privatnosti).';
 <article class="video-card">
   {youtubeId && (
     <button type="button" class="video-poster" data-dialog-open={dialogId}>
-      <Image class="video-image" src={getImageAsset('video-poster.webp')} alt="" width={640} loading="lazy" />
-      <span class="video-play" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <span class="video-still">
+        <Image class="video-image" src={getImageAsset(slicica ?? 'video-poster.webp')} alt="" width={640} widths={[480, 640, 828]} sizes="(min-width: 900px) 420px, 100vw" loading="lazy" data-video-still={slicica ? '' : undefined} />
+        <span class="video-play" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
       </span>
       <span class="visually-hidden">Pusti video: {naslov}.</span>
       <span class="video-notice">{NOTICE}</span>
@@ -44,18 +48,25 @@ const NOTICE = 'Video se učitava tek na klik (YouTube, režim privatnosti).';
 )}
 <style>
   .video-card { display: flex; flex-direction: column; min-width: 0; background: var(--bela); border-radius: 14px; overflow: hidden; }
+  /* The still and the notice are stacked, so the notice never covers the picture. */
   .video-poster {
-    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; aspect-ratio: 16 / 9; padding: 16px; border: 0; background: var(--zelena-hover); color: var(--zelena-tinta);
-    font: inherit; text-align: center; cursor: pointer;
+    position: relative; display: flex; flex-direction: column; width: 100%; padding: 0; border: 0;
+    background: var(--zelena-hover); color: var(--zelena-tinta); font: inherit; text-align: center; cursor: pointer;
   }
-  .video-poster:focus-visible { outline-offset: -6px; outline-color: var(--bela); }
+  /* A three-band inset ring stays visible over any photograph, light or dark; the transparent outline keeps forced-colours mode working. */
+  .video-poster:focus-visible { outline: 3px solid transparent; outline-offset: -3px; }
+  .video-poster:focus-visible::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    box-shadow: inset 0 0 0 3px var(--zelena-hover), inset 0 0 0 6px var(--bela), inset 0 0 0 9px var(--zelena-hover);
+  }
+  .video-still { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 16 / 9; }
   .video-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .video-play {
     position: relative; display: flex; align-items: center; justify-content: center;
     width: 60px; height: 60px; border-radius: 50%; background: var(--zelena); color: var(--bela);
+    box-shadow: 0 0 0 2px var(--bela);
   }
-  .video-notice { position: relative; font-size: var(--nadnaslov); }
+  .video-notice { padding: 8px 12px; background: var(--zelena-hover); font-size: var(--nadnaslov); line-height: 1.3; }
   .video-body { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; }
   /* Without a poster the card is a text card, like its neighbours in the section. */
   .video-body:first-child { padding: 24px; }

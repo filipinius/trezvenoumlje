@@ -76,6 +76,8 @@ export const medijSchema = z.object({
   youtubeId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, 'YouTube ID ima 11 znakova (ne URL)').optional(),
   // Second at which the player starts, for an appearance that is one part of a longer recording.
   pocetak: z.number().int().min(0).optional(),
+  // Self-hosted still for the card (file under src/assets/img/, saved once — never loaded from YouTube).
+  slicica: z.string().regex(/^[a-z0-9-]+(\/[a-z0-9-]+)*\.webp$/, 'Sličica: putanja do .webp fajla u src/assets/img/').optional(),
   link: z.string().regex(/^https?:\/\//).optional(), opis: text.optional(), redosled: z.number().int().default(0),
 });
 export const pitanjeSchema = z.object({
