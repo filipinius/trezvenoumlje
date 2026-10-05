@@ -17,7 +17,7 @@ const breadcrumbs = [
 ];
 
 const settings = await getSettings();
-const { tel, mailto } = contactLinks(settings);
+const { tel, mailto, viber } = contactLinks(settings);
 const business = localBusiness(site, settings);
 
 const STEPS = [
@@ -60,6 +60,7 @@ const TYPES = [
         <strong>Direktan kontakt</strong>
         {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
         {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
+        {viber && <a class="viber" href={viber} aria-label={`Viber: ${settings.telefon}`}>Viber</a>}
         <Text class="direct-place" value={`${settings.adresa} · ${settings.radnoVreme}`} />
       </address>
 
@@ -75,6 +76,7 @@ const TYPES = [
           <address>
             {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
             {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
+            {viber && <a class="viber" href={viber} aria-label={`Viber: ${settings.telefon}`}>Viber</a>}
           </address>
         </div>
       </noscript>
@@ -185,6 +187,9 @@ const TYPES = [
   .direct { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
   .direct strong { font-family: var(--font-naslov); font-weight: 600; }
   .direct a, .no-js a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* A Viber chat link does nothing on a desktop without Viber: offered below 900px only. */
+  .direct a.viber, .no-js a.viber { min-width: 44px; }
+  @media (min-width: 900px) { .direct a.viber, .no-js a.viber { display: none; } }
   .direct :global(.direct-place) { color: var(--tekst-prigusen); }
 
   .panel {

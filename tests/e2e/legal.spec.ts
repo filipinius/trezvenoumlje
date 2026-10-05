@@ -40,5 +40,5 @@ test('the 404 page works at any depth: every URL in it starts at the site root',
     els.map((el) => el.getAttribute('href') ?? el.getAttribute('src') ?? ''),
   );
   expect(urls.length).toBeGreaterThan(10);
-  expect(urls.filter((u) => !/^(\/trezvenoumlje\/|#|https?:|mailto:|tel:)/.test(u))).toEqual([]);
+  expect(urls.filter((u) => !/^(\/trezvenoumlje\/|#|https?:|mailto:|tel:|viber:)/.test(u))).toEqual([]);
 });

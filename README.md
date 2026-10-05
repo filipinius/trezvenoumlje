@@ -151,13 +151,15 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 
 | Polje | Obavezno | Značenje | Primer |
 |---|---|---|---|
-| `naslov` | da | naslov emisije ili objave | `[Naslov emisije]` |
-| `slug` | da | oznaka unosa | `nastup-1` |
-| `medij` | da | naziv medija | `[Medij]` |
-| `datum` | da | datum ili godina, kao tekst | `2020.` |
+| `naslov` | da | naslov emisije ili objave | `Kako se boriti protiv bolesti zavisnosti` |
+| `slug` | da | oznaka unosa (isto kao ime fajla) | `kako-se-boriti-protiv-bolesti-zavisnosti` |
+| `medij` | da | naziv medija, po želji i emisije | `TV Zona Plus · Iz jutra u dan` |
+| `datum` | ne | datum ili godina, kao tekst; izostavlja se dok datum nije potvrđen | `23. 8. 2024.` |
 | `youtubeId` | ne | oznaka YouTube videa od 11 znakova (ne cela adresa) | `AbCdEfGhIjK` |
+| `pocetak` | ne | sekunda od koje video počinje (ceo broj, 0 ili više), kada je nastup deo dužeg snimka | `2141` |
 | `link` | ne | adresa objave, počinje sa `http://` ili `https://` | `https://example.rs/emisija` |
-| `opis` | ne | kratak opis | `[Kratak opis nastupa]` |
+| `opis` | ne | kratak opis, prikazan na kartici i u prozoru sa videom | `Studijski razgovor na temu…` |
+| `redosled` | ne | redni broj u listi (podrazumevano `0`); isti brojevi se ređaju po naslovu | `2` |
 
 ### `pravno` (pravne stranice, `.md`)
 
@@ -167,12 +169,13 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `slug` | da | adresa: `/<slug>/` | `politika-privatnosti` |
 | `datumIzmene` | ne | datum poslednje izmene | `2026-10-03` |
 
-### `podesavanja` (jedan fajl, `sajt.json`; sva polja su obavezna, nema `status`)
+### `podesavanja` (jedan fajl, `sajt.json`; sva polja su obavezna osim `viber`, nema `status`)
 
 | Polje | Značenje | Primer |
 |---|---|---|
 | `naziv`, `podnaslov`, `slogan` | ime centra, opis ispod imena i slogan na početnoj | `Trezvenoumlje` |
 | `email`, `telefon`, `adresa`, `radnoVreme` | kontakt podaci | `[TELEFON]` |
+| `viber` | nije obavezno: broj na koji je prijavljen Viber, u međunarodnom obliku (`+` i 8 do 15 cifara, bez razmaka). Kada postoji, uz telefon se na ekranima užim od 900 px prikazuje veza „Viber“ | `+381111234567` |
 | `hitnaSluzba` | broj hitne službe u napomeni o hitnim slučajevima | `[BROJ HITNE SLUŽBE]` |
 | `poslovniPodaci` | poslovni podaci u podnožju | `[PUNI POSLOVNI PODACI POSLE REGISTRACIJE]` |
 | `rokOdgovora`, `rokCuvanja` | rok odgovora na upit i rok čuvanja upita | `[BROJ] radnih dana` |

@@ -9,7 +9,7 @@ const PLACEHOLDER = /\[[^\]]+\]/g;
 const PRICE = /\d[\d.]*\s*RSD/;
 const ABSOLUTE = /^(https?:)?\/\//i;
 const SCHEME = /^[a-z][a-z0-9+.-]*:/i;
-const SKIP_LINK = /^(mailto:|tel:|https?:|\/\/)/i;
+const DEAD_SCHEME = /^\s*javascript:/i;
 const DEV_BANNER = 'Dev pregled';
 const TRACKERS = ['googletagmanager', 'google-analytics', 'gtag(', 'fbq(', 'connect.facebook.net', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 const MEDICAL_TYPES = ['Physician', 'Hospital', 'Dentist', 'Pharmacy'];
@@ -129,7 +129,7 @@ export function checkPage(path, html, { production }) {
   for (const { url } of resourceUrls(root)) if (ABSOLUTE.test(url)) add('third-party', url);
   for (const a of root.querySelectorAll('a')) {
     const h = a.getAttribute('href');
-    if (h === undefined || h === '' || h === '#') add('dead-link', a.text.trim());
+    if (h === undefined || h === '' || h === '#' || DEAD_SCHEME.test(h)) add('dead-link', a.text.trim());
   }
 
   // Preview builds must never be indexable; production builds must never show the preview banner.
@@ -236,8 +236,9 @@ export function checkSite(pages, { basePath, production, files }) {
 
     for (const a of root.querySelectorAll('a[href]')) {
       const href = a.getAttribute('href');
-      // '' and '#' are reported as dead-link by checkPage.
-      if (!href || href === '#' || SKIP_LINK.test(href)) continue;
+      // '' and '#' are reported as dead-link by checkPage, and so is javascript:. Any other scheme leaves the site
+      // (https:) or opens an application (mailto:, tel:, viber:), as does a protocol-relative address: nothing to resolve.
+      if (!href || href === '#' || href.startsWith('//') || SCHEME.test(href.trim())) continue;
       if (href.startsWith('#')) {
         const id = tryDecode(decodeURIComponent, href.slice(1));
         if (id === null) add('link-broken', href);

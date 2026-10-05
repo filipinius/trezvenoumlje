@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { b2bSchema, clanakSchema, knjigaSchema, medijSchema, pitanjeSchema, pravnoSchema, pricaSchema, uslugaSchema } from '../../src/content/schemas';
+import { b2bSchema, clanakSchema, knjigaSchema, medijSchema, pitanjeSchema, podesavanjaSchema, pravnoSchema, pricaSchema, uslugaSchema } from '../../src/content/schemas';
 import { priceLabel } from '../../src/lib/price';
 
 describe('uslugaSchema', () => {
@@ -80,6 +80,39 @@ describe('medijSchema', () => {
   test('rejects a URL or an id of the wrong length', () => {
     expect(() => medijSchema.parse({ ...base, youtubeId: 'https://www.youtube.com/watch?v=abc123XYZ_-' })).toThrow();
     expect(() => medijSchema.parse({ ...base, youtubeId: 'abc123XYZ_' })).toThrow();
+  });
+  test('the date is optional', () => {
+    const { datum: _datum, ...undated } = base;
+    expect(medijSchema.parse(undated).datum).toBeUndefined();
+    expect(medijSchema.parse(base).datum).toBe('2025.');
+  });
+  test('pocetak is an optional whole number of seconds, zero or more', () => {
+    expect(medijSchema.parse(base).pocetak).toBeUndefined();
+    expect(medijSchema.parse({ ...base, pocetak: 0 }).pocetak).toBe(0);
+    expect(medijSchema.parse({ ...base, pocetak: 2141 }).pocetak).toBe(2141);
+    expect(() => medijSchema.parse({ ...base, pocetak: -1 })).toThrow();
+    expect(() => medijSchema.parse({ ...base, pocetak: 1.5 })).toThrow();
+    expect(() => medijSchema.parse({ ...base, pocetak: '35:41' })).toThrow();
+  });
+  test('redosled is a whole number that defaults to 0', () => {
+    expect(medijSchema.parse(base).redosled).toBe(0);
+    expect(medijSchema.parse({ ...base, redosled: 3 }).redosled).toBe(3);
+    expect(() => medijSchema.parse({ ...base, redosled: 1.5 })).toThrow();
+  });
+});
+
+describe('podesavanjaSchema', () => {
+  const base = {
+    naziv: 'Trezvenoumlje', podnaslov: 'Centar', slogan: 'Slogan', email: 'a@b.rs', telefon: '011 000 000', adresa: '[ADRESA]',
+    radnoVreme: '[RADNO VREME]', hitnaSluzba: '[BROJ]', poslovniPodaci: '[PODACI]', rokOdgovora: '[BROJ] radnih dana', rokCuvanja: '[ROK]', facebook: 'Facebook',
+  };
+  test('viber is optional', () => {
+    expect(podesavanjaSchema.parse(base).viber).toBeUndefined();
+  });
+  test('viber is an international number: + and 8 to 15 digits, nothing else', () => {
+    expect(podesavanjaSchema.parse({ ...base, viber: '+381110000000' }).viber).toBe('+381110000000');
+    for (const viber of ['0110000000', '+381 11 000 0000', '+3811100', '+3811100000000000', 'viber://chat?number=%2B381110000000', ''])
+      expect(() => podesavanjaSchema.parse({ ...base, viber }), viber).toThrow();
   });
 });
 

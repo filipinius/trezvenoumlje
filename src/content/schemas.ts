@@ -72,8 +72,11 @@ export const timSchema = z.object({
   zdravstvenaUloga: z.boolean().default(false), stranica: z.string().optional(), redosled: z.number().int().default(0),
 });
 export const medijSchema = z.object({
-  ...base, naslov: text, slug, medij: text, datum: text, youtubeId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, 'YouTube ID ima 11 znakova (ne URL)').optional(),
-  link: z.string().regex(/^https?:\/\//).optional(), opis: text.optional(),
+  ...base, naslov: text, slug, medij: text, datum: text.optional(),
+  youtubeId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, 'YouTube ID ima 11 znakova (ne URL)').optional(),
+  // Second at which the player starts, for an appearance that is one part of a longer recording.
+  pocetak: z.number().int().min(0).optional(),
+  link: z.string().regex(/^https?:\/\//).optional(), opis: text.optional(), redosled: z.number().int().default(0),
 });
 export const pitanjeSchema = z.object({
   status, id: stableId, pitanje: text, odgovor: text, kategorija: z.enum(KATEGORIJE_PITANJA), redosled: z.number().int(),
@@ -97,4 +100,6 @@ export const pravnoSchema = z.object({
 export const podesavanjaSchema = z.object({
   naziv: text, podnaslov: text, slogan: text, email: text, telefon: text, adresa: text, radnoVreme: text,
   hitnaSluzba: text, poslovniPodaci: text, rokOdgovora: text, rokCuvanja: text, facebook: text,
+  // The number Viber is registered on, in international form: it goes into the viber:// link as it is.
+  viber: z.string().regex(/^\+\d{8,15}$/, 'Viber broj: + i 8 do 15 cifara, bez razmaka').optional(),
 });

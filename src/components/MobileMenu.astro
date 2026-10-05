@@ -1,10 +1,11 @@
 ---
 // Toggle + panel around the main nav (default slot). The panel also holds the contact CTA and, on mobile,
-// the direct "call" / "e-mail" links once the settings no longer hold placeholders.
+// the direct "call" / "Viber" / "e-mail" links once the settings no longer hold placeholders.
 import { contactLinks } from '../lib/contact-links';
 import { getSettings } from '../lib/content';
 import Button from './Button.astro';
-const { tel, mailto } = contactLinks(await getSettings());
+const settings = await getSettings();
+const { tel, mailto, viber } = contactLinks(settings);
 ---
 <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="glavni-meni" aria-label="Meni">
   <svg class="icon-closed" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -13,9 +14,10 @@ const { tel, mailto } = contactLinks(await getSettings());
 <div id="glavni-meni" class="menu-panel">
   <slot />
   <Button href="/kontakt/" class="menu-cta">Zakažite razgovor</Button>
-  {(tel || mailto) && (
+  {(tel || mailto || viber) && (
     <div class="menu-contact">
       {tel && <Button href={tel} variant="secondary">Pozovite</Button>}
+      {viber && <Button href={viber} variant="secondary" aria-label={`Viber: ${settings.telefon}`}>Viber</Button>}
       {mailto && <Button href={mailto} variant="secondary">Pošaljite e-mail</Button>}
     </div>
   )}
@@ -46,6 +48,7 @@ const { tel, mailto } = contactLinks(await getSettings());
     /* The panel dissolves: nav and CTA become items of the header row. */
     .menu-panel { display: contents; }
     .menu-panel > .menu-cta { display: inline-flex; margin-top: 0; padding-inline: 20px; font-size: var(--tekst-mali); }
+    /* Phone-only actions (a Viber chat link does nothing on a desktop without Viber). */
     .menu-contact { display: none; }
   }
 </style>

@@ -54,6 +54,20 @@ for (const { name, path, open } of OVERLAYS) {
   });
 }
 
+test('open video dialog has no WCAG A/AA violations', async ({ page }) => {
+  // The player address is answered locally: the scan must not reach the internet.
+  await page.route('**://www.youtube-nocookie.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>stub</body></html>' }));
+  await page.goto('resursi/');
+  await page.locator('#mediji').getByRole('button', { name: /^Pusti video:/ }).first().click();
+  const dlg = await openDialog(page);
+  await expect(dlg.locator('iframe')).toHaveCount(1);
+  // The document inside the iframe is third-party content we do not control, so it is left out of the scan;
+  // the frame element's own accessible name is asserted here instead.
+  await expect(dlg.locator('iframe')).toHaveAttribute('title', /\S/);
+  const { violations: found } = await new AxeBuilder({ page }).withTags(TAGS).include('dialog[open]').exclude('iframe').analyze();
+  expect(found.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(' | ')}`)).toEqual([]);
+});
+
 test('open mobile menu has no WCAG A/AA violations', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'mobile navigation');
   await page.goto('');

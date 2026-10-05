@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
-import { noJsContext, watchForeign } from './helpers';
+import { expect, test, type Page } from '@playwright/test';
+import { countEntries, noJsContext, watchForeign } from './helpers';
 
 test('topic chip filters in place and updates the address', async ({ page }) => {
   await page.goto('resursi/');
@@ -69,25 +69,95 @@ test('guides without a file are not links, books link to their own page', async 
   await expect(page.getByRole('link', { name: 'Knjige i publikacije' })).toHaveAttribute('href', '/trezvenoumlje/knjige/');
 });
 
-test('media section loads nothing from a third party and offers no player without an id', async ({ page, baseURL }) => {
+// The published appearances, in their editorial order (`redosled`).
+const APPEARANCES = [
+  'Vukadinović: Roditelji, izvucite glavu iz peska!',
+  'Kako se boriti protiv bolesti zavisnosti',
+  'Nekada marihuana, a sada lekovi za smirenje',
+  'U bolnici Gornja Toponica – povratak u sobu gde je sve počelo',
+];
+const DRAFT_NOTE = 'Inicijativa „Trezvenoumlje“ 2020.';
+const PLAYER_HOST = 'www.youtube-nocookie.com';
+
+/** Answers the player address locally: the tests never reach the internet. */
+const stubPlayer = (page: Page) => page.route(`**://${PLAYER_HOST}/**`, (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>stub</body></html>' }));
+
+const playButton = (page: Page, title: string) => page.locator('#mediji').getByRole('button', { name: `Pusti video: ${title}` });
+
+test('media section lists the appearances in order and loads nothing from a third party', async ({ page, baseURL }) => {
   const foreign = watchForeign(page, baseURL);
   await page.goto('resursi/');
   const media = page.locator('#mediji');
   await expect(media.getByRole('heading', { level: 2 })).toHaveText('Medijski nastupi');
-  // The 2020 initiative is a media entry like the others, a draft until its wording is settled.
-  const note = media.locator('article').filter({ has: page.getByRole('heading', { name: 'Inicijativa „Trezvenoumlje“ 2020.' }) });
-  await expect(note.getByRole('heading', { level: 3 })).toBeVisible();
+  await expect(media.locator('article')).toHaveCount(countEntries('mediji'));
+  const titles = await media.getByRole('heading', { level: 3 }).allTextContents();
+  expect(titles.filter((t) => t !== DRAFT_NOTE)).toEqual(APPEARANCES);
+  // The 2020 initiative is a media entry like the others, a draft until its wording is settled: a text card, nothing to play.
+  const note = media.locator('article').filter({ has: page.getByRole('heading', { name: DRAFT_NOTE }) });
   await expect(note.locator('.status-badge[data-status="nacrt"]')).toBeVisible();
-  await expect(media.locator('article')).toHaveCount(3);
-  await expect(media.getByText('[Linkovi ka objavama, ako postoje prava]')).toHaveCount(0);
-  // No entry has a youtubeId or a link: plain cards, nothing that invites a click.
-  await expect(media.getByRole('heading', { name: '[Naslov emisije]' })).toHaveCount(2);
-  await expect(media.getByText('Video se učitava tek na klik (YouTube, režim privatnosti).')).toHaveCount(0);
-  await expect(media.getByRole('button')).toHaveCount(0);
+  await expect(note.getByRole('button')).toHaveCount(0);
+  await expect(note).toContainText('Facebook · 2020.');
+  await expect(note).toContainText('Besplatna psihijatrijska podrška putem interneta tokom pandemije');
+  await expect(media.getByRole('button')).toHaveCount(APPEARANCES.length);
+  for (const title of APPEARANCES) {
+    const card = media.locator('article').filter({ has: page.getByRole('heading', { name: title, exact: true }) });
+    await expect(card.getByRole('button', { name: `Pusti video: ${title}` })).toBeVisible();
+    await expect(card.getByText('Video se učitava tek na klik (YouTube, režim privatnosti).')).toBeVisible();
+  }
+  // The meta line carries the date only where there is one; the description is on the card itself.
+  const cards = media.locator('article').filter({ has: page.getByRole('button') });
+  await expect(cards.nth(0).locator('.video-meta')).toHaveText('TV Zona Plus');
+  await expect(cards.nth(1).locator('.video-meta')).toHaveText('TV Zona Plus · Iz jutra u dan · 23. 8. 2024.');
+  await expect(cards.nth(1).locator('.video-text')).toHaveText('Studijski razgovor sa dr Draganom Vukadinovićem na temu kako se boriti protiv bolesti zavisnosti.');
+  await expect(media.locator('article .video-text')).toHaveCount(countEntries('mediji'));
   await expect(media.getByRole('link')).toHaveCount(0);
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('iframe')).toHaveCount(0);
+  const youtube = await page.evaluate(() => [...document.querySelectorAll('[src], [href]')]
+    .map((el) => el.getAttribute('src') ?? el.getAttribute('href') ?? '')
+    .filter((address) => /youtube|ytimg/i.test(address)));
+  expect(youtube).toEqual([]);
   const types = (await page.locator('script[type="application/ld+json"]').allTextContents()).map((t) => JSON.parse(t)['@type']);
   expect(types).not.toContain('VideoObject');
   expect(foreign).toEqual([]);
+});
+
+test('a click loads the player from the privacy host only, and closing removes it', async ({ page, baseURL }) => {
+  await stubPlayer(page);
+  const foreign = watchForeign(page, baseURL);
+  await page.goto('resursi/');
+  const button = playButton(page, APPEARANCES[0]!);
+  await expect(button).toHaveAttribute('aria-haspopup', 'dialog');
+  await button.click();
+  const dialog = page.getByRole('dialog', { name: APPEARANCES[0]! });
+  await expect(dialog).toBeVisible();
+  const frame = dialog.locator('iframe');
+  await expect(frame).toHaveCount(1);
+  await expect(frame).toHaveAttribute('src', /^https:\/\/www\.youtube-nocookie\.com\/embed\/8pK7-E09iGs\?/);
+  await expect(frame).toHaveAttribute('src', /[?&]autoplay=1(&|$)/);
+  await expect(frame).not.toHaveAttribute('src', /start=/);
+  await expect(frame).toHaveAttribute('title', APPEARANCES[0]!);
+  await expect(dialog).toContainText('Kratak medijski prilog u kome dr Dragan Vukadinović govori o ulozi roditelja');
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(page.locator('iframe')).toHaveCount(0);
+  await expect(button).toBeFocused();
+  await page.waitForLoadState('networkidle');
+  expect(foreign.length).toBeGreaterThan(0);
+  expect(foreign.filter((url) => new URL(url).host !== PLAYER_HOST)).toEqual([]);
+});
+
+test('an appearance with a start offset opens the player at that second', async ({ page, baseURL }) => {
+  await stubPlayer(page);
+  const foreign = watchForeign(page, baseURL);
+  await page.goto('resursi/');
+  await playButton(page, APPEARANCES[3]!).click();
+  const frame = page.getByRole('dialog', { name: APPEARANCES[3]! }).locator('iframe');
+  await expect(frame).toHaveAttribute('src', /^https:\/\/www\.youtube-nocookie\.com\/embed\/4Ol8N3J7r5g\?/);
+  await expect(frame).toHaveAttribute('src', /[?&]autoplay=1(&|$)/);
+  await expect(frame).toHaveAttribute('src', /[?&]start=2141(&|$)/);
+  await page.waitForLoadState('networkidle');
+  expect(foreign.filter((url) => new URL(url).host !== PLAYER_HOST)).toEqual([]);
 });
 
 test('in-place filter keeps the heading and the document title in step with the address', async ({ page }) => {

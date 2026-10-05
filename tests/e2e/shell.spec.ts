@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { noJsContext } from './helpers';
+import { noJsContext, readEntry } from './helpers';
 
 test('header nav has the seven items and a contact CTA, all under the base path', async ({ page, isMobile }) => {
   test.skip(!!isMobile, 'desktop navigation');
@@ -31,6 +31,33 @@ test('mobile menu toggles, exposes its state and closes on Escape', async ({ pag
   await expect(page.getByRole('navigation', { name: 'Glavna navigacija' }).getByRole('link', { name: 'Usluge' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+});
+
+test('open mobile menu offers a call, a Viber chat and an e-mail', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'mobile navigation');
+  await page.goto('');
+  await page.getByRole('button', { name: 'Meni' }).click();
+  const menu = page.locator('#glavni-meni');
+  await expect(menu.getByRole('link', { name: 'Pozovite' })).toHaveAttribute('href', 'tel:0648596212');
+  const viber = menu.getByRole('link', { name: 'Viber' });
+  await expect(viber).toHaveAttribute('href', 'viber://chat?number=%2B381648596212');
+  await expect(viber).toHaveText('Viber');
+  await expect(viber).toHaveAccessibleName(`Viber: ${readEntry<{ telefon: string }>('podesavanja/sajt.json').telefon}`);
+  await expect(menu.getByRole('link', { name: 'Pošaljite e-mail' })).toHaveAttribute('href', 'mailto:trezvenoumljeprica@gmail.com');
+  // Pozovite and Viber sit side by side and look the same.
+  const [call, chat] = [(await menu.getByRole('link', { name: 'Pozovite' }).boundingBox())!, (await viber.boundingBox())!];
+  expect(chat.y).toBe(call.y);
+  expect(chat.x).toBeGreaterThan(call.x);
+  expect(chat.height).toBeGreaterThanOrEqual(44);
+  expect(await viber.getAttribute('class')).toBe(await menu.getByRole('link', { name: 'Pozovite' }).getAttribute('class'));
+});
+
+test('on desktop the header offers no Viber link', async ({ page, isMobile }) => {
+  test.skip(!!isMobile, 'desktop navigation');
+  await page.goto('');
+  await expect(page.locator('a[href^="viber:"]')).not.toHaveCount(0);
+  await expect(page.locator('a[href^="viber:"]:visible')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /Viber/ })).toHaveCount(0);
 });
 
 test('without JavaScript the navigation links are still reachable on mobile', async ({ browser, baseURL }) => {

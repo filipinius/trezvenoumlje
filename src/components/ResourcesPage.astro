@@ -6,7 +6,6 @@
 import { KATEGORIJE_CLANAKA, NAZIVI_KATEGORIJA } from '../content/schemas';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getArticles, getVisible } from '../lib/content';
-import { videoObject } from '../lib/jsonld';
 import { RESOURCES_INTRO as INTRO } from '../lib/resursi';
 import { buildSeo } from '../lib/seo';
 import { href, isPreview, site } from '../lib/site';
@@ -40,7 +39,10 @@ const guides = GUIDES.filter((g) => isPreview || g.fajl).map((g) => {
   return { ...g, lead: g.naslov.slice(0, cut), rest: g.naslov.slice(cut) };
 });
 
-const media = kategorija ? [] : await getVisible('mediji');
+// In editorial order; entries that share a `redosled` go by title so the build is repeatable.
+const media = kategorija ? [] : (await getVisible('mediji')).sort(
+  (a, b) => a.data.redosled - b.data.redosled || a.data.naslov.localeCompare(b.data.naslov, 'sr-Latn'),
+);
 
 // What each view is called and described as; a chip carries the same title and heading for the in-place filter.
 const view = (k?: Kategorija) => ({
@@ -55,7 +57,7 @@ const breadcrumbs = [
   { label: 'Trezvene misli', path: ROOT },
   ...(kategorija ? [{ label: NAZIVI_KATEGORIJA[kategorija], path }] : []),
 ];
-const jsonLd = media.flatMap(({ data }) => (data.youtubeId ? [videoObject({ ...data, youtubeId: data.youtubeId, path: ROOT }, site)] : []));
+// No VideoObject (videoObject() in src/lib/jsonld.ts) yet: without uploadDate and thumbnailUrl it is reported as an error.
 
 const chips = [undefined, ...KATEGORIJE_CLANAKA].map((k) => ({
   value: k ?? '',
@@ -65,7 +67,7 @@ const chips = [undefined, ...KATEGORIJE_CLANAKA].map((k) => ({
   documentTitle: buildSeo(view(k), site).title,
 }));
 ---
-<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false} jsonLd={jsonLd}>
+<BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
   <div data-filter-root data-filter-active={kategorija ? '' : undefined}>
     <section class="hero container">
       <Breadcrumbs items={breadcrumbs} />

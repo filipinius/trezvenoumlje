@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test';
+import { readEntry } from './helpers';
+
+const VIBER = 'viber://chat?number=%2B381648596212';
+const settings = readEntry<{ telefon: string; email: string }>('podesavanja/sajt.json');
 
 test('empty submit shows three errors with text, not colour alone', async ({ page }) => {
   await page.goto('kontakt/');
@@ -101,6 +105,46 @@ test('page states the dev-preview status and the emergency note', async ({ page 
   await expect(page.getByRole('main')).toContainText('Centar nije hitna služba');
 });
 
+test('direct contact: phone and e-mail are links; Viber is offered on a phone only', async ({ page, isMobile }) => {
+  await page.goto('kontakt/');
+  const direct = page.locator('address.direct');
+  await expect(direct.getByRole('link', { name: settings.telefon, exact: true })).toHaveAttribute('href', 'tel:0648596212');
+  await expect(direct.getByRole('link', { name: settings.email, exact: true })).toHaveAttribute('href', 'mailto:trezvenoumljeprica@gmail.com');
+  const viber = direct.locator('a', { hasText: 'Viber' });
+  await expect(viber).toHaveAttribute('href', VIBER);
+  await expect(viber).toHaveText('Viber');
+  const footerViber = page.getByRole('contentinfo').locator('a', { hasText: 'Viber' });
+  await expect(footerViber).toHaveAttribute('href', VIBER);
+  if (isMobile) {
+    await expect(viber).toBeVisible();
+    await expect(viber).toHaveAccessibleName(`Viber: ${settings.telefon}`);
+    await expect(footerViber).toBeVisible();
+    await expect(footerViber).toHaveAccessibleName(`Viber: ${settings.telefon}`);
+    for (const link of [viber, footerViber]) {
+      const box = (await link.boundingBox())!;
+      expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(44);
+    }
+  } else {
+    // Hidden with display: none, so it is out of the accessibility tree as well.
+    await expect(viber).toBeHidden();
+    await expect(footerViber).toBeHidden();
+    await expect(page.getByRole('link', { name: /Viber/ })).toHaveCount(0);
+  }
+});
+
+test('the Viber link is a plain link: nothing is requested and nothing opens on load', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', (r) => { requests.push(r.url()); });
+  await page.goto('kontakt/');
+  await page.waitForLoadState('networkidle');
+  expect(requests.filter((url) => /viber/i.test(url))).toEqual([]);
+  const links = page.locator('a[href^="viber:"]');
+  expect(await links.count()).toBeGreaterThan(0);
+  for (const link of await links.all()) {
+    expect(await link.evaluate((a) => a.getAttributeNames().filter((n) => n.startsWith('on') || n === 'target' || n === 'ping'))).toEqual([]);
+  }
+});
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
   test('the form is replaced by a note with the direct contact', async ({ page }) => {
@@ -115,8 +159,10 @@ test.describe('without JavaScript', () => {
       const html = el.children.length > 0 ? el.innerHTML : el.textContent ?? '';
       return [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('address > *')].map((n) => n.textContent);
     });
-    expect(lines).toHaveLength(2);
-    expect(lines).toEqual((await page.locator('address.direct > :is(a, span)').allTextContents()).slice(0, 2));
+    // E-mail, phone and the Viber link.
+    expect(lines).toHaveLength(3);
+    expect(lines).toEqual((await page.locator('address.direct > :is(a, span)').allTextContents()).slice(0, 3));
+    expect(lines[2]).toBe('Viber');
     await expect(page.locator('[data-contact-form]')).toBeHidden();
     await expect(page.getByRole('heading', { level: 1, name: 'Zakažite razgovor' })).toBeVisible();
   });

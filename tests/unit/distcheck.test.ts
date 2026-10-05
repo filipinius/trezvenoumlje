@@ -56,6 +56,18 @@ describe('checkPage', () => {
     const body = '<h1>A</h1><h1>B</h1><img src="/a.webp"><img src="/b.webp" alt=""><a href="#">x</a>';
     expect(rules(checkPage('x', previewPage({ body }), PREVIEW))).toEqual(['dead-link', 'h1-count', 'img-alt']);
   });
+  test('a javascript: link is a dead link', () => {
+    const body = '<h1>A</h1><a href="javascript:void(0)">x</a><a href=" JavaScript:history.back()">y</a>';
+    expect(checkPage('x', previewPage({ body }), PREVIEW)).toEqual([
+      { path: 'x', rule: 'dead-link', detail: 'x' },
+      { path: 'x', rule: 'dead-link', detail: 'y' },
+    ]);
+  });
+  test('a link that opens an application is neither a resource load nor a tracker', () => {
+    const body = '<h1>A</h1><a href="viber://chat?number=%2B381000000">Viber</a>';
+    expect(checkPage('x', previewPage({ body }), PREVIEW)).toEqual([]);
+    expect(checkPage('x', page({ body }), PRODUCTION)).toEqual([]);
+  });
   test('third-party resources are flagged, plain external links are not', () => {
     const body = '<h1>A</h1><script src="https://cdn.example.com/a.js"></script><iframe src="//youtube.com/embed/x"></iframe><a href="https://example.com">ok</a>';
     expect(rules(checkPage('x', previewPage({ body }), PREVIEW))).toEqual(['third-party', 'third-party']);
@@ -309,6 +321,24 @@ describe('checkSite', () => {
     const body = '<h1>A</h1><a href="https://example.com/nema/">a</a><a href="http://example.com">b</a><a href="//example.com/x">c</a><a href="mailto:a@example.com">d</a><a href="tel:+381000000">e</a>';
     const pages = mk({ 'index.html': previewPage({ body }) });
     expect(checkSite(pages, { basePath: base, production: false, files: new Set(pages.keys()) })).toEqual([]);
+  });
+  test('a link with any other scheme opens an application and is not resolved as a page', () => {
+    const body = '<h1>A</h1><a href="viber://chat?number=%2B381000000">a</a><a href="sms:+381000000">b</a><a href="whatsapp://send?phone=381000000">c</a>';
+    const pages = mk({ 'index.html': previewPage({ body }) });
+    for (const basePath of [base, '/']) expect(checkSite(pages, { basePath, production: false, files: new Set(pages.keys()) })).toEqual([]);
+  });
+  test('a javascript: link is reported once, as a dead link', () => {
+    const pages = mk({ 'index.html': previewPage({ body: '<h1>A</h1><a href="javascript:void(0)">x</a>' }) });
+    expect(checkSite(pages, { basePath: base, production: false, files: new Set(pages.keys()) })).toEqual([
+      { path: 'index.html', rule: 'dead-link', detail: 'x' },
+    ]);
+  });
+  test('a relative link is still reported', () => {
+    const pages = mk({ 'index.html': previewPage({ body: '<h1>A</h1><a href="kontakt/">x</a><a href="kontakt/?a=b:c">y</a>' }) });
+    expect(checkSite(pages, { basePath: base, production: false, files: new Set(pages.keys()) })).toEqual([
+      { path: 'index.html', rule: 'link-broken', detail: 'relative: kontakt/' },
+      { path: 'index.html', rule: 'link-broken', detail: 'relative: kontakt/?a=b:c' },
+    ]);
   });
   test('links to built assets under _astro/ and to public files resolve to files in dist', () => {
     const body = '<h1>A</h1><a href="/trezvenoumlje/_astro/x.abc123.webp">slika</a><a href="/trezvenoumlje/favicon.svg">ikona</a><a href="/trezvenoumlje/_astro/nema.webp">nema</a>';
