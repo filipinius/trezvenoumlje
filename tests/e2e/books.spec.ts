@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('book list shows Pričamo priču first and opens the how-to-get overlay for others', async ({ page }) => {
   await page.goto('knjige/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Knjige dr Dragana Vukadinovića');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Knjige i medijski nastupi');
   await expect(page.getByRole('link', { name: /Pogledajte knjigu/ })).toHaveAttribute('href', '/trezvenoumlje/pricamo-pricu/');
   await page.getByRole('button', { name: /Kako do knjige/ }).first().click();
   const dlg = page.getByRole('dialog');
@@ -13,7 +13,10 @@ test('book list shows Pričamo priču first and opens the how-to-get overlay for
 test('book list has one card per book, in editorial order, with breadcrumbs', async ({ page }) => {
   await page.goto('knjige/');
   await expect(page.getByRole('navigation', { name: 'Putanja' })).toHaveCount(1);
-  const main = page.getByRole('main');
+  // The books come first; the media appearances follow in their own section of the same page.
+  const main = page.locator('.books');
+  await expect(page.getByRole('main').getByRole('heading', { level: 2, name: 'Medijski nastupi' })).toBeVisible();
+  expect(await page.locator('#mediji').evaluate((el) => el.compareDocumentPosition(document.querySelector('.books')!) & Node.DOCUMENT_POSITION_PRECEDING)).toBeTruthy();
   await expect(main.getByRole('heading', { level: 2 })).toHaveText(
     [
       'Pričamo priču', 'Opijati: skripta za pacijente', 'Kanabis: zavisnost i oporavak',

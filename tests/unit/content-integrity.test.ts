@@ -139,3 +139,9 @@ test('the digital partner is a named person with a short, filled-in profile', ()
 test('the settings carry the street address of the centre', () => {
   expect(JSON.parse(readFileSync(join(ROOT, 'podesavanja/sajt.json'), 'utf8')).adresa).toBe('Braće Miljkovića 5');
 });
+test('the psychologist is a named, published team member with a filled-in profile', () => {
+  const member = json('tim').find((m) => m.slug === 'psiholog');
+  expect(member).toMatchObject({ ime: 'Ana Ristić', uloga: 'Master psiholog, stručni saradnik', status: 'objavljeno' });
+  expect(JSON.stringify(member)).not.toMatch(/\[[^\]"]+\]/);
+  expect(member.napomena).toBeUndefined();
+});

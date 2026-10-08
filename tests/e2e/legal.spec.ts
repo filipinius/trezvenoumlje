@@ -8,17 +8,36 @@ test('the four legal pages exist and are marked as drafts in preview', async ({ 
   }
 });
 
-test('a legal page has breadcrumbs, the pending text and a description of valid length', async ({ page }) => {
+test('a legal page has breadcrumbs, the date of its last change, the pending-review notice and a description of valid length', async ({ page }) => {
   await page.goto('uslovi-koriscenja/');
   const crumbs = page.getByRole('navigation', { name: 'Putanja' });
   await expect(crumbs.getByRole('link', { name: 'Početna' })).toHaveAttribute('href', '/trezvenoumlje/');
   await expect(crumbs.locator('[aria-current="page"]')).toHaveText('Uslovi korišćenja');
+  // The bracketed notice keeps a production build from shipping the text before a lawyer has read it.
   await expect(page.getByRole('main')).toContainText('[TEKST ČEKA PRAVNU PROVERU]');
-  await expect(page.getByRole('main')).not.toContainText('Poslednja izmena');
+  await expect(page.getByRole('main')).toContainText('Poslednja izmena');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     'content',
     'Uslovi korišćenja centra Trezvenoumlje: pravila i informacije za posetioce sajta.',
   );
+});
+
+test('each legal page is a written document with its own sections', async ({ page }) => {
+  const sections: Record<string, string[]> = {
+    'politika-privatnosti': ['Ko je rukovalac podacima', 'Koje podatke prikupljamo', 'Koliko dugo čuvamo podatke', 'Vaša prava'],
+    kolacici: ['Šta su kolačići', 'Kolačići na ovom sajtu', 'Sadržaj trećih strana'],
+    'uslovi-koriscenja': ['Sadržaj sajta je informativan', 'Autorska prava', 'Ograničenje odgovornosti'],
+    'priroda-usluga': ['Šta centar radi', 'Šta centar ne radi', 'Hitne situacije'],
+  };
+  for (const [slug, headings] of Object.entries(sections)) {
+    await page.goto(`${slug}/`);
+    const main = page.getByRole('main');
+    for (const name of headings) await expect(main.getByRole('heading', { level: 2, name, exact: true })).toBeVisible();
+    expect((await main.locator('.prose p').count())).toBeGreaterThan(8);
+    // Links inside the text leave the site or open an application: none may point inside it without the base path.
+    const internal = await main.locator('.prose a').evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? '').filter((h) => h.startsWith('/')));
+    expect(internal.filter((h) => !h.startsWith('/trezvenoumlje/'))).toEqual([]);
+  }
 });
 
 test('unknown address shows the 404 page with a way back', async ({ page }) => {

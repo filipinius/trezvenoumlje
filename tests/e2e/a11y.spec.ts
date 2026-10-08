@@ -57,7 +57,7 @@ for (const { name, path, open } of OVERLAYS) {
 test('open video dialog has no WCAG A/AA violations', async ({ page }) => {
   // The player address is answered locally: the scan must not reach the internet.
   await page.route('**://www.youtube-nocookie.com/**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>stub</body></html>' }));
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   await page.locator('#mediji').getByRole('button', { name: /^Pusti video:/ }).first().click();
   const dlg = await openDialog(page);
   await expect(dlg.locator('iframe')).toHaveCount(1);

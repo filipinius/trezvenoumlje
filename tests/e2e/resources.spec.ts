@@ -69,6 +69,9 @@ test('guides without a file are not links, books link to their own page', async 
   await expect(guides.getByRole('listitem')).toHaveCount(3);
   await expect(guides.getByRole('link')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Knjige i publikacije' })).toHaveAttribute('href', '/trezvenoumlje/knjige/');
+  // The media appearances live on the books page.
+  await expect(page.locator('#mediji')).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Medijski nastupi' })).toHaveCount(0);
 });
 
 // The published appearances, in their editorial order (`redosled`).
@@ -88,7 +91,7 @@ const playButton = (page: Page, title: string) => page.locator('#mediji').getByR
 
 test('media section lists the appearances in order and loads nothing from a third party', async ({ page, baseURL }) => {
   const foreign = watchForeign(page, baseURL);
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   const media = page.locator('#mediji');
   await expect(media.getByRole('heading', { level: 2 })).toHaveText('Medijski nastupi');
   await expect(media.locator('article')).toHaveCount(countEntries('mediji'));
@@ -126,7 +129,7 @@ test('media section lists the appearances in order and loads nothing from a thir
 test('a click loads the player from the privacy host only, and closing removes it', async ({ page, baseURL }) => {
   await stubPlayer(page);
   const foreign = watchForeign(page, baseURL);
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   const button = playButton(page, APPEARANCES[0]!);
   await expect(button).toHaveAttribute('aria-haspopup', 'dialog');
   await button.click();
@@ -151,7 +154,7 @@ test('a click loads the player from the privacy host only, and closing removes i
 test('an appearance with a start offset opens the player at that second', async ({ page, baseURL }) => {
   await stubPlayer(page);
   const foreign = watchForeign(page, baseURL);
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   await playButton(page, APPEARANCES[3]!).click();
   const frame = page.getByRole('dialog', { name: APPEARANCES[3]! }).locator('iframe');
   await expect(frame).toHaveAttribute('src', /^https:\/\/www\.youtube-nocookie\.com\/embed\/4Ol8N3J7r5g\?/);
@@ -199,7 +202,7 @@ test('the empty state is announced from a live region that is always in the page
 
 test('each playable card shows its own self-hosted still, readable notice included', async ({ page, baseURL }) => {
   const foreign = watchForeign(page, baseURL);
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   const stills = page.locator('#mediji img[data-video-still]');
   // Derived from content: an appearance may deliberately have no still and keep the generic poster.
   const withStill = readdirSync(join(CONTENT_DIR, 'mediji')).filter((f) => f.endsWith('.json'))
@@ -230,7 +233,7 @@ test('each playable card shows its own self-hosted still, readable notice includ
 
 test('keyboard focus on a video card is visible over the photograph', async ({ page, isMobile }) => {
   test.skip(!!isMobile, 'keyboard focus');
-  await page.goto('resursi/');
+  await page.goto('knjige/');
   const poster = page.locator('#mediji .video-poster').first();
   await poster.focus();
   await page.keyboard.press('Shift+Tab');

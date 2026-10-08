@@ -71,7 +71,7 @@ test('founder page shows the timeline and links to books and media', async ({ pa
   await expect(main.getByText('Osnivanje centra Trezvenoumlje')).toBeVisible();
   await expect(main.getByRole('img', { name: 'dr Dragan Vukadinović' })).toBeVisible();
   await expect(main.getByRole('link', { name: 'Knjige i publikacije' })).toHaveAttribute('href', '/trezvenoumlje/knjige/');
-  await expect(main.getByRole('link', { name: 'Medijski nastupi' })).toHaveAttribute('href', '/trezvenoumlje/resursi/#mediji');
+  await expect(main.getByRole('link', { name: 'Medijski nastupi' })).toHaveAttribute('href', '/trezvenoumlje/knjige/#mediji');
 });
 
 test('founder page lists a selection of professional papers', async ({ page }) => {

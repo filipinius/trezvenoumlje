@@ -60,8 +60,9 @@ test('sending the contact form makes no request and keeps nothing', async ({ pag
   expect(await context.cookies()).toEqual([]);
 });
 
-test('resources embed no player and point at no YouTube address', async ({ page }) => {
-  await page.goto('resursi/');
+test('the page with the media appearances embeds no player and points at no YouTube address', async ({ page }) => {
+  await page.goto('knjige/');
+  await expect(page.locator('#mediji article').first()).toBeVisible();
   await page.waitForLoadState('networkidle');
   await expect(page.locator('iframe')).toHaveCount(0);
   const youtube = await page.evaluate(() => [...document.querySelectorAll('[src], [href]')]

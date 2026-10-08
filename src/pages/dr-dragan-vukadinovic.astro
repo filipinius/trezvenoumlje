@@ -24,7 +24,7 @@ const breadcrumbs = [
   { label: 'Dr Dragan Vukadinović', path: '/dr-dragan-vukadinovic/' },
 ];
 
-// The media section of /resursi/ exists only while a media entry is visible: no link to an anchor that is not there.
+// The media section of /knjige/ exists only while a media entry is visible: no link to an anchor that is not there.
 const hasMedia = (await getVisible('mediji')).length > 0;
 
 // Rendered width of the photo; it is never shown wider than this (no upscaling until the real photo arrives).
@@ -82,7 +82,7 @@ const PAPERS = [
       </ul>
       <div class="actions">
         <Button href="/knjige/" variant="secondary">Knjige i publikacije</Button>
-        {hasMedia && <Button href="/resursi/#mediji" variant="secondary">Medijski nastupi</Button>}
+        {hasMedia && <Button href="/knjige/#mediji" variant="secondary">Medijski nastupi</Button>}
       </div>
     </div>
   </div>

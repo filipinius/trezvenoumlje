@@ -46,11 +46,12 @@ const isCurrent = (item: (typeof NAV)[number]) => [item.path, ...(item.owns ?? [
   }
 
   @media (min-width: 900px) {
-    .bar { gap: 4px 32px; padding-block: 14px; }
+    /* Gaps tighten towards 1280px so that the seven items stay on one row there, and open up to the artboard's values by 1440px. */
+    .bar { gap: 4px clamp(18px, calc(8vw - 84px), 32px); padding-block: 14px; }
     .brand { gap: 12px; }
     .mark-desktop { display: flex; }
     .mark-mobile { display: none; }
-    .main-nav ul { display: flex; flex-wrap: wrap; gap: 4px clamp(18px, 1.6vw, 26px); font-weight: 500; font-size: var(--tekst-mali); }
+    .main-nav ul { display: flex; flex-wrap: wrap; gap: 4px clamp(12px, calc(4.5vw - 44px), 26px); font-weight: 500; font-size: var(--tekst-mali); }
     .main-nav li + li { border-top: 0; }
     .main-nav a { display: inline-block; padding: 10px 0; border-bottom: 2px solid transparent; }
     .main-nav a[aria-current] { text-decoration: none; border-bottom-color: var(--zelena); }

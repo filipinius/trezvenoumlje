@@ -5,7 +5,7 @@ test('header nav has the seven items and a contact CTA, all under the base path'
   test.skip(!!isMobile, 'desktop navigation');
   await page.goto('');
   const nav = page.getByRole('navigation', { name: 'Glavna navigacija' });
-  await expect(nav.getByRole('link')).toHaveText(['O nama', 'Usluge', 'Programi', 'Za organizacije', 'Pričamo priču', 'Trezvene misli', 'Knjige']);
+  await expect(nav.getByRole('link')).toHaveText(['O nama', 'Usluge', 'Programi', 'Za organizacije', 'Pričamo priču', 'Trezvene misli', 'Knjige i mediji']);
   for (const a of await nav.getByRole('link').all()) expect(await a.getAttribute('href')).toMatch(/^\/trezvenoumlje\//);
   await expect(page.getByRole('banner').getByRole('link', { name: 'Zakažite razgovor' })).toHaveAttribute('href', '/trezvenoumlje/kontakt/');
 });

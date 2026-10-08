@@ -7,5 +7,5 @@ export const NAV: { label: string; path: string; owns?: string[] }[] = [
   { label: 'Za organizacije', path: '/organizacije/' },
   { label: 'Pričamo priču', path: '/pricamo-pricu/' },
   { label: 'Trezvene misli', path: '/resursi/' },
-  { label: 'Knjige', path: '/knjige/' },
+  { label: 'Knjige i mediji', path: '/knjige/' },
 ];

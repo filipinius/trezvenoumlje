@@ -1,5 +1,6 @@
 ---
-// The "Knjige i publikacije" section of the Resources artboard as its own page.
+// The founder's public work on one page: the books first, the media appearances below them.
+// The books are the "Knjige i publikacije" section of the Resources artboard.
 // A book with its own section of the site (`spoljnaStranica`) is a band that links there; the others open "Kako do knjige".
 import { Image } from 'astro:assets';
 import BookCover from '../../components/BookCover.astro';
@@ -8,6 +9,7 @@ import Button from '../../components/Button.astro';
 import Dialog from '../../components/Dialog.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import Text from '../../components/Text.astro';
+import VideoCard from '../../components/VideoCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getVisible } from '../../lib/content';
 import { getImageAsset } from '../../lib/images';
@@ -15,26 +17,32 @@ import { bookPath, coverAlt, hasDetailPage } from '../../lib/knjige';
 import { href } from '../../lib/site';
 
 const seo = {
-  title: 'Knjige',
-  description: 'Knjige i publikacije dr Dragana Vukadinovića, osnivača centra Trezvenoumlje.',
+  title: 'Knjige i medijski nastupi',
+  description: 'Knjige, publikacije i medijski nastupi dr Dragana Vukadinovića, osnivača centra Trezvenoumlje.',
   path: '/knjige/',
 };
 const breadcrumbs = [
   { label: 'Početna', path: '/' },
-  { label: 'Knjige', path: '/knjige/' },
+  { label: 'Knjige i mediji', path: '/knjige/' },
 ];
 
 const books = (await getVisible('knjige')).sort((a, b) => a.data.redosled - b.data.redosled);
 const featured = books.filter((book) => book.data.spoljnaStranica);
 const others = books.filter((book) => !book.data.spoljnaStranica);
 const dialogId = (slug: string) => `knjiga-${slug}`;
+
+// In editorial order; entries that share a `redosled` go by title so the build is repeatable.
+// No VideoObject (videoObject() in src/lib/jsonld.ts) yet: without uploadDate and thumbnailUrl it is reported as an error.
+const media = (await getVisible('mediji')).sort(
+  (a, b) => a.data.redosled - b.data.redosled || a.data.naslov.localeCompare(b.data.naslov, 'sr-Latn'),
+);
 const present = (...values: (string | undefined)[]) => values.filter((v): v is string => !!v);
 ---
 <BaseLayout seo={seo} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
   <section class="hero container">
     <Breadcrumbs items={breadcrumbs} />
-    <span class="nadnaslov">Knjige i publikacije</span>
-    <h1>Knjige dr Dragana Vukadinovića</h1>
+    <span class="nadnaslov">dr Dragan Vukadinović</span>
+    <h1>Knjige i medijski nastupi</h1>
   </section>
 
   <div class="container books">
@@ -100,6 +108,21 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
       </div>
     )}
   </div>
+
+  {media.length > 0 && (
+    <section id="mediji" class="band-light" aria-labelledby="mediji-h">
+      <div class="container media">
+        <h2 id="mediji-h">Medijski nastupi</h2>
+        <div class="media-grid">
+          {media.map((entry) => <VideoCard entry={entry} />)}
+        </div>
+      </div>
+      {/* Only this section can hold a player, so only the page that renders it loads the player script. */}
+      <script>
+        import '../../scripts/video.ts';
+      </script>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
@@ -146,6 +169,13 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
     font-family: var(--font-naslov); font-weight: 600; font-size: var(--tekst-mali); text-decoration: underline; text-underline-offset: 4px;
   }
   .book-how:hover { color: var(--plava); }
+
+  /* Medijski nastupi */
+  .band-light { background: var(--pesak-svetli); }
+  .media { display: flex; flex-direction: column; gap: 24px; padding-block: clamp(48px, 6vw, 80px); }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 20px; }
+  /* The sticky header must not cover the heading a link to #mediji jumps to. */
+  #mediji { scroll-margin-top: 80px; }
 
   /* Overlay „Kako do knjige“ */
   .book-facts { display: grid; grid-template-columns: 140px 1fr; gap: 10px 16px; margin: 0; }

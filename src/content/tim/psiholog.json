@@ -1,19 +1,18 @@
 {
-  "ime": "[IME I PREZIME]",
+  "ime": "Ana Ristić",
   "slug": "psiholog",
   "uloga": "Master psiholog, stručni saradnik",
   "kratko": "Radionice za mlade i roditelje, psihoedukacija, razvoj materijala.",
-  "bio": "[Kratka biografija: obrazovanje, iskustvo u radu sa mladima i porodicama, oblasti interesovanja.]",
+  "bio": "Master psiholog sa višegodišnjim iskustvom u predškolskom obrazovanju, zaštiti dece i inkluzivnom obrazovanju. Radi kao stručni saradnik u predškolskoj ustanovi, gde rukovodi timom za zaštitu dece od nasilja, zlostavljanja i zanemarivanja, i član je tima za porodično orijentisane rane intervencije. Stručnu praksu obavila je u Specijalnoj bolnici za psihijatrijske bolesti Gornja Toponica.",
   "zadaci": [
     "Radionice za mlade i roditelje",
     "Psihoedukativne sesije i preventivni programi",
     "Izrada sadržaja za sajt i publikacije",
     "Vođenje pojedinih programa u okviru svoje kompetencije"
   ],
-  "napomena": "Prikazuje se tek kada se potvrdi pravni osnov angažmana.",
   "fotografija": "tim-psiholog.webp",
   "oblik": "krug",
   "zdravstvenaUloga": false,
   "redosled": 2,
-  "status": "nacrt"
+  "status": "objavljeno"
 }
