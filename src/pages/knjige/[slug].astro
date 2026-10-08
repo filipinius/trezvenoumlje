@@ -50,13 +50,19 @@ const breadcrumbs = [
           <dt>Autor</dt><Text as="dd" value={book.autor} />
           {book.izdavac && <><dt>Izdavač</dt><Text as="dd" value={book.izdavac} /></>}
           {book.godina && <><dt>Godina</dt><Text as="dd" value={book.godina} /></>}
-          {book.isbn && <><dt>ISBN</dt><Text as="dd" value={book.isbn} /></>}
         </dl>
         {book.opis && <Text as="p" class="intro" value={book.opis} />}
         {book.pravnaNapomena && <Text as="p" class="hero-line" value={book.pravnaNapomena} />}
       </div>
     </div>
   </section>
+
+  {book.oKnjizi && (
+    <section class="container about" aria-labelledby="o-knjizi-h">
+      <h2 id="o-knjizi-h">O knjizi</h2>
+      {book.oKnjizi.map((paragraph) => <Text as="p" value={paragraph} />)}
+    </section>
+  )}
 
   <section class="band-light" aria-labelledby="nabavka-h">
     <div class="container how">
@@ -95,6 +101,8 @@ const breadcrumbs = [
   .book-facts dt { color: var(--tekst-prigusen); }
   .book-facts :global(dd) { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 
+  .about { display: flex; flex-direction: column; gap: 16px; padding-bottom: clamp(40px, 6vw, 72px); }
+  .about :global(p) { margin: 0; max-width: 720px; color: var(--tekst-sekundarni); }
   .how-actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .how { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding-block: clamp(40px, 6vw, 72px); }
 

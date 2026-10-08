@@ -78,3 +78,10 @@ test('localBusiness is null while phone or address is a placeholder', () => {
   });
   expect(JSON.stringify(ok)).not.toMatch(/Medical|Physician/);
 });
+
+test('book carries its short description once it is real text', () => {
+  const input = { naslov: 'K', autor: 'A', path: '/knjige/k/' };
+  expect(book({ ...input, opis: 'O čemu je knjiga.' }, cfg)).toMatchObject({ description: 'O čemu je knjiga.' });
+  expect(book({ ...input, opis: '[Kratak opis knjige]' }, cfg)).not.toHaveProperty('description');
+  expect(book(input, cfg)).not.toHaveProperty('description');
+});

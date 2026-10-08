@@ -103,6 +103,7 @@ export interface BookInput {
   isbn?: string;
   izdavac?: string;
   godina?: string;
+  opis?: string;
   /** Site path of the book page. */
   path: string;
 }
@@ -114,6 +115,7 @@ export function book(b: BookInput, cfg: EnvConfig) {
     name: b.naslov,
     author: { '@type': 'Person' as const, name: b.autor },
     url: absoluteUrl(b.path, cfg),
+    ...(filled(b.opis) ? { description: b.opis } : {}),
     ...(filled(b.isbn) ? { isbn: b.isbn } : {}),
     ...(filled(b.izdavac) ? { publisher: { '@type': 'Organization' as const, name: b.izdavac } } : {}),
     ...(filled(b.godina) ? { datePublished: b.godina } : {}),

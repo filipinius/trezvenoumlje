@@ -57,7 +57,8 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
       <div class="book-grid">
         {others.map((entry) => {
           const book = entry.data;
-          const line = present(book.izdavac, book.godina, book.isbn && `ISBN ${book.isbn}`).join(' · ');
+          // The card names publisher and year, a line each. The ISBN stays in the entry and is not shown.
+          const lines = present(book.izdavac, book.godina);
           const publisher = present(book.izdavac, book.godina).join(', ');
           return (
             <article class="book">
@@ -73,7 +74,7 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
                   : <Text value={book.naslov} />}
               </h2>
               <div class="book-meta">
-                {line && <Text class="book-line" value={line} />}
+                {lines.map((line) => <Text class="book-line" value={line} />)}
                 <StatusBadge status={book.status} />
               </div>
               <div class="book-foot">
@@ -84,7 +85,6 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
                 <dl class="book-facts">
                   <dt>Naslov</dt><Text as="dd" class="book-title" value={book.naslov} />
                   {publisher && <><dt>Izdavač</dt><Text as="dd" value={publisher} /></>}
-                  {book.isbn && <><dt>ISBN</dt><Text as="dd" value={book.isbn} /></>}
                   {book.nabavka && <><dt>Gde se nabavlja</dt><Text as="dd" value={book.nabavka} /></>}
                 </dl>
                 {book.opis && <Text as="p" class="book-about" value={book.opis} />}
@@ -136,7 +136,8 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
     box-shadow: 0 12px 24px color-mix(in srgb, var(--tekst) 12%, transparent);
   }
   .book-image { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .book-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .book-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+  .book-meta :global(.status-badge) { margin-top: 6px; }
   .book-foot { min-width: 0; }
   .book h2 { font-size: var(--uvod); line-height: 1.3; }
   .book-line { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }

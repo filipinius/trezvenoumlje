@@ -62,6 +62,8 @@ export const clanakSchema = z.object({
 export const knjigaSchema = z.object({
   ...base, naslov: text, slug, autor: text, godina: text.optional(), izdavac: text.optional(), isbn: text.optional(),
   korica: z.string().optional(), opis: text.optional(), nabavka: text.optional(), oznaka: text.optional(),
+  // What the book is about, a paragraph per item: the "O knjizi" section of the book page. `opis` stays the short version.
+  oKnjizi: z.array(text).min(1).optional(),
   // Where the book is ordered: its page in the publisher's shop. Shown as a link beside `nabavka`.
   nabavkaLink: z.string().regex(/^https?:\/\//).optional(),
   spoljnaStranica: z.string().optional(), redosled: z.number().int().default(0),

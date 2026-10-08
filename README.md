@@ -121,9 +121,10 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `naslov` | da | naslov knjige | `Pričamo priču` |
 | `slug` | da | adresa: `/knjige/<slug>/` | `pricamo-pricu` |
 | `autor` | da | autor | `[Autor]` |
-| `godina`, `izdavac`, `isbn` | ne | bibliografski podaci | `2026.` |
+| `godina`, `izdavac`, `isbn` | ne | bibliografski podaci; `isbn` se ne prikazuje na stranicama (ostaje u podacima za pretraživače) | `2026.` |
 | `korica` | ne | ime fajla slike korice | `korica-knjige.webp` |
-| `opis` | ne | kratak opis | `Pedeset priča u deset tema.` |
+| `opis` | ne | kratak opis u jednoj rečenici (najbolje 50 do 160 znakova): prikazuje se ispod naslova i služi kao opis za pretraživače | `Pedeset priča u deset tema.` |
+| `oKnjizi` | ne | odeljak „O knjizi“ na stranici knjige: lista pasusa (o čemu je knjiga, kome je namenjena) | `["Prvi pasus.", "Drugi pasus."]` |
 | `nabavka` | ne | gde se knjiga nabavlja | `[Knjižara, izdavač ili upit centru]` |
 | `nabavkaLink` | ne | adresa stranice na kojoj se knjiga naručuje (počinje sa `http://` ili `https://`); prikazuje se kao dugme „Naručite kod izdavača“ | `https://www.talijaizdavastvo.rs/korpa/` |
 | `oznaka` | ne | kratka oznaka na kartici | `Novo · 2026.` |

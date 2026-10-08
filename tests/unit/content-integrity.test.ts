@@ -118,3 +118,12 @@ test('the books shown at the publisher have their cover as a local file', () => 
 test('every media appearance with a video has its own still', () => {
   for (const m of json('mediji')) if (m.youtubeId) expect(m.slicica, m.slug).toBe(`mediji/${m.slug}.webp`);
 });
+test('a book with a summary has a short description fit for search results and at least two paragraphs about it', () => {
+  const described = json('knjige').filter((b) => b.oKnjizi);
+  expect(described.map((b) => b.slug).sort()).toEqual(['anatomija-jedne-dusevne-bolnice', 'kanabis-zavisnost-i-oporavak']);
+  for (const b of described) {
+    expect(b.opis.length, b.slug).toBeGreaterThanOrEqual(50);
+    expect(b.opis.length, b.slug).toBeLessThanOrEqual(160);
+    expect(b.oKnjizi.length, b.slug).toBeGreaterThanOrEqual(2);
+  }
+});

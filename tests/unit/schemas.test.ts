@@ -146,3 +146,16 @@ describe('knjigaSchema: nabavkaLink', () => {
     expect(() => knjigaSchema.parse({ ...base, nabavkaLink: 'javascript:alert(1)' })).toThrow();
   });
 });
+
+describe('knjigaSchema: oKnjizi', () => {
+  const base = { naslov: 'Knjiga', slug: 'knjiga', autor: 'Autor', status: 'objavljeno' };
+  test('takes paragraphs of text and is optional', () => {
+    expect(knjigaSchema.parse({ ...base, oKnjizi: ['Prvi pasus.', 'Drugi pasus.'] }).oKnjizi).toEqual(['Prvi pasus.', 'Drugi pasus.']);
+    expect(knjigaSchema.parse(base).oKnjizi).toBeUndefined();
+  });
+  test('rejects an empty list, an empty paragraph and Cyrillic', () => {
+    expect(() => knjigaSchema.parse({ ...base, oKnjizi: [] })).toThrow();
+    expect(() => knjigaSchema.parse({ ...base, oKnjizi: [''] })).toThrow();
+    expect(() => knjigaSchema.parse({ ...base, oKnjizi: ['Књига'] })).toThrow(/latinic/i);
+  });
+});

@@ -21,7 +21,12 @@ test('book list has one card per book, in editorial order, with breadcrumbs', as
     ],
   );
   await expect(main.locator('.status-badge')).toHaveCount(0);
-  await expect(main.locator('.book-line').nth(1)).toHaveText('Talija izdavaštvo, Niš · 2025. · ISBN 978-86-6140-219-7');
+  // Publisher and year, each on a line of its own; the ISBN is not shown anywhere on the site.
+  const lines = main.locator('.book').nth(1).locator('.book-line');
+  await expect(lines).toHaveText(['Talija izdavaštvo, Niš', '2025.']);
+  const [publisher, year] = [(await lines.nth(0).boundingBox())!, (await lines.nth(1).boundingBox())!];
+  expect(year.y).toBeGreaterThanOrEqual(publisher.y + publisher.height);
+  await expect(main).not.toContainText('ISBN');
   // Three books have the publisher's cover picture; the other two show the drawn cover.
   for (const title of ['Kanabis: zavisnost i oporavak', 'Trezvenoumlje: kratki psihijatrijski praktikum, ilustrovani prikaz slučaja', 'Anatomija jedne duševne bolnice: bolnica u Toponici']) {
     await expect(main.getByAltText(`Korica knjige ${title}`, { exact: true })).toBeVisible();
@@ -47,7 +52,7 @@ test('book cards are uniform: equal cover areas, and titles, details and links a
   const rows = new Map<number, { art: number; title: number; line: number; how: number }[]>();
   const sizes = new Set<string>();
   for (const card of await cards.all()) {
-    const [art, title, line, how] = await Promise.all(['.book-art', ':scope > h2', '.book-line', '.book-how'].map(async (sel) => (await card.locator(sel).boundingBox())!));
+    const [art, title, line, how] = await Promise.all(['.book-art', ':scope > h2', '.book-meta', '.book-how'].map(async (sel) => (await card.locator(sel).boundingBox())!));
     sizes.add(`${Math.round(art!.width)}x${Math.round(art!.height)}`);
     const row = Math.round(art!.y);
     rows.set(row, [...(rows.get(row) ?? []), { art: Math.round(art!.height), title: Math.round(title!.y), line: Math.round(line!.y), how: Math.round(how!.y) }]);
@@ -67,12 +72,12 @@ test('each overlay names its book and closes on Escape, returning focus', async 
   await expect(dlg.getByRole('heading', { level: 2 })).toHaveText('Kako do knjige');
   await expect(dlg.locator('.book-title')).toHaveText('Kanabis: zavisnost i oporavak');
   await expect(dlg).toContainText('Talija izdavaštvo, Niš, 2025.');
-  await expect(dlg).toContainText('978-86-6140-219-7');
+  await expect(dlg).not.toContainText('978-86-6140-219-7');
   const order = dlg.getByRole('link', { name: 'Naručite kod izdavača: Kanabis: zavisnost i oporavak' });
   await expect(order).toHaveText('Naručite kod izdavača');
   await expect(order).toHaveAttribute('href', 'https://www.talijaizdavastvo.rs/korpa/pocetak/494-dr-dragan-vukadinovic-kanabis-zavisnost-i-oporavak.html');
   await expect(order).toHaveAttribute('rel', 'noopener');
-  for (const term of ['Naslov', 'Izdavač', 'ISBN', 'Gde se nabavlja']) {
+  for (const term of ['Naslov', 'Izdavač', 'Gde se nabavlja']) {
     await expect(dlg.locator('dt', { hasText: new RegExp(`^${term}$`) })).toBeVisible();
   }
   await page.keyboard.press('Escape');
@@ -101,11 +106,20 @@ test('a book page gives the bibliographic data and the way to order it from the 
   const main = page.getByRole('main');
   await expect(main.getByRole('heading', { level: 1 })).toHaveText('Anatomija jedne duševne bolnice: bolnica u Toponici');
   await expect(main).toContainText('dr Dragan Vukadinović i Ana Vukadinović');
-  await expect(main).toContainText('978-86-80406-53-4');
+  await expect(main).not.toContainText('ISBN');
+  await expect(main).not.toContainText('978-86-80406-53-4');
   await expect(main.getByRole('link', { name: /Naručite kod izdavača/ })).toHaveAttribute(
     'href', 'https://www.talijaizdavastvo.rs/korpa/istorija/274-dragan-i-ana-vukadinovic-anatomija-jedne-dusevne-bolnice.html',
   );
   await expect(main.getByRole('link', { name: 'Pošaljite upit' })).toHaveAttribute('href', '/trezvenoumlje/kontakt/');
+  // "O knjizi": what the book is about, and the same short description for search engines.
+  const about = main.getByRole('region', { name: 'O knjizi' });
+  await expect(about.getByRole('heading', { level: 2, name: 'O knjizi' })).toBeVisible();
+  await expect(about.locator('p')).toHaveCount(3);
+  await expect(about).toContainText('Gornjoj Toponici');
+  const opis = 'Monografija o istoriji psihijatrijske bolnice u Gornjoj Toponici kod Niša: o prostoru, lekarima, osoblju i pacijentima kroz devet decenija.';
+  await expect(main.locator('.intro')).toHaveText(opis);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', opis);
   const cover = main.getByAltText('Korica knjige Anatomija jedne duševne bolnice: bolnica u Toponici');
   await expect(cover).toBeVisible();
   expect(await cover.evaluate((el: HTMLImageElement) => getComputedStyle(el).objectFit)).toBe('contain');
