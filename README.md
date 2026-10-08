@@ -182,8 +182,8 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `hitnaSluzba` | broj hitne službe u napomeni o hitnim slučajevima | `[BROJ HITNE SLUŽBE]` |
 | `poslovniPodaci` | poslovni podaci u podnožju | `[PUNI POSLOVNI PODACI POSLE REGISTRACIJE]` |
 | `rokOdgovora`, `rokCuvanja` | rok odgovora na upit i rok čuvanja upita | `[BROJ] radnih dana` |
-| `facebook` | tekst o Facebook stranici u podnožju | `Facebook: Trezvenoumlje` |
-| `facebookUrl` | nije obavezno: adresa Facebook stranice centra. Kada postoji, tekst u podnožju postaje veza sa ikonicom | `https://www.facebook.com/Trezvenoumlje/` |
+| `facebook` | tekst o Facebook stranici u podnožju; kada postoji `facebookUrl`, čita se samo čitačima ekrana kao naziv ikonice | `Facebook: Trezvenoumlje` |
+| `facebookUrl` | nije obavezno: adresa Facebook stranice centra. Kada postoji, u podnožju je umesto teksta Facebook ikonica sa vezom | `https://www.facebook.com/Trezvenoumlje/` |
 
 ### Objavljivanje
 

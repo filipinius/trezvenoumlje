@@ -41,9 +41,8 @@ const year = new Date().getFullYear();
         {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
         {settings.facebookUrl
           ? (
-            <a class="social" href={settings.facebookUrl} rel="noopener noreferrer">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
-              <Text value={settings.facebook} />
+            <a class="social" href={settings.facebookUrl} rel="noopener noreferrer" aria-label={settings.facebook}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
             </a>
           )
           : <Text value={settings.facebook} />}
@@ -71,8 +70,7 @@ const year = new Date().getFullYear();
   /* A Viber chat link does nothing on a desktop without Viber: offered below 900px only. */
   .viber { min-width: 44px; }
   @media (min-width: 900px) { .viber { display: none; } }
-  .social { gap: 8px; }
-  .social svg { flex: none; }
+  .social { justify-content: center; min-width: 44px; margin-left: -8px; }
   .contact { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 10px; font-style: normal; }
   .bottom {
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px;

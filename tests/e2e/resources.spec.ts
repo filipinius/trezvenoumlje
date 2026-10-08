@@ -77,8 +77,8 @@ const APPEARANCES = [
   'Kako se boriti protiv bolesti zavisnosti',
   'Nekada marihuana, a sada lekovi za smirenje',
   'U bolnici Gornja Toponica – povratak u sobu gde je sve počelo',
+  'Inicijativa „Trezvenoumlje“ 2020.',
 ];
-const DRAFT_NOTE = 'Inicijativa „Trezvenoumlje“ 2020.';
 const PLAYER_HOST = 'www.youtube-nocookie.com';
 
 /** Answers the player address locally: the tests never reach the internet. */
@@ -93,12 +93,11 @@ test('media section lists the appearances in order and loads nothing from a thir
   await expect(media.getByRole('heading', { level: 2 })).toHaveText('Medijski nastupi');
   await expect(media.locator('article')).toHaveCount(countEntries('mediji'));
   const titles = await media.getByRole('heading', { level: 3 }).allTextContents();
-  expect(titles.filter((t) => t !== DRAFT_NOTE)).toEqual(APPEARANCES);
-  // The 2020 initiative is a media entry like the others, a draft until its wording is settled: a text card, nothing to play.
-  const note = media.locator('article').filter({ has: page.getByRole('heading', { name: DRAFT_NOTE }) });
-  await expect(note.locator('.status-badge[data-status="nacrt"]')).toBeVisible();
-  await expect(note.getByRole('button')).toHaveCount(0);
-  await expect(note).toContainText('Facebook · 2020.');
+  expect(titles).toEqual(APPEARANCES);
+  // The 2020 initiative closes the list: published, with the interview from that summer.
+  const note = media.locator('article').filter({ has: page.getByRole('heading', { name: 'Inicijativa „Trezvenoumlje“ 2020.' }) });
+  await expect(note.locator('.status-badge')).toHaveCount(0);
+  await expect(note.locator('.video-meta')).toHaveText('Medijski istraživački centar · 19. 7. 2020.');
   await expect(note).toContainText('Besplatna psihijatrijska podrška putem interneta tokom pandemije');
   await expect(media.getByRole('button')).toHaveCount(APPEARANCES.length);
   for (const title of APPEARANCES) {

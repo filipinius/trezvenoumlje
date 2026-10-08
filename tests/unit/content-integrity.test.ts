@@ -73,11 +73,12 @@ test('week labels and intros carry no stray markers', () => {
 test('every story image file exists', () => {
   for (const s of json('price')) if (s.slika) expect(statSync(join('src/assets/img/price', s.slika)).isFile()).toBe(true);
 });
-test('the 2020 initiative note is a media entry that stays a draft', () => {
+test('the 2020 initiative is a published media entry with the interview from that summer', () => {
   const note = json('mediji').find((m) => m.slug === 'inicijativa-trezvenoumlje-2020');
-  expect(note).toMatchObject({ status: 'nacrt', naslov: 'Inicijativa „Trezvenoumlje“ 2020.', medij: 'Facebook', datum: '2020.' });
-  expect(note.youtubeId).toBeUndefined();
-  expect(note.link).toBeUndefined();
+  expect(note).toMatchObject({
+    status: 'objavljeno', naslov: 'Inicijativa „Trezvenoumlje“ 2020.', medij: 'Medijski istraživački centar', datum: '19. 7. 2020.',
+    youtubeId: 'XYMC0WecLk4', pocetak: 17, redosled: 5,
+  });
 });
 test('every media still exists as a local file', () => {
   for (const m of json('mediji')) if (m.slicica) expect(statSync(join('src/assets/img', m.slicica)).isFile(), m.slicica).toBe(true);
@@ -134,4 +135,7 @@ test('the digital partner is a named person with a short, filled-in profile', ()
   expect(partner.bio.length).toBeLessThanOrEqual(220);
   expect(partner.napomena).toBeUndefined();
   expect(partner.zadaci).toEqual(['Izrada i održavanje sajta', 'Društvene mreže centra']);
+});
+test('the settings carry the street address of the centre', () => {
+  expect(JSON.parse(readFileSync(join(ROOT, 'podesavanja/sajt.json'), 'utf8')).adresa).toBe('Braće Miljkovića 5');
 });

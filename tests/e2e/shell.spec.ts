@@ -85,7 +85,9 @@ test('the footer links the Facebook page with an icon; nothing loads from Facebo
   const link = page.getByRole('contentinfo').getByRole('link', { name: 'Facebook: Trezvenoumlje', exact: true });
   await expect(link).toHaveAttribute('href', 'https://www.facebook.com/Trezvenoumlje/');
   await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  // The icon alone: the name is for screen readers, no text beside it.
   await expect(link.locator('svg[aria-hidden="true"]')).toBeVisible();
+  await expect(link).toHaveText('');
   const box = (await link.boundingBox())!;
   expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(44);
   await page.waitForLoadState('networkidle');
