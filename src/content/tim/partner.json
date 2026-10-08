@@ -1,19 +1,17 @@
 {
-  "ime": "[NAZIV FIRME]",
+  "ime": "Filip Vukadinović",
   "slug": "digitalni-partner",
   "uloga": "Digitalni partner",
-  "kratko": "Sajt, hosting, održavanje i onlajn programi.",
-  "bio": "Firma zadužena za digitalnu infrastrukturu centra, uz ugovor koji uređuje poverljivost, obradu podataka, pristup sistemima i intelektualnu svojinu.",
+  "kratko": "Sajt centra i društvene mreže.",
+  "bio": "Programer koji samostalno razvija mobilne aplikacije i veb sajtove. Za centar izrađuje i održava ovaj sajt i vodi njegovo prisustvo na društvenim mrežama.",
   "zadaci": [
-    "Sajt, hosting, rezervne kopije i održavanje",
-    "CMS i administratorski tokovi",
-    "Onlajn programi i infrastruktura za predavanja",
-    "Analitika i SEO uz zaštitu privatnosti"
+    "Izrada i održavanje sajta",
+    "Društvene mreže centra"
   ],
   "napomena": "Nema pristup sadržaju poruka korisnika osim ako je to neophodno.",
   "fotografija": "tim-partner.webp",
-  "oblik": "kvadrat",
+  "oblik": "krug",
   "zdravstvenaUloga": false,
   "redosled": 3,
-  "status": "nacrt"
+  "status": "objavljeno"
 }

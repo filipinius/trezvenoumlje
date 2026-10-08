@@ -127,3 +127,10 @@ test('a book with a summary has a short description fit for search results and a
     expect(b.oKnjizi.length, b.slug).toBeGreaterThanOrEqual(2);
   }
 });
+test('the digital partner is a named person with a short, filled-in profile', () => {
+  const partner = json('tim').find((m) => m.slug === 'digitalni-partner');
+  expect(partner).toMatchObject({ ime: 'Filip Vukadinović', uloga: 'Digitalni partner', oblik: 'krug', status: 'objavljeno' });
+  expect(JSON.stringify(partner)).not.toMatch(/\[[^\]"]+\]/);
+  expect(partner.bio.length).toBeLessThanOrEqual(220);
+  expect(partner.zadaci).toEqual(['Izrada i održavanje sajta', 'Društvene mreže centra']);
+});
