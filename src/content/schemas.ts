@@ -106,6 +106,8 @@ export const pravnoSchema = z.object({
 export const podesavanjaSchema = z.object({
   naziv: text, podnaslov: text, slogan: text, email: text, telefon: text, adresa: text, radnoVreme: text,
   hitnaSluzba: text, poslovniPodaci: text, rokOdgovora: text, rokCuvanja: text, facebook: text,
+  // Address of the centre's Facebook page: makes the footer's Facebook line a link.
+  facebookUrl: z.string().regex(/^https:\/\/www\.facebook\.com\/[^/\s]+\/?$/, 'Facebook: adresa stranice, https://www.facebook.com/<naziv>/').optional(),
   // The number Viber is registered on, in international form: it goes into the viber:// link as it is.
   viber: z.string().regex(/^\+\d{8,15}$/, 'Viber broj: + i 8 do 15 cifara, bez razmaka').optional(),
 });

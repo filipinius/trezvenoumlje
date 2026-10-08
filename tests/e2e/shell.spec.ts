@@ -78,6 +78,20 @@ test('footer has legal links, FAQ link and the emergency note; preview banner is
   await expect(page.getByText('Dev pregled')).toBeVisible();
 });
 
+test('the footer links the Facebook page with an icon; nothing loads from Facebook', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', (r) => { requests.push(r.url()); });
+  await page.goto('');
+  const link = page.getByRole('contentinfo').getByRole('link', { name: 'Facebook: Trezvenoumlje', exact: true });
+  await expect(link).toHaveAttribute('href', 'https://www.facebook.com/Trezvenoumlje/');
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link.locator('svg[aria-hidden="true"]')).toBeVisible();
+  const box = (await link.boundingBox())!;
+  expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(44);
+  await page.waitForLoadState('networkidle');
+  expect(requests.filter((url) => /facebook|fbcdn/i.test(url))).toEqual([]);
+});
+
 test('home renders no breadcrumb trail', async ({ page }) => {
   await page.goto('');
   await expect(page.locator('nav[aria-label="Putanja"]')).toHaveCount(0);

@@ -106,6 +106,12 @@ describe('podesavanjaSchema', () => {
     naziv: 'Trezvenoumlje', podnaslov: 'Centar', slogan: 'Slogan', email: 'a@b.rs', telefon: '011 000 000', adresa: '[ADRESA]',
     radnoVreme: '[RADNO VREME]', hitnaSluzba: '[BROJ]', poslovniPodaci: '[PODACI]', rokOdgovora: '[BROJ] radnih dana', rokCuvanja: '[ROK]', facebook: 'Facebook',
   };
+  test('facebookUrl is optional and must be a facebook.com page address', () => {
+    expect(podesavanjaSchema.parse(base).facebookUrl).toBeUndefined();
+    expect(podesavanjaSchema.parse({ ...base, facebookUrl: 'https://www.facebook.com/Trezvenoumlje/' }).facebookUrl).toBe('https://www.facebook.com/Trezvenoumlje/');
+    for (const facebookUrl of ['facebook.com/Trezvenoumlje', 'http://www.facebook.com/Trezvenoumlje/', 'https://example.rs/facebook.com/', 'https://www.facebook.com/', ''])
+      expect(() => podesavanjaSchema.parse({ ...base, facebookUrl }), facebookUrl).toThrow();
+  });
   test('viber is optional', () => {
     expect(podesavanjaSchema.parse(base).viber).toBeUndefined();
   });

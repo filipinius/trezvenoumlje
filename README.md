@@ -172,7 +172,7 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `slug` | da | adresa: `/<slug>/` | `politika-privatnosti` |
 | `datumIzmene` | ne | datum poslednje izmene | `2026-10-03` |
 
-### `podesavanja` (jedan fajl, `sajt.json`; sva polja su obavezna osim `viber`, nema `status`)
+### `podesavanja` (jedan fajl, `sajt.json`; sva polja su obavezna osim `viber` i `facebookUrl`, nema `status`)
 
 | Polje | Značenje | Primer |
 |---|---|---|
@@ -183,6 +183,7 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `poslovniPodaci` | poslovni podaci u podnožju | `[PUNI POSLOVNI PODACI POSLE REGISTRACIJE]` |
 | `rokOdgovora`, `rokCuvanja` | rok odgovora na upit i rok čuvanja upita | `[BROJ] radnih dana` |
 | `facebook` | tekst o Facebook stranici u podnožju | `Facebook: Trezvenoumlje` |
+| `facebookUrl` | nije obavezno: adresa Facebook stranice centra. Kada postoji, tekst u podnožju postaje veza sa ikonicom | `https://www.facebook.com/Trezvenoumlje/` |
 
 ### Objavljivanje
 
