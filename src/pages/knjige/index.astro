@@ -61,16 +61,22 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
           const publisher = present(book.izdavac, book.godina).join(', ');
           return (
             <article class="book">
-              {book.korica
-                ? <Image class="book-image" src={getImageAsset(book.korica)} alt={coverAlt(book.naslov)} width={320} height={480} loading="lazy" />
-                : <BookCover naslov={book.naslov} autor={book.autor} />}
+              {/* The same area for every book: a cover picture of any proportions is shown whole inside it. */}
+              <div class="book-art">
+                {book.korica
+                  ? <Image class="book-image" src={getImageAsset(book.korica)} alt={coverAlt(book.naslov)} width={320} loading="lazy" />
+                  : <BookCover naslov={book.naslov} autor={book.autor} />}
+              </div>
               <h2>
                 {hasDetailPage(entry)
                   ? <a href={href(bookPath(book.slug))}><Text value={book.naslov} /></a>
                   : <Text value={book.naslov} />}
               </h2>
-              {line && <Text class="book-line" value={line} />}
-              <StatusBadge status={book.status} />
+              <div class="book-meta">
+                {line && <Text class="book-line" value={line} />}
+                <StatusBadge status={book.status} />
+              </div>
+              <div class="book-foot">
               <button type="button" class="book-how" data-dialog-open={dialogId(book.slug)} aria-label={`Kako do knjige: ${book.naslov}`}>
                 Kako do knjige <span aria-hidden="true">→</span>
               </button>
@@ -87,6 +93,7 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
                 )}
                 <Button href="/kontakt/" variant={book.nabavkaLink ? 'secondary' : 'primary'} class="book-ask">Pošaljite upit</Button>
               </Dialog>
+              </div>
             </article>
           );
         })}
@@ -120,12 +127,17 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
   .feature-more { font-family: var(--font-naslov); font-weight: 600; }
 
   /* Ostale knjige */
-  .book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 28px; }
-  .book { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
-  .book-image {
-    display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 6px 12px 12px 6px;
+  .book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 14px 28px; }
+  /* Each card takes four rows of the grid (cover, title, details, link), so these line up across a row of cards. */
+  .book { min-width: 0; display: grid; grid-template-rows: subgrid; grid-row: span 4; padding-bottom: 14px; }
+  .book-art { aspect-ratio: 2 / 3; }
+  .book-art:has(.book-image) {
+    display: flex; padding: 8%; border-radius: 6px 12px 12px 6px; background: var(--bela);
     box-shadow: 0 12px 24px color-mix(in srgb, var(--tekst) 12%, transparent);
   }
+  .book-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .book-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .book-foot { min-width: 0; }
   .book h2 { font-size: var(--uvod); line-height: 1.3; }
   .book-line { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
   .book-how {
@@ -161,10 +173,10 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
   @media (max-width: 699px) {
     .hero { padding-bottom: 28px; }
     .feature { padding: 24px 20px; }
-    .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+    .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; }
     /* The static details need the full width to be readable. */
     :global(html:not(.js)) .book-grid { grid-template-columns: minmax(0, 1fr); }
-    :global(html:not(.js)) .book :global(.book-cover), :global(html:not(.js)) .book-image { max-width: 240px; }
+    :global(html:not(.js)) .book-art { max-width: 240px; }
     .book-facts { grid-template-columns: 1fr; gap: 2px; }
     .book-facts :global(dd) { margin-bottom: 8px; }
   }

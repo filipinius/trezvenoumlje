@@ -21,16 +21,42 @@ test('book list has one card per book, in editorial order, with breadcrumbs', as
     ],
   );
   await expect(main.locator('.status-badge')).toHaveCount(0);
-  // No book has a cover image yet: each shows the drawn cover, named after its title.
+  await expect(main.locator('.book-line').nth(1)).toHaveText('Talija izdavaštvo, Niš · 2025. · ISBN 978-86-6140-219-7');
+  // Three books have the publisher's cover picture; the other two show the drawn cover.
+  for (const title of ['Kanabis: zavisnost i oporavak', 'Trezvenoumlje: kratki psihijatrijski praktikum, ilustrovani prikaz slučaja', 'Anatomija jedne duševne bolnice: bolnica u Toponici']) {
+    await expect(main.getByAltText(`Korica knjige ${title}`, { exact: true })).toBeVisible();
+  }
+  await expect(main.locator('img')).toHaveCount(3);
   await expect(main.getByRole('img', { name: 'Korica knjige Pričamo priču' })).toBeVisible();
   await expect(main.getByRole('img', { name: 'Korica knjige Opijati: skripta za pacijente' })).toBeVisible();
-  await expect(main.locator('.book-cover')).toHaveCount(5);
-  await expect(main.locator('.book .book-cover').last()).toContainText('dr Dragan Vukadinović i Ana Vukadinović');
-  await expect(main.locator('.book-line').nth(1)).toHaveText('Talija izdavaštvo, Niš · 2025. · ISBN 978-86-6140-219-7');
-  await expect(main.locator('img')).toHaveCount(0);
+  await expect(main.locator('.book-cover')).toHaveCount(2);
+  // Every picture is served by the site itself and is shown whole, whatever its proportions.
+  for (const img of await main.locator('img').all()) {
+    expect(await img.getAttribute('src')).toMatch(/^\/trezvenoumlje\/_astro\//);
+    expect(await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0 && getComputedStyle(el).objectFit)).toBe('contain');
+  }
   // Every book but the one with its own section has a detail page: its title links there.
   await expect(main.locator('h2 a[href*="/knjige/"]')).toHaveCount(4);
   await expect(main.getByRole('link', { name: 'Kanabis: zavisnost i oporavak', exact: true })).toHaveAttribute('href', '/trezvenoumlje/knjige/kanabis-zavisnost-i-oporavak/');
+});
+
+test('book cards are uniform: equal cover areas, and titles, details and links aligned across a row', async ({ page }) => {
+  await page.goto('knjige/');
+  const cards = page.locator('.book');
+  await expect(cards).toHaveCount(4);
+  const rows = new Map<number, { art: number; title: number; line: number; how: number }[]>();
+  const sizes = new Set<string>();
+  for (const card of await cards.all()) {
+    const [art, title, line, how] = await Promise.all(['.book-art', ':scope > h2', '.book-line', '.book-how'].map(async (sel) => (await card.locator(sel).boundingBox())!));
+    sizes.add(`${Math.round(art!.width)}x${Math.round(art!.height)}`);
+    const row = Math.round(art!.y);
+    rows.set(row, [...(rows.get(row) ?? []), { art: Math.round(art!.height), title: Math.round(title!.y), line: Math.round(line!.y), how: Math.round(how!.y) }]);
+  }
+  expect([...sizes]).toHaveLength(1);
+  for (const row of rows.values()) {
+    expect(row.length).toBeGreaterThan(1);
+    for (const key of ['title', 'line', 'how'] as const) expect(new Set(row.map((c) => c[key])).size, key).toBe(1);
+  }
 });
 
 test('each overlay names its book and closes on Escape, returning focus', async ({ page }) => {
@@ -80,6 +106,9 @@ test('a book page gives the bibliographic data and the way to order it from the 
     'href', 'https://www.talijaizdavastvo.rs/korpa/istorija/274-dragan-i-ana-vukadinovic-anatomija-jedne-dusevne-bolnice.html',
   );
   await expect(main.getByRole('link', { name: 'Pošaljite upit' })).toHaveAttribute('href', '/trezvenoumlje/kontakt/');
+  const cover = main.getByAltText('Korica knjige Anatomija jedne duševne bolnice: bolnica u Toponici');
+  await expect(cover).toBeVisible();
+  expect(await cover.evaluate((el: HTMLImageElement) => getComputedStyle(el).objectFit)).toBe('contain');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });

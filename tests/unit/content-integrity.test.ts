@@ -104,3 +104,17 @@ test('the four books of the founder carry their publisher, year and ISBN, newest
     'dr Dragan Vukadinović', 'dr Dragan Vukadinović', 'dr Dragan Vukadinović', 'dr Dragan Vukadinović i Ana Vukadinović',
   ]);
 });
+test('the books shown at the publisher have their cover as a local file', () => {
+  const covers: Record<string, string | undefined> = Object.fromEntries(json('knjige').map((b) => [b.slug, b.korica]));
+  expect(covers).toEqual({
+    'pricamo-pricu': undefined,
+    'opijati-skripta-za-pacijente': undefined,
+    'kanabis-zavisnost-i-oporavak': 'knjige/kanabis-zavisnost-i-oporavak.webp',
+    'trezvenoumlje-kratki-psihijatrijski-praktikum': 'knjige/trezvenoumlje-kratki-psihijatrijski-praktikum.webp',
+    'anatomija-jedne-dusevne-bolnice': 'knjige/anatomija-jedne-dusevne-bolnice.webp',
+  });
+  for (const file of Object.values(covers)) if (file) expect(statSync(join('src/assets/img', file)).isFile(), file).toBe(true);
+});
+test('every media appearance with a video has its own still', () => {
+  for (const m of json('mediji')) if (m.youtubeId) expect(m.slicica, m.slug).toBe(`mediji/${m.slug}.webp`);
+});
