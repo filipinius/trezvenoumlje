@@ -132,5 +132,6 @@ test('the digital partner is a named person with a short, filled-in profile', ()
   expect(partner).toMatchObject({ ime: 'Filip Vukadinović', uloga: 'Digitalni partner', oblik: 'krug', status: 'objavljeno' });
   expect(JSON.stringify(partner)).not.toMatch(/\[[^\]"]+\]/);
   expect(partner.bio.length).toBeLessThanOrEqual(220);
+  expect(partner.napomena).toBeUndefined();
   expect(partner.zadaci).toEqual(['Izrada i održavanje sajta', 'Društvene mreže centra']);
 });
