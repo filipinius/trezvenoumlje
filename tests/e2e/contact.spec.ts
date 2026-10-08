@@ -105,31 +105,54 @@ test('page states the dev-preview status and the emergency note', async ({ page 
   await expect(page.getByRole('main')).toContainText('Centar nije hitna služba');
 });
 
-test('direct contact: phone and e-mail are links; Viber is offered on a phone only', async ({ page, isMobile }) => {
+test('direct contact: phone and e-mail are links, beside the three ways to reach the centre', async ({ page, isMobile }) => {
   await page.goto('kontakt/');
   const direct = page.locator('address.direct');
   await expect(direct.getByRole('link', { name: settings.telefon, exact: true })).toHaveAttribute('href', 'tel:0648596212');
   await expect(direct.getByRole('link', { name: settings.email, exact: true })).toHaveAttribute('href', 'mailto:trezvenoumljeprica@gmail.com');
-  const viber = direct.locator('a', { hasText: 'Viber' });
+  const call = direct.getByRole('link', { name: 'Pozovite nas', exact: true });
+  const viber = direct.getByRole('link', { name: 'Pošaljite Viber poruku', exact: true });
+  const video = direct.getByRole('link', { name: 'Zakažite video razgovor', exact: true });
+  await expect(call).toHaveAttribute('href', 'tel:0648596212');
   await expect(viber).toHaveAttribute('href', VIBER);
-  await expect(viber).toHaveText('Viber');
+  await expect(video).toHaveAttribute('href', '/trezvenoumlje/kontakt/#video-razgovor');
+  // The Viber button is offered at every width, so the number it writes to is spelled out beside it.
+  await expect(direct.locator('.contact-number')).toHaveText(`Telefon i Viber: ${settings.telefon}`);
+  for (const link of [call, viber, video]) {
+    await expect(link).toBeVisible();
+    expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  }
+  // The first two are the large pair, side by side or stacked; the video button follows below them.
+  const [callBox, viberBox, videoBox] = [(await call.boundingBox())!, (await viber.boundingBox())!, (await video.boundingBox())!];
+  expect(videoBox.y).toBeGreaterThanOrEqual(Math.max(callBox.y + callBox.height, viberBox.y + viberBox.height));
+  await expect(direct).toContainText('Prvi informativni video razgovor je bez naknade.');
+
+  // The footer keeps its short Viber link for phones only.
   const footerViber = page.getByRole('contentinfo').locator('a', { hasText: 'Viber' });
   await expect(footerViber).toHaveAttribute('href', VIBER);
   if (isMobile) {
-    await expect(viber).toBeVisible();
-    await expect(viber).toHaveAccessibleName(`Viber: ${settings.telefon}`);
     await expect(footerViber).toBeVisible();
     await expect(footerViber).toHaveAccessibleName(`Viber: ${settings.telefon}`);
-    for (const link of [viber, footerViber]) {
-      const box = (await link.boundingBox())!;
-      expect(Math.min(box.width, box.height)).toBeGreaterThanOrEqual(44);
-    }
   } else {
-    // Hidden with display: none, so it is out of the accessibility tree as well.
-    await expect(viber).toBeHidden();
     await expect(footerViber).toBeHidden();
-    await expect(page.getByRole('link', { name: /Viber/ })).toHaveCount(0);
   }
+});
+
+test('the video conversation is explained in four steps, with no public video link', async ({ page }) => {
+  await page.goto('kontakt/');
+  await page.getByRole('link', { name: 'Zakažite video razgovor', exact: true }).click();
+  await expect(page).toHaveURL(/\/kontakt\/#video-razgovor$/);
+  const section = page.locator('#video-razgovor');
+  await expect(section.getByRole('heading', { level: 2, name: 'Kako funkcioniše video razgovor?' })).toBeInViewport();
+  await expect(section.locator('ol > li')).toHaveCount(4);
+  await expect(section.locator('ol > li').first()).toContainText('Termin se prvo dogovara telefonom, Viberom ili e-mailom.');
+  await expect(section.locator('ol > li').nth(2)).toContainText('Google Meet');
+  await expect(section).toContainText('Prvi informativni video razgovor je bez naknade.');
+  await expect(section).toContainText('video razgovoru mogu da se priključe i dodatni članovi porodice');
+  await expect(section).toContainText('Molimo da se osetljivi zdravstveni podaci ne šalju tim putem ako nisu neophodni.');
+  // The meeting link is sent for the agreed appointment only: the page links to no meeting.
+  await expect(page.locator('a[href*="meet.google"], a[href*="zoom"], iframe')).toHaveCount(0);
+  await expect(page.getByLabel(/Tip upita/).locator('option', { hasText: 'Video razgovor' })).toHaveAttribute('value', 'video');
 });
 
 test('the Viber link is a plain link: nothing is requested and nothing opens on load', async ({ page }) => {
@@ -160,9 +183,8 @@ test.describe('without JavaScript', () => {
       return [...new DOMParser().parseFromString(html, 'text/html').querySelectorAll('address > *')].map((n) => n.textContent);
     });
     // E-mail, phone and the Viber link.
-    expect(lines).toHaveLength(3);
-    expect(lines).toEqual((await page.locator('address.direct > :is(a, span)').allTextContents()).slice(0, 3));
-    expect(lines[2]).toBe('Viber');
+    expect(lines).toEqual([settings.email, settings.telefon, 'Viber']);
+    await expect(page.locator('#video-razgovor ol > li')).toHaveCount(4);
     await expect(page.locator('[data-contact-form]')).toBeHidden();
     await expect(page.getByRole('heading', { level: 1, name: 'Zakažite razgovor' })).toBeVisible();
   });

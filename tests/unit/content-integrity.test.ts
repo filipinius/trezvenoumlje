@@ -82,3 +82,25 @@ test('the 2020 initiative note is a media entry that stays a draft', () => {
 test('every media still exists as a local file', () => {
   for (const m of json('mediji')) if (m.slicica) expect(statSync(join('src/assets/img', m.slicica)).isFile(), m.slicica).toBe(true);
 });
+test('the four books of the founder carry their publisher, year and ISBN, newest first', () => {
+  const books = json('knjige').filter((b) => !b.spoljnaStranica).sort((a, b) => a.redosled - b.redosled);
+  expect(books.map((b) => [b.slug, b.naslov, b.godina, b.isbn])).toEqual([
+    ['opijati-skripta-za-pacijente', 'Opijati: skripta za pacijente', '2026.', '978-86-6140-220-3'],
+    ['kanabis-zavisnost-i-oporavak', 'Kanabis: zavisnost i oporavak', '2025.', '978-86-6140-219-7'],
+    ['trezvenoumlje-kratki-psihijatrijski-praktikum', 'Trezvenoumlje: kratki psihijatrijski praktikum, ilustrovani prikaz slučaja', '2021.', '978-86-81800-40-9'],
+    ['anatomija-jedne-dusevne-bolnice', 'Anatomija jedne duševne bolnice: bolnica u Toponici', '2018.', '978-86-80406-53-4'],
+  ]);
+  for (const b of books) expect(b.izdavac, b.slug).toBe('Talija izdavaštvo, Niš');
+  for (const b of books) expect(b.status, b.slug).toBe('objavljeno');
+  // The publisher's shop: the book's own page there, or the shop itself while the book has no page yet.
+  const SHOP = 'https://www.talijaizdavastvo.rs/korpa/';
+  expect(books.map((b) => b.nabavkaLink)).toEqual([
+    SHOP,
+    `${SHOP}pocetak/494-dr-dragan-vukadinovic-kanabis-zavisnost-i-oporavak.html`,
+    `${SHOP}domaca-knjizevnost/198-dragan-vukadinovic-trezvenoumlje.html`,
+    `${SHOP}istorija/274-dragan-i-ana-vukadinovic-anatomija-jedne-dusevne-bolnice.html`,
+  ]);
+  expect(books.map((b) => b.autor)).toEqual([
+    'dr Dragan Vukadinović', 'dr Dragan Vukadinović', 'dr Dragan Vukadinović', 'dr Dragan Vukadinović i Ana Vukadinović',
+  ]);
+});

@@ -134,3 +134,15 @@ test('media still must be a local .webp path, never a URL', () => {
   expect(() => medijSchema.parse({ ...m, slicica: '/x.webp' })).toThrow();
   expect(() => medijSchema.parse({ ...m, slicica: 'mediji//x.webp' })).toThrow();
 });
+
+describe('knjigaSchema: nabavkaLink', () => {
+  const base = { naslov: 'Knjiga', slug: 'knjiga', autor: 'Autor', status: 'objavljeno' };
+  test('takes a full web address and is optional', () => {
+    expect(knjigaSchema.parse({ ...base, nabavkaLink: 'https://example.rs/knjiga.html' }).nabavkaLink).toBe('https://example.rs/knjiga.html');
+    expect(knjigaSchema.parse(base).nabavkaLink).toBeUndefined();
+  });
+  test('rejects anything that is not an http(s) address', () => {
+    expect(() => knjigaSchema.parse({ ...base, nabavkaLink: 'www.example.rs' })).toThrow();
+    expect(() => knjigaSchema.parse({ ...base, nabavkaLink: 'javascript:alert(1)' })).toThrow();
+  });
+});

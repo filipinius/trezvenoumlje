@@ -1,0 +1,27 @@
+---
+// The three ways to reach the centre: a call and a Viber message as the large pair, the video conversation below them.
+// A link appears once its setting no longer holds a placeholder; the video button leads to the explanation on the contact page.
+import { contactLinks } from '../lib/contact-links';
+import { getSettings } from '../lib/content';
+import Button from './Button.astro';
+const settings = await getSettings();
+const { tel, viber } = contactLinks(settings);
+---
+<div class="contact-actions">
+  {(tel || viber) && (
+    <div class="contact-pair">
+      {tel && <Button href={tel}>Pozovite nas</Button>}
+      {viber && <Button href={viber} variant="secondary">Pošaljite Viber poruku</Button>}
+    </div>
+  )}
+  {/* A Viber link does nothing on a computer without Viber: the number is there to be read as well. */}
+  {tel && viber && <span class="contact-number">Telefon i Viber: {settings.telefon}</span>}
+  <Button href="/kontakt/#video-razgovor" variant="secondary" class="contact-video">Zakažite video razgovor</Button>
+  <span class="contact-free">Prvi informativni video razgovor je bez naknade.</span>
+</div>
+<style>
+  .contact-actions { display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; max-width: 520px; }
+  .contact-pair { display: flex; flex-wrap: wrap; gap: 12px; }
+  .contact-pair > :global(*) { flex: 1 1 220px; min-height: 56px; }
+  .contact-number, .contact-free { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
+</style>

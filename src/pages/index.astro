@@ -4,6 +4,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import AudienceCard from '../components/AudienceCard.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
+import ContactActions from '../components/ContactActions.astro';
 import CtaBand from '../components/CtaBand.astro';
 import EmergencyNote from '../components/EmergencyNote.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -180,6 +181,17 @@ const articles = ARTICLE_CATEGORIES.flatMap((category) => visibleArticles.filter
     </section>
   )}
 
+  <section class="band band-sand" aria-labelledby="direktno-h">
+    <div class="container direct">
+      <div class="direct-text">
+        <span class="nadnaslov">Kontakt</span>
+        <h2 id="direktno-h">Javite nam se direktno</h2>
+        <p>Pozovite, pošaljite Viber poruku ili zakažite video razgovor. Termin video razgovora dogovara se unapred; poziv sa linkom stiže na vašu e-mail adresu.</p>
+      </div>
+      <ContactActions />
+    </div>
+  </section>
+
   <div class="closing">
     <CtaBand
       title="Ako niste sigurni koji je sledeći korak, javite nam se."
@@ -195,7 +207,7 @@ const articles = ARTICLE_CATEGORIES.flatMap((category) => visibleArticles.filter
 <style>
   /* Section rhythm of the artboards: 48px on a phone, about 100px at 1440px. */
   .hero, .block, .why { padding-block: clamp(48px, 7vw, 104px); }
-  .founder, .story { padding-block: clamp(48px, 7vw, 96px); }
+  .founder, .story, .direct { padding-block: clamp(48px, 7vw, 96px); }
 
   h2 { margin: 0; line-height: 1.15; }
   .nadnaslov { display: block; }
@@ -282,6 +294,10 @@ const articles = ARTICLE_CATEGORIES.flatMap((category) => visibleArticles.filter
   .article-grid > :global(*) { flex: 1 1 320px; }
 
   /* Closing call to action */
+  .direct { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px 64px; }
+  .direct-text { flex: 1 1 360px; min-width: 0; max-width: 560px; display: flex; flex-direction: column; gap: 14px; }
+  .direct-text p { margin: 0; color: var(--tekst-sekundarni); }
+
   .closing :global(.emergency-note) { margin-top: 24px; }
 
   /* HomeMobile */

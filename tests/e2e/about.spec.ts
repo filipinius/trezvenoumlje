@@ -74,6 +74,16 @@ test('founder page shows the timeline and links to books and media', async ({ pa
   await expect(main.getByRole('link', { name: 'Medijski nastupi' })).toHaveAttribute('href', '/trezvenoumlje/resursi/#mediji');
 });
 
+test('founder page lists a selection of professional papers', async ({ page }) => {
+  await page.goto('dr-dragan-vukadinovic/');
+  const main = page.getByRole('main');
+  await expect(main.getByRole('heading', { level: 2, name: 'Izabrani stručni radovi' })).toBeVisible();
+  const papers = main.locator('.papers li');
+  await expect(papers).toHaveCount(6);
+  await expect(papers.first()).toContainText('Subspecijalistički rad iz oblasti bolesti zavisnosti. Fakultet medicinskih nauka, Kragujevac, 2014.');
+  await expect(papers.nth(1)).toContainText('Depresija i asertivnost kod alkoholičara. Medicinska reč, 2022; 3(1): 1–9.');
+});
+
 for (const path of ['o-nama/', 'dr-dragan-vukadinovic/']) {
   test(`${path} does not scroll sideways`, async ({ page }) => {
     await page.goto(path);

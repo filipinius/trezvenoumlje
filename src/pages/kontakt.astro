@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactActions from '../components/ContactActions.astro';
 import EmergencyNote from '../components/EmergencyNote.astro';
 import Text from '../components/Text.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -25,6 +26,13 @@ const STEPS = [
   `Javljamo vam se u roku od ${settings.rokOdgovora}, kanalom koji ste izabrali.`,
   'Dogovaramo termin i vrstu razgovora koja vam odgovara.',
 ];
+// The meeting link is sent for one agreed appointment: the site never carries a standing video link.
+const VIDEO_STEPS = [
+  'Termin se prvo dogovara telefonom, Viberom ili e-mailom.',
+  'Nakon dogovora dobijate podatke za uplatu.',
+  'Kada se uplata potvrdi, na vašu e-mail adresu stiže poziv za zakazani termin sa Google Meet linkom.',
+  'U zakazano vreme dovoljno je da kliknete na link i priključite se razgovoru.',
+];
 const DO_NOT_SEND = ['dijagnozu', 'spisak lekova', 'laboratorijske nalaze', 'JMBG', 'fotografiju lične karte', 'medicinsku anamnezu', 'podatke trećih lica'];
 // The value stays in the field: it is never put in the URL or in a link.
 const TYPES = [
@@ -33,6 +41,7 @@ const TYPES = [
   { value: 'mladi', label: 'Mladi (upit šalje roditelj ili staratelj)' },
   { value: 'organizacije', label: 'Organizacije' },
   { value: 'pravni', label: 'Pravni sektor' },
+  { value: 'video', label: 'Video razgovor' },
   { value: 'drugo', label: 'Drugo' },
 ];
 ---
@@ -58,9 +67,9 @@ const TYPES = [
 
       <address class="direct">
         <strong>Direktan kontakt</strong>
+        <ContactActions />
         {mailto ? <a href={mailto}>{settings.email}</a> : <Text value={settings.email} />}
         {tel ? <a href={tel}>{settings.telefon}</a> : <Text value={settings.telefon} />}
-        {viber && <a class="viber" href={viber} aria-label={`Viber: ${settings.telefon}`}>Viber</a>}
         <Text class="direct-place" value={`${settings.adresa} · ${settings.radnoVreme}`} />
       </address>
 
@@ -151,6 +160,18 @@ const TYPES = [
         <button type="button" class="again" data-contact-new>Pošaljite novi upit</button>
       </div>
     </div>
+
+    <section class="video" id="video-razgovor" aria-labelledby="video-h">
+      <h2 id="video-h">Kako funkcioniše video razgovor?</h2>
+      <p class="video-lead"><strong>Prvi informativni video razgovor je bez naknade.</strong> Namenjen je upoznavanju, osnovnom sagledavanju situacije i dogovoru o narednim koracima.</p>
+      <ol class="steps">
+        {VIDEO_STEPS.map((step, i) => (
+          <li><span class="step-no" aria-hidden="true">{i + 1}</span><span>{step}</span></li>
+        ))}
+      </ol>
+      <p>Po potrebi, video razgovoru mogu da se priključe i dodatni članovi porodice, bez obzira na to gde se nalaze. Učešće dodatnih osoba dogovara se unapred i uz saglasnost korisnika.</p>
+      <p class="video-note">Viber i e-mail služe prvenstveno za zakazivanje i organizaciju termina. Molimo da se osetljivi zdravstveni podaci ne šalju tim putem ako nisu neophodni.</p>
+    </section>
   </div>
 </BaseLayout>
 
@@ -186,11 +207,23 @@ const TYPES = [
   address { font-style: normal; }
   .direct { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
   .direct strong { font-family: var(--font-naslov); font-weight: 600; }
-  .direct a, .no-js a { display: inline-flex; align-items: center; min-height: 44px; }
-  /* A Viber chat link does nothing on a desktop without Viber: offered below 900px only. */
-  .direct a.viber, .no-js a.viber { min-width: 44px; }
-  @media (min-width: 900px) { .direct a.viber, .no-js a.viber { display: none; } }
+  .direct > a, .no-js a { display: inline-flex; align-items: center; min-height: 44px; }
+  .no-js a.viber { min-width: 44px; }
+  .direct :global(.contact-actions) { margin-block: 6px 10px; }
   .direct :global(.direct-place) { color: var(--tekst-prigusen); }
+
+  .video {
+    order: 1; flex: 1 1 100%; min-width: 0; display: flex; flex-direction: column; gap: 18px;
+    padding: clamp(24px, 3vw, 40px); background: var(--pesak-svetli); border-radius: var(--radius-l);
+    /* The sticky header must not cover the heading the "Zakažite video razgovor" button jumps to. */
+    scroll-margin-top: 96px;
+  }
+  .video h2 { font-size: var(--h3); }
+  .video p, .video .steps { max-width: 720px; }
+  .video p { color: var(--tekst-sekundarni); }
+  .video-lead strong { color: var(--tekst); }
+  .video .step-no { background: var(--bela); }
+  .video .video-note { font-size: var(--tekst-mali); color: var(--tekst-prigusen); }
 
   .panel {
     flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 22px;

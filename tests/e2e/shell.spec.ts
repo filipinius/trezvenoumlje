@@ -55,9 +55,10 @@ test('open mobile menu offers a call, a Viber chat and an e-mail', async ({ page
 test('on desktop the header offers no Viber link', async ({ page, isMobile }) => {
   test.skip(!!isMobile, 'desktop navigation');
   await page.goto('');
-  await expect(page.locator('a[href^="viber:"]')).not.toHaveCount(0);
-  await expect(page.locator('a[href^="viber:"]:visible')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: /Viber/ })).toHaveCount(0);
+  const header = page.getByRole('banner');
+  await expect(header.locator('a[href^="viber:"]')).not.toHaveCount(0);
+  await expect(header.locator('a[href^="viber:"]:visible')).toHaveCount(0);
+  await expect(header.getByRole('link', { name: /Viber/ })).toHaveCount(0);
 });
 
 test('without JavaScript the navigation links are still reachable on mobile', async ({ browser, baseURL }) => {

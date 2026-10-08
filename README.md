@@ -125,6 +125,7 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 | `korica` | ne | ime fajla slike korice | `korica-knjige.webp` |
 | `opis` | ne | kratak opis | `Pedeset priča u deset tema.` |
 | `nabavka` | ne | gde se knjiga nabavlja | `[Knjižara, izdavač ili upit centru]` |
+| `nabavkaLink` | ne | adresa stranice na kojoj se knjiga naručuje (počinje sa `http://` ili `https://`); prikazuje se kao dugme „Naručite kod izdavača“ | `https://www.talijaizdavastvo.rs/korpa/` |
 | `oznaka` | ne | kratka oznaka na kartici | `Novo · 2026.` |
 | `spoljnaStranica` | ne | adresa sopstvene stranice knjige na sajtu, umesto `/knjige/<slug>/` | `/pricamo-pricu/` |
 | `izdanje`, `format`, `cenaNapomena` | ne | redovi „Izdanje“, „Format“ i „Cena“ u prozoru „Kako do knjige“; `cenaNapomena` je napomena, ne iznos | `Verzija 1.2, 2026.` |
@@ -176,7 +177,7 @@ Polja zajednička kolekcijama iz tabela ispod (osim `pitanja` i `podesavanja`):
 |---|---|---|
 | `naziv`, `podnaslov`, `slogan` | ime centra, opis ispod imena i slogan na početnoj | `Trezvenoumlje` |
 | `email`, `telefon`, `adresa`, `radnoVreme` | kontakt podaci | `[TELEFON]` |
-| `viber` | nije obavezno: broj na koji je prijavljen Viber, u međunarodnom obliku (`+` i 8 do 15 cifara, bez razmaka). Kada postoji, uz telefon se na ekranima užim od 900 px prikazuje veza „Viber“ | `+381111234567` |
+| `viber` | nije obavezno: broj na koji je prijavljen Viber, u međunarodnom obliku (`+` i 8 do 15 cifara, bez razmaka). Kada postoji, na početnoj i na stranici Kontakt prikazuje se dugme „Pošaljite Viber poruku“, a u podnožju i meniju (na ekranima užim od 900 px) veza „Viber“ | `+381111234567` |
 | `hitnaSluzba` | broj hitne službe u napomeni o hitnim slučajevima | `[BROJ HITNE SLUŽBE]` |
 | `poslovniPodaci` | poslovni podaci u podnožju | `[PUNI POSLOVNI PODACI POSLE REGISTRACIJE]` |
 | `rokOdgovora`, `rokCuvanja` | rok odgovora na upit i rok čuvanja upita | `[BROJ] radnih dana` |

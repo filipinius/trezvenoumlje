@@ -37,6 +37,15 @@ const TIMELINE = [
   { year: '2020.', text: 'Onlajn inicijativa „Trezvenoumlje“ tokom pandemije' },
   { year: '[GODINA]', text: 'Osnivanje centra Trezvenoumlje' },
 ];
+// A selection, as the founder asked: the thesis, the journal papers and the papers printed in full in proceedings.
+const PAPERS = [
+  'Vukadinović D. Posthospitalni tretman zavisnika od opijata i opioida lečenih u Specijalnoj bolnici za psihijatrijske bolesti Gornja Toponica. Subspecijalistički rad iz oblasti bolesti zavisnosti. Fakultet medicinskih nauka, Kragujevac, 2014.',
+  'Ristić A, Vukadinović D. Depresija i asertivnost kod alkoholičara. Medicinska reč, 2022; 3(1): 1–9.',
+  'Vukadinović D, Đurić Z, Ilić M. Posthospitalni tretman i socijalna adaptacija zavisnika od opijata. Socijalna misao, 2012; 19.',
+  'Vukadinović D. Dr Uroš Jekić (1896–1980) i njegova služba u Državnoj duševnoj bolnici u Gornjoj Toponici. U: Istorija medicine, farmacije, veterine i narodne zdravstvene kulture, knjiga 14. Zaječar, 2025.',
+  'Vukadinović D, Gagović P, Vukadinović A. Posthospitalni tretman zavisnika od opijata i opioida lečenih u Specijalnoj bolnici za psihijatrijske bolesti Gornja Toponica. U: Bolesti zavisnosti: apstinencija, (iz)lečenje, rehabilitacija. Zbornik radova XXX simpozijuma o bolestima zavisnosti, Novi Sad, 2014. Beograd: ZKJC, 2015.',
+  'Vukadinović D, Jovanović M, Stanojević A, Babić S. Predlog mera za unapređenje organizacije lečenja i prevencije bolesti zavisnosti od opijata i opioida u Specijalnoj bolnici za psihijatrijske bolesti Gornja Toponica. U: Bolesti zavisnosti. Zbornik radova XXVIII simpozijuma o bolestima zavisnosti, Vrnjačka Banja, 2012, str. 248–263.',
+];
 ---
 <BaseLayout seo={seo} jsonLd={[person(site)]} breadcrumbs={breadcrumbs} renderBreadcrumbs={false}>
   <div class="container page">
@@ -66,6 +75,11 @@ const TIMELINE = [
           <li><Text as="strong" value={row.year} /><span>{row.text}</span></li>
         ))}
       </ol>
+
+      <h2>Izabrani stručni radovi</h2>
+      <ul class="papers">
+        {PAPERS.map((paper) => <li>{paper}</li>)}
+      </ul>
       <div class="actions">
         <Button href="/knjige/" variant="secondary">Knjige i publikacije</Button>
         {hasMedia && <Button href="/resursi/#mediji" variant="secondary">Medijski nastupi</Button>}
@@ -97,6 +111,8 @@ const TIMELINE = [
   .timeline { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--linija); }
   .timeline li { display: flex; gap: 20px; padding: 14px 0; border-top: 1px solid var(--linija); }
   .timeline :global(strong) { flex: 0 0 96px; font-family: var(--font-naslov); font-weight: 600; color: var(--zelena); }
+  .papers { display: flex; flex-direction: column; gap: 12px; margin: 0; padding-left: 20px; font-size: var(--tekst-mali); color: var(--tekst-sekundarni); }
+  .papers li { overflow-wrap: anywhere; }
   .actions { display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px; }
 
   /* Two columns: the photo beside the heading and the text, as on the Founder artboard. */

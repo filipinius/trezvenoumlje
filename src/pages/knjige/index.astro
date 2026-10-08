@@ -82,7 +82,10 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
                   {book.nabavka && <><dt>Gde se nabavlja</dt><Text as="dd" value={book.nabavka} /></>}
                 </dl>
                 {book.opis && <Text as="p" class="book-about" value={book.opis} />}
-                <Button href="/kontakt/" class="book-ask">Pošaljite upit</Button>
+                {book.nabavkaLink && (
+                  <Button href={book.nabavkaLink} class="book-order" rel="noopener" aria-label={`Naručite kod izdavača: ${book.naslov}`}>Naručite kod izdavača</Button>
+                )}
+                <Button href="/kontakt/" variant={book.nabavkaLink ? 'secondary' : 'primary'} class="book-ask">Pošaljite upit</Button>
               </Dialog>
             </article>
           );
@@ -137,7 +140,8 @@ const present = (...values: (string | undefined)[]) => values.filter((v): v is s
   .book-facts :global(dd) { margin: 0; min-width: 0; overflow-wrap: anywhere; }
   .book-title { font-weight: 700; }
   .book-about { margin: 18px 0; font-size: var(--tekst-mali); color: var(--tekst-sekundarni); }
-  .book-facts + :global(.book-ask) { margin-top: 18px; }
+  .book-facts + :global(.book-ask), .book-facts + :global(.book-order) { margin-top: 18px; }
+  :global(dialog.overlay[id^='knjiga-'] .book-order) { display: flex; min-height: 52px; margin-bottom: 10px; }
   :global(dialog.overlay[id^='knjiga-'] .book-ask) { display: flex; min-height: 52px; }
   :global(dialog.overlay[id^='knjiga-'] .overlay-title) { font-size: var(--h3); }
   @media (min-width: 700px) {

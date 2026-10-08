@@ -41,6 +41,22 @@ test('home links every section to its destination', async ({ page }) => {
   await expect(main.getByRole('note')).toContainText('Ako je nečiji život ili zdravlje u neposrednoj opasnosti');
 });
 
+test('home offers a call, a Viber message and a video conversation', async ({ page }) => {
+  await page.goto('');
+  const section = page.getByRole('region', { name: 'Javite nam se direktno' });
+  const call = section.getByRole('link', { name: 'Pozovite nas', exact: true });
+  const viber = section.getByRole('link', { name: 'Pošaljite Viber poruku', exact: true });
+  const video = section.getByRole('link', { name: 'Zakažite video razgovor', exact: true });
+  await expect(call).toHaveAttribute('href', 'tel:0648596212');
+  await expect(viber).toHaveAttribute('href', 'viber://chat?number=%2B381648596212');
+  await expect(video).toHaveAttribute('href', '/trezvenoumlje/kontakt/#video-razgovor');
+  for (const link of [call, viber, video]) await expect(link).toBeVisible();
+  await expect(section).toContainText('Prvi informativni video razgovor je bez naknade.');
+  await expect(section).toContainText('Telefon i Viber: 064 859 6212');
+  const [callBox, viberBox, videoBox] = [(await call.boundingBox())!, (await viber.boundingBox())!, (await video.boundingBox())!];
+  expect(videoBox.y).toBeGreaterThanOrEqual(Math.max(callBox.y + callBox.height, viberBox.y + viberBox.height));
+});
+
 test('article cards label the category as text, not as a link', async ({ page }) => {
   await page.goto('');
   const cards = page.locator('[data-filter-item]');
